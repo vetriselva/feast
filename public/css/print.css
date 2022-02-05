@@ -1,0 +1,71 @@
+@media print {
+    .d-nones , #sidebar-wrapper , #top-nav-bar{
+        display: none !important;
+    }
+    * {
+        -webkit-print-color-adjust: exact;
+    }
+    .print-padding {
+        padding: 0 !important;
+    }
+     .las:before {
+        color: white !important;
+    }
+    .text-white {
+        color: white !important;
+    }
+    .size-print {
+        width: 100% !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    .perpage {
+        border: none !important;
+    }
+    /* .print-padding {
+        padding-right: 25px !important;
+    } */
+    .border-head {
+        /* padding: 10px 0 !important ;
+        border-top: 2px solid gray !important;
+        border-bottom: 2px solid gray !important; */
+        background: #eee !important;
+        padding: 10px 0 !important ;
+    }
+   
+} 
+.size-print {
+    width: 9in;
+    margin: 0 auto;
+    background-color:white !important;
+    padding: 100px;
+    box-shadow: 0 0 10px #808080ad;
+}
+@print {
+    @page :footer {
+        display: none
+    }
+    @page :header {
+        display: none
+    }
+}
+@page {
+    size: auto;
+    margin: 0.50in  0.60in  !important;
+}
+.print-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 11 !important;
+}
+.perpage {
+    min-height: 100vh   ;
+    border-bottom: 1px solid gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+ 

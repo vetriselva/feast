@@ -1,0 +1,148 @@
+:root {
+    --primary : #4C83EE;
+    --primary-hover : #5D93FC;
+    --side-bar-bg: #1A2E44;
+}
+.text-danger {
+    color: #DD2C00 !important;
+}
+.md-button {
+    border-radius: 4px !important;
+    text-transform: capitalize !important;
+    margin: 0 !important    ;
+}
+.md-button.btn-primary , .btn-primary{
+    background-color: var(--primary) ;
+    color: white !important;
+}
+.md-button.btn-primary:not([disabled]):hover {
+    background-color: var(--primary-hover) ;
+}
+.md-button.btn-primary:not([disabled]):focus {
+    background-color: var(--primary-hover) !important;
+}
+.bg-side-nav {
+    background: var(--side-bar-bg);
+}
+.side-nav-icon {
+    font-size: 20px;
+    margin-right: 5px;
+    opacity: .8;
+}
+.fa {
+    color: #1A2E44 ;
+}
+.y-center {
+    display: flex !important;
+    align-items: center;
+}
+.alert-icon {
+    font-size: 24px;
+    margin-right: 10px !important;
+}
+
+
+/* =============== DashBoard ===================== */
+
+
+/* ============= Leads ============ */
+.form-title {
+    position: absolute !important;
+    top: -15px;
+    left: 20px;
+    font-size: 16px !important;
+    background: #eee;
+    color: gray !important;
+    font-weight: 500;
+    padding: 5px 10px;
+    border: 1px solid #eee;
+    border-radius: 0.25rem;
+    color: var(--primary);
+}
+
+
+._md-datepicker-floating-label > md-datepicker .md-datepicker-button {
+    top: -0.5px !important;
+}
+
+.hidden {
+    opacity: 0;
+    position: absolute;
+}
+.md-datepicker-input-container {
+    position: unset !important;
+}
+.md-datepicker-triangle-button.md-button.md-icon-button {
+    right: 0 !important ;
+}
+.f-16 {
+    font-size: 22px;
+}
+.border-hover:hover , .border-hover:hover  .form-title{
+    border: 1px solid #1a2e44b9; 
+}
+
+.hover-text:hover {
+    background: #fafafa !important;
+    color: var(--side-bar-bg);
+}
+
+.heading-3 {
+    font-size: 12px !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+
+}
+.heading-1 {
+    font-size: 16px !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+}
+.heading-2 {
+    font-size: 14px !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    text-decoration: underline !important;
+}
+.content-1 {
+    font-size: 12px !important;
+    font-weight: normal !important;
+    text-transform: capitalize !important;
+}
+.content-2 {
+    font-size: 12px !important;
+    font-weight: normal !important;
+    text-transform: uppercase !important;
+}
+.heading-4 {
+    font-size: 12px !important;
+    font-weight: bold !important;
+    text-transform: capitalize !important;
+}
+.heading-1,
+.heading-2,
+.heading-3,
+.heading-4,
+.heading-5,
+.content-2,
+.content-1
+{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+}
+
+.border-head {
+    /* padding: 10px 0 !important ;
+    border-top: 2px solid gray !important;
+    border-bottom: 2px solid gray !important; */
+    background: #eee !important ;
+    padding: 10px 0 !important ;
+}
+.logo-header {
+    margin-bottom: 40px !important;
+}
+.it-img {
+    /* box-shadow: 0 5px 15px rgb(185, 185, 185) !important; */
+    border-radius: 10px !important;
+    margin: 25px 0 !important;
+}
