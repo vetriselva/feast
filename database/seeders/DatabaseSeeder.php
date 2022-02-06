@@ -232,5 +232,33 @@ DB::table('activities')->insert(
                 'point' => "5.	If cancellation made 30 days prior to departure 10,000.00 per person on the package cost.",
             ],   
         ); 
+        DB::table('states')->insert( [
+            'state_name' => "Tamil Nadu",
+            'is_active' => 1,
+        ]);
+        DB::table('states')->insert( [
+            'state_name' => "Kerala",
+            'is_active' => 1,
+        ]);
+        DB::table('cities')->insert( [
+            'state_id' => 1,
+            'city_name' => "Chennai",
+            'is_active' => 1,
+        ]);
+        DB::table('cities')->insert( [
+            'state_id' => 2,
+            'city_name' => "palakadu",
+            'is_active' => 1,
+        ]);
+        DB::table('places')->insert( [
+            'city_id' => 1,
+            'place_name' => "Marina",
+            'is_active' => 1,
+        ]);
+        DB::table('places')->insert( [
+            'city_id' => 2,
+            'place_name' => "Palakadu",
+            'is_active' => 1,
+        ]);
     }
 }

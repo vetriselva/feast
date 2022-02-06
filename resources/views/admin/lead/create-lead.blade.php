@@ -2,26 +2,40 @@
 @extends('layouts.admin-app')
 @section('title') Lead List @endsection
 @section('content') 
-<form ng-controller="LeadController" action="{{ route("lead") }}" method="POST" enctype="multipart/form-data"> @csrf
+
+<style>
+    ul.dropdown-menu li {
+        cursor: pointer;
+    }
+
+        ul.dropdown-menu li span.red {
+            color: red;
+        }
+
+        ul.dropdown-menu li span.green {
+            color: green;
+        }
+</style>
+<form ng-controller="LeadController" ng-submit="submitLead()" method="POST" enctype="multipart/form-data"> @csrf
     <div class="card position-relative my-4 p-3 border-hover shadow-hover">
         <h4 class="card-title form-title">Basic Informations</h4>
         <div class="card-body mt-4">
             <div class="row mb-3"> 
                 <div class="col-md-6 my-2">
                     <small class="text-secondary">Lead Number</small>
-                    <input type="number" name="leadNumber" class="form-control border-0 border-bottom rounded-0" required  >
+                    <input type="number" name="leadNumber" ng-model="basicInformation.leadNumber" class="form-control border-0 border-bottom rounded-0" required  >
                 </div>
                 <div class="col-md-6 my-2">
                     <small class="text-secondary">Tour Package Name</small>
-                    <input name="packageName" class="form-control border-0 border-bottom rounded-0" required  >
+                    <input name="packageName" ng-model="basicInformation.packageName" class="form-control border-0 border-bottom rounded-0" required  >
                 </div>
                 <div class="col-md-6 my-2">
                     <small class="text-secondary">Place To visit</small>
-                    <input name="placeToVisit" class="form-control border-0 border-bottom rounded-0"required>
+                    <input name="placeToVisit" ng-model="basicInformation.placeToVisit" class="form-control border-0 border-bottom rounded-0"required>
                 </div>
                 <div class="col-md-6 my-2">
                     <small class="text-secondary">Sub Title</small>
-                    <input name="subTitle" class="form-control border-0 border-bottom rounded-0"required>
+                    <input name="subTitle" ng-model="basicInformation.subTitle" class="form-control border-0 border-bottom rounded-0"required>
                 </div>
             </div>
             <div class="row mb-3">
@@ -29,35 +43,35 @@
                     <div>
                         <small class="text-secondary">Itinerary Date</small>
                     </div>
-                    <input type="date" name="itDate"  required class="form-control border-0 border-bottom rounded-0">
+                    <input type="date" name="itDate" ng-model="basicInformation.itineraryDate"  required class="form-control border-0 border-bottom rounded-0">
                 </div> 
                 <div class="col-md col-sm-6 my-2">
                     <div>
                         <small class="text-secondary">Valid Date</small>
                     </div>
-                    <input type="date" name="itValidDate"  required class="form-control border-0 border-bottom rounded-0">
+                    <input type="date" name="itValidDate" ng-model="basicInformation.validDate" required class="form-control border-0 border-bottom rounded-0">
                 </div> 
                 <div class="col-md col-sm-6 my-2">
                     <div>
                         <small class="text-secondary">Departure Date</small>
                     </div>
-                    <input type="date" name="departureDate" required class="form-control border-0 border-bottom rounded-0">
+                    <input type="date" name="departureDate" ng-model="basicInformation.departureDate" required class="form-control border-0 border-bottom rounded-0">
                 </div> 
             </div>
             <div class="row">
                 <div class="col-md-4 my-2">
                     <small class="text-secondary">Number of Night</small>
-                    <input ng-model="numOfNights"  class="form-control border-0 border-bottom rounded-0" type="number" name="numOfNights" value="5" required>
+                    <input   ng-model="basicInformation.numofNights" class="form-control border-0 border-bottom rounded-0" type="number" name="numOfNights" value="5" required>
                 </div>
                 <div class="col-md-4 my-2">
                     <small class="text-secondary">Room Type</small>
-                    <input ng-model="roomType"  class="form-control border-0 border-bottom rounded-0" name="roomType" value="AC ROOM" required>
+                    <input ng-model="basicInformation.roomType" class="form-control border-0 border-bottom rounded-0" name="roomType" value="AC ROOM" required>
                 </div>
                 <div class="col-md-4 my-2">
                     <div class="mb-2">
                         <small class="text-secondary">Route Map</small>
                     </div>
-                    <input type="file" name="RouteMap" id=""   class="form-control  form-control-sm">
+                    <input type="file" ng-model="basicInformation.RouteMap"  name="RouteMap" id=""   class="form-control  form-control-sm">
                 </div>
             </div>
         </div>
@@ -96,17 +110,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @{{FlightDetails}}
                     <tr ng-repeat="(index,I) in FlightDetails">
                         <td>@{{ index+1 }}</td>
-                        <td><input type="text" name="from[]" class="form-control form-control-sm border-0 rounded-0"></td>
-                        <td><input type="text" name="to[]" class="form-control form-control-sm border-0 rounded-0"></td>
-                        <td><input type="text" name="flight[]" class="form-control form-control-sm border-0 rounded-0"></td>
-                        <td><input type="date" name="date[]" class="form-control form-control-sm border-0 rounded-0"></td>
-                        <td><input type="text" name="dep[]" class="form-control form-control-sm border-0 rounded-0"></td>
-                        <td><input type="text" name="arr[]" class="form-control form-control-sm border-0 rounded-0"></td>
-                        <td><input type="number" name="bag[]" class="form-control form-control-sm border-0 rounded-0"></td>
-                        <td><input type="checkbox" name="refound[]" value="1" class="form-check-input"></td>
-                        <td><input type="checkbox" value="1" class="form-check-input" name="meals[]"></td>
+                        <td><input type="text" name="from" ng-model="I.from" class="form-control form-control-sm border-0 rounded-0"></td>
+                        <td><input type="text" name="to" ng-model="I.to"  class="form-control form-control-sm border-0 rounded-0"></td>
+                        <td><input type="text" name="flight" ng-model="I.flight"  class="form-control form-control-sm border-0 rounded-0"></td>
+                        <td><input type="date" name="date" ng-model="I.date"  class="form-control form-control-sm border-0 rounded-0"></td>
+                        <td><input type="text" name="dep" ng-model="I.dep"  class="form-control form-control-sm border-0 rounded-0"></td>
+                        <td><input type="text" name="arr" ng-model="I.arr"  class="form-control form-control-sm border-0 rounded-0"></td>
+                        <td><input type="number" name="bag" ng-model="I.bag"  class="form-control form-control-sm border-0 rounded-0"></td>
+                        <td><input type="checkbox" name="refound" ng-model="I.refound"  value="1" class="form-check-input"></td>
+                        <td><input type="checkbox" value="1" class="form-check-input" ng-model="I.meals" name="meals[]"></td>
                         <td>
                             <a class="btn-sm btn shadow-hover px-3 rounded-pill" ng-click="DelelteFlights(index)">
                                 <i class="fa fa-trash text-danger"></i>
@@ -118,7 +133,7 @@
         </div>
     </div>
     <div class="card position-relative my-5 p-3 border-hover shadow-hover">
-        <h4 class="card-title form-title">Itineraray Details</h4>
+        <h4 class="card-title form-title">Itinerary Details</h4>
         <div class="card-body ">
             <div class="text-end">
                 <a class="btn btn-sm btn-primary rounded-pill shadow-hover" ng-click="AddItDays()"><i class="fa fa-plus text-white me-1"></i> Add a new day</a>
@@ -127,6 +142,8 @@
                 <thead class="bg-light">
                     <tr>
                         <th>Day</th>
+                        <th width="20%">State name</th>
+                        <th width="20%">City name</th>
                         <th width="20%">Places name</th>
                         <th width="20%">Activity</th>
                         <th width="20%">Day Activity</th>
@@ -136,31 +153,37 @@
                         <th colspan="2">Others</th> 
                     </tr>
                 </thead>
-                <tbody>
+                <tbody> @{{ItDays}}
                     <tr ng-repeat="(index,I) in ItDays">
                         <td class="text-center">
-                            <input type="text"  name="days[]" class="text-center form-control form-control-sm border-0 p-0 rounded-0" disabled value="@{{ index+1 }}">
+                            <input type="text" ng-model="I.DayCount"  name="DayCount[]" class="text-center form-control form-control-sm border-0 p-0 rounded-0" disabled ng-value="@{{ index+1 }}">
                         </td>
                         <td>
-                            <select name="PlacesName[]" id="" class="form-select form-select-sm">
-                                <option value="1">Merina</option>
-                                <option value="2">Light House</option>
-                                <option value="3">Redhills</option>
-                                <option value="4">Chennai Park</option>
+                            <select class="form-select  form-select-sm my-2 mt-3"  get-cities name="StateName" ng-model="I.StateName" required>
+                                <option value="">Select State Name</option>
+                                <option ng-repeat="State in States" value="@{{ State.id }}">
+                                    @{{ State.state_name }}
+                                </option>
                             </select>
                         </td>
                         <td>
-                            <select name="DayActivity[]" id="" class="form-select form-select-sm">
-                                <option value="1">-- Choose --</option>
-                                @if ($act)
-                                    @foreach ($act as $a)
-                                        <option value="{{ $a->title }}">{{ $a->title }}</option>
-                                    @endforeach
-                                @endif
+                            <select class="form-select  form-select-sm my-2 mt-3" get-places name="CityName" ng-model="I.CityName" required>
+                                <option value="">Select City Name</option>
+                                <option ng-repeat="City in Cities" value="@{{ City.id }}">
+                                    @{{ City.city_name }}
+                                </option>
                             </select>
                         </td>
                         <td>
-                            <select name="Activity[]" id="" class="form-select form-select-sm">
+                            <select class="form-select  form-select-sm my-2 mt-3" name="PlaceName" ng-model="I.PlaceName" required>
+                                <option value="">Select Place Name</option>
+                                <option ng-repeat="Place in Places" value="@{{ Place.id }}">
+                                    @{{ Place.place_name }}
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="Activity[]" ng-model="I.Activity" id="" class="form-select form-select-sm">
                                 <option value="1">-- Choose --</option>
                                 @if ($act)
                                     @foreach ($act as $a)
@@ -169,30 +192,44 @@
                                 @endif
                             </select>
                         </td>
+                        <td>
+                            {{-- <select ng-dropdown-multiselect= "" name="DayActivity[]" id="" ng-model="I.DayActivity" class="form-select form-select-sm">
+                                <option value="1">-- Choose --</option>
+                                @if ($act)
+                                    @foreach ($act as $a)
+                                        <option value="{{ $a->id }}">{{ $a->title }}</option>
+                                    @endforeach
+                                @endif
+                            </select> --}}
+                            <div class="col-xs-6">
+                                <dropdown-multiselect model="I.DayActivity" 
+                                options="dayActivities"></dropdown-multiselect>
+                            </div>
+                        </td>
                         <td class="text-center">
-                            <input class="form-check-input"  name="Transfers[]" type="checkbox" value="Included">
+                            <input class="form-check-input"  name="Transfers[]"  ng-model="I.Transfers" type="checkbox" value="Included">
                         </td> 
                         <td class="text-center">
-                            <input class="form-check-input"  name="Tickets[]" type="checkbox" value="Included">
+                            <input class="form-check-input"  name="Tickets[]" ng-model="I.Tickets" type="checkbox" value="Included">
                         </td> 
                         <td class="bg-light">
                             <div class="px-1">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input"  name="breack[]" type="checkbox" id="Break@{{ index+1 }}" value="Break fast">
+                                    <input class="form-check-input"  name="breack[]" ng-model="I.Meals.breack" type="checkbox" id="Break@{{ index+1 }}" value="Break fast">
                                     <label class="form-check-label" for="Break@{{ index+1 }}"><small>Break fast</small></label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input"   name="lunch[]" type="checkbox" id="Lunch@{{ index+1 }}" value="Lunch">
+                                    <input class="form-check-input"  ng-model="I.Meals.lunch" name="lunch[]" type="checkbox" id="Lunch@{{ index+1 }}" value="Lunch">
                                     <label class="form-check-label" for="Lunch@{{ index+1 }}"><small>Lunch</small></label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input"   name="dinner[]" type="checkbox" id="Dinner@{{ index+1 }}" value="Dinner" >
+                                    <input class="form-check-input" ng-model="I.Meals.dinner"  name="dinner[]" type="checkbox" id="Dinner@{{ index+1 }}" value="Dinner" >
                                     <label class="form-check-label" for="Dinner@{{ index+1 }}"><small>Dinner</small></label>
                                 </div>
                             </div>
                         </td> 
                         <td>
-                            <input class="form-control form-control-sm border-0 rounded-0" name="others[]">
+                            <input class="form-control form-control-sm border-0 rounded-0" ng-model="I.others" name="others[]">
                         </td>
                         <td>
                             <a class="btn-sm btn shadow-hover  rounded-pill" ng-click="DelelteItDays(index)">
@@ -206,7 +243,7 @@
     </div>
  
     <div class="card position-relative my-5 p-3 border-hover shadow-hover">
-        <h4 class="card-title form-title">Holtels Details</h4>
+        <h4 class="card-title form-title">Holtels Details</h4> @{{HotalDetails}}
 
         <div class="card-body ">
             <div class="text-end">
@@ -235,21 +272,21 @@
                     </tr>
                     <tr ng-repeat="(SecIndex,Cost) in I.Details">
                         <td class="text-center">
-                            <input type="hidden" min="1" max="10" maxlength="2" name="HotelOptionNumber[]" value="@{{ index+1 }}">@{{ SecIndex+1 }}
+                            <input type="hidden" min="1" max="10" maxlength="2" ng-model="Cost.HotelOptionNumber" name="HotelOptionNumber[]" value="@{{ index+1 }}">@{{ SecIndex+1 }}
                         </td>
-                        <td><input type="text" name="city[]" class="form-control form-control-sm border-0 rounded-0"></td>
+                        <td><input type="text" ng-model="Cost.city" name="city[]" class="form-control form-control-sm border-0 rounded-0"></td>
                         <td>
-                            <select name="hotel_id[]" class="form-select form-select-sm border-0 rounded-0">
+                            <select ng-model="Cost.hotel" name="hotel_id[]" class="form-select form-select-sm border-0 rounded-0">
                                 <option value="3">THE KHYBER HIMALAYAN RESORT</option>
                                 <option value="2">PINE-N-PEAK</option>
                                 <option value="1">ITC HOUSEBOAT</option>
                             </select>
                         </td>
-                        <td><input type="text" name="hotal_room_type[]" class="form-control form-control-sm border-0 rounded-0"></td>
-                        <td><input type="number" min="1" max="5" maxlength="2" name="star_ratings[]" class="form-control form-control-sm border-0 rounded-0"></td>
-                        <td><input  type="number" min="1" maxlength="2" name="hotal_night[]" class="form-control form-control-sm border-0 rounded-0"></td>
+                        <td><input type="text" ng-model="Cost.hotalRoomType" name="hotal_room_type[]" class="form-control form-control-sm border-0 rounded-0"></td>
+                        <td><input type="number" ng-model="Cost.starRating" min="1" max="5" maxlength="2" name="star_ratings[]" class="form-control form-control-sm border-0 rounded-0"></td>
+                        <td><input  type="number" ng-model="Cost.hotalNight" min="1" maxlength="2" name="hotal_night[]" class="form-control form-control-sm border-0 rounded-0"></td>
                         <td>
-                            <a class="btn-sm btn shadow-hover px-3 rounded-pill" ng-click="DelelteHotals(index)">
+                            <a class="btn-sm btn shadow-hover px-3 rounded-pill" ng-click="DelelteHotals(index, SecIndex)">
                                 <i class="fa fa-trash text-danger"></i>
                             </a>
                         </td>
@@ -263,7 +300,7 @@
         <div class="card-body ">
             <div class="text-end">
                 <a class="btn btn-sm btn-primary rounded-pill shadow-hover" ng-click="AddCost()"><i class="fa fa-plus text-white me-1"></i> Add a new Opition</a>
-            </div>
+            </div>@{{CostDetails}}
             <table class="table table-hover table-bordered my-4 shadow-sm-hover" ng-repeat="(index,I) in CostDetails">
                 <thead>
                     <tr class="bg-light">
@@ -280,16 +317,15 @@
                         <th>Amount</th>
                     </tr>
                 </thead>
-                <tbody> 
+                <tbody>
                     <tr ng-repeat="(SecIndex,Cost) in I.Details">
                         <td>
                             <input type="hidden" name="optionNumber[]" value="@{{ index+1 }}">
-                            <input placeholder="Type Here.." type="text" name="costingFor[]" id="" class="form-control form-control-sm border-0 rounded-0">
+                            <input placeholder="Type Here.." type="text" ng-model="Cost.costTitle" name="costingFor[]" id="" class="form-control form-control-sm border-0 rounded-0">
                         </td>
-                        <td><input placeholder="Type Here.." type="text" name="members[]" id="" class="form-control form-control-sm border-0 rounded-0"></td>
-                        <td><input placeholder="Type Here.." type="number" name="costTotals[]"  class="form-control form-control-sm border-0 rounded-0"></td>
+                        <td><input placeholder="Type Here.." type="text" ng-model="Cost.member" name="members[]" id="" class="form-control form-control-sm border-0 rounded-0"></td>
+                        <td><input placeholder="Type Here.." type="number" ng-model="Cost.costTotal"  name="costTotals[]"  class="form-control form-control-sm border-0 rounded-0"></td>
                         <td class="text-center">
-                            {{-- @{{getTotalMy("Totals")}} --}}
                             <a class="btn-sm btn shadow-hover px-3 rounded-pill" ng-click="DelelteCost(index, SecIndex)">
                                 <i class="fa fa-trash text-danger"></i>
                             </a>
@@ -298,21 +334,19 @@
                 </tbody> 
             </table>
             <label for="" class="mb-2">Notes</label>
-            <textarea name="costingNotes" class="form-control"></textarea>
+            <textarea name="costingNotes" ng-model="basicInformation.costingNote" class="form-control"></textarea>
         </div> 
     </div>
     <div class="card position-relative my-5 p-3 border-hover shadow-hover">
         <h4 class="card-title form-title">Package Inclusions</h4>
         <div class="card-body py-4">
             <ul class="list-group" style="max-height:400px;overflow:auto">
-                @foreach ($pack_in as $point)
-                    <li class="list-group-item p-0 border-bottom shadow-sm-hover">
-                        <label for="point__{{ $point->id }}" class="list-group-item ">
-                            <input type="checkbox" name="pack_includs[]" value="{{ $point->point }}" class="form-check-input" id="point__{{ $point->id }}">
-                            <span class="ps-2 text-dark">{{ $point->point }}</span>
+                    <li class="list-group-item p-0 border-bottom shadow-sm-hover"  ng-repeat="(index,packageInclusion) in packageInclusions">
+                        <label for="package_inclusions__@{{packageInclusion.id}}" class="list-group-item">
+                            <input type="checkbox" ng-model="active" ng-change="changeInclusion(packageInclusion.id, active)" name="pack_incxcluds[]" value="@{{packageInclusion.id}}" class="form-check-input" id="package_inclusions__@{{packageInclusion.id}}">
+                            <span class="ps-2 text-dark">@{{ packageInclusion.point }}</span>
                         </label>                        
                     </li>
-                @endforeach
             </ul>
         </div> 
     </div>
@@ -320,14 +354,12 @@
         <h4 class="card-title form-title">Package Exclusions</h4>
         <div class="card-body py-4">
             <ul class="list-group" style="max-height:400px;overflow:auto">
-                @foreach ($pack_ex as $point)
-                    <li class="list-group-item p-0 border-bottom shadow-sm-hover">
-                        <label for="pointEx__{{ $point->id }}" class="list-group-item ">
-                            <input type="checkbox" name="pack_excluds[]" value="{{ $point->point }}" class="form-check-input" id="pointEx__{{ $point->id }}">
-                            <span class="ps-2 text-dark">{{ $point->point }}</span>
+                    <li class="list-group-item p-0 border-bottom shadow-sm-hover" ng-repeat="(index,packageExclusion) in packageExclusions">
+                        <label for="package_exclusions__@{{packageExclusion.id}}" class="list-group-item">
+                            <input type="checkbox" ng-model="active" ng-change="changeExclusion(packageExclusion.id, active)" name="pack_excluds[]" value="@{{packageExclusion.id}}" class="form-check-input" id="package_exclusions__@{{packageExclusion.id}}">
+                            <span class="ps-2 text-dark">@{{ packageExclusion.point }}</span>
                         </label>                        
                     </li>
-                @endforeach
             </ul>
         </div> 
     </div>
@@ -336,41 +368,35 @@
         <div class="card-body py-4">
             <h5 class="tezxt-center"><b>PAYMENT POLICY</b></h5>
             <ul class="list-group" style="max-height:400px;overflow:auto">
-                @foreach ($pay_poly as $point)
-                    <li class="list-group-item p-0 border-bottom shadow-sm-hover">
-                        <label for="pay_poly{{ $point->id }}" class="list-group-item ">
-                            <input type="checkbox" name="pack_excluds[]" value="{{ $point->point }}" class="form-check-input" id="pay_poly{{ $point->id }}">
-                            <span class="ps-2 text-dark">{{ $point->point }}</span>
-                        </label>                        
-                    </li>
-                @endforeach
+                <li class="list-group-item p-0 border-bottom shadow-sm-hover" ng-repeat="(index,paymentPolicy) in paymentPolicies">
+                    <label for="payment_policy__@{{paymentPolicy.id}}" class="list-group-item">
+                        <input type="checkbox" ng-model="active" ng-change="changePaymentPolicy(paymentPolicy.id, active)" name="paymentpolicy[]" value="@{{paymentPolicy.id}}" class="form-check-input" id="payment_policy__@{{paymentPolicy.id}}">
+                        <span class="ps-2 text-dark">@{{ paymentPolicy.point }}</span>
+                    </label>                        
+                </li>
             </ul>
             <h5 class="tzext-center"><b>REFUND  POLICY</b></h5>
             <ul class="list-group" style="max-height:400px;overflow:auto">
-                @foreach ($refo_poly as $point)
-                    <li class="list-group-item p-0 border-bottom shadow-sm-hover">
-                        <label for="refo_poly{{ $point->id }}" class="list-group-item ">
-                            <input type="checkbox" name="pack_excluds[]" value="{{ $point->point }}" class="form-check-input" id="refo_poly{{ $point->id }}">
-                            <span class="ps-2 text-dark">{{ $point->point }}</span>
-                        </label>                        
-                    </li>
-                @endforeach
+                <li class="list-group-item p-0 border-bottom shadow-sm-hover" ng-repeat="(index,refundPolicy) in refundPolicies">
+                    <label for="refund_policy__@{{refundPolicy.id}}" class="list-group-item ">
+                        <input type="checkbox" ng-model="active" ng-change="changeRefundPolicy(refundPolicy.id, active)" name="refund_policy[]" value="@{{refundPolicy.id}}" class="form-check-input" id="refund_policy__@{{refundPolicy.id}}">
+                        <span class="ps-2 text-dark">@{{ refundPolicy.point }}</span>
+                    </label>                        
+                </li>
             </ul>
             <h5 class="tezxt-center"><b>CANCELLATION  POLICY</b></h5>
             <ul class="list-group" style="max-height:400px;overflow:auto">
-                @foreach ($can_poly as $point)
-                    <li class="list-group-item p-0 border-bottom shadow-sm-hover">
-                        <label for="can_poly{{ $point->id }}" class="list-group-item ">
-                            <input type="checkbox" name="pack_excluds[]" value="{{ $point->point }}" class="form-check-input" id="can_poly{{ $point->id }}">
-                            <span class="ps-2 text-dark">{{ $point->point }}</span>
-                        </label>                        
-                    </li>
-                @endforeach
+                <li class="list-group-item p-0 border-bottom shadow-sm-hover" ng-repeat="(index,cancellationPolicy) in cancellationPolicies">
+                    <label for="cancellation__@{{cancellationPolicy.id}}" class="list-group-item ">
+                        <input type="checkbox" ng-model="active" ng-change="changeCancellationPolicy(cancellationPolicy.id, active)" name="cancellation_policy[]" value="@{{cancellationPolicy.id}}" class="form-check-input" id="cancellation__@{{cancellationPolicy.id}}">
+                        <span class="ps-2 text-dark">@{{ cancellationPolicy.point }}</span>
+                    </label>                        
+                </li>
             </ul>
         </div> 
     </div>
     <div class="btn p-0 mt-3">
-        <button type="submit" class="btn btn-primary px-3 rounded-pill">Submit & Save</button>
+        <button type="submit"  class="btn btn-primary px-3 rounded-pill">Submit & Save</button>
     </div>
 </form>
 @endsection

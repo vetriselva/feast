@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlaceNamesTable extends Migration
+class CreateDayActivitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreatePlaceNamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('place_names', function (Blueprint $table) {
+        Schema::create('day_activities', function (Blueprint $table) {
             $table->id();
-            $table->string("");
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreatePlaceNamesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('place_names');
+        Schema::dropIfExists('day_activities');
     }
 }

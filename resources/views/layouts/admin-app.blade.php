@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title> Admin CRM @yield('title')</title>
 
@@ -44,6 +45,7 @@
     @cloudinaryJS
 </head>
 <body ng-app="myApp">
+    <input type="hidden" name="baseurl" value="{{URL::to('/')}}" id="baseurl">
     @if ($message = Session::get('error'))
         <div id="hideme" class="alert shadow-sm alert-warning alert-dismissible fade show" role="alert">
             <strong class="y-center">  

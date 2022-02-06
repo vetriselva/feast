@@ -1,5 +1,16 @@
 <?php
 
+use App\Models\Admin\Activity;
+use App\Models\Admin\CanclePolicy;
+use App\Models\Admin\City;
+use App\Models\Admin\DayActivity;
+use App\Models\Admin\PackageExclusions;
+use App\Models\Admin\PackageInclusions;
+use App\Models\Admin\PaymentPolicy;
+use App\Models\Admin\State;
+use App\Models\Admin\Place;
+use App\Models\Admin\RefoundPolicy;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -39,4 +50,40 @@ Route::group(['prefix' => 'admin',  'middleware' => 'is_admin'], function() {
     Route::post('/data-center/{type}', [App\Http\Controllers\Admin\DataCenterController::class, 'store'])->name('data.itinerary');
     Route::get('/data-center-delete/{id}/{type}', [App\Http\Controllers\Admin\DataCenterController::class, 'destroy'])->name('activity-delete');
     Route::post('/data-center-update/{id}/{type}', [App\Http\Controllers\Admin\DataCenterController::class, 'update'])->name('data.itinerary.update');
+
+    Route::get('/get-states', function(){
+        return State::get();
+    });
+    Route::get('/get-cities-by-state-id', function(Request $request){
+        return City::where('state_id', $request->id)->get();
+    });
+
+    Route::get('/get-places-by-city-id', function(Request $request){
+        return Place::where('city_id', $request->id)->get();
+    });
+
+    Route::get('/get-package-exclusion', function(Request $request){
+        return PackageExclusions::get();
+    });
+
+    Route::get('/get-package-inclusion', function(Request $request){
+        return PackageInclusions::get();
+    });
+
+    Route::get('/get-refund-policy', function(Request $request){
+        return RefoundPolicy::get();
+    });
+
+    Route::get('/get-payment-policy', function(Request $request){
+        return PaymentPolicy::get();
+    });
+
+    Route::get('/get-cancellation-policy', function(Request $request){
+        return CanclePolicy::get();
+    });
+
+    Route::get('/get-day-activity', function(Request $request){
+        return Activity::get();
+    });
+
 });

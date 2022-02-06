@@ -120,6 +120,7 @@
                     TOUR ITINERARY DAYS
                 </h1> --}}
             @foreach ($data->Leaditinary as  $it)
+           
             <div class="perpage">
                 <div class="w-100 ">
                     <div class="d-flex justify-content-between align-items-center logo-header mb-3">
@@ -133,25 +134,25 @@
                 </div>
                 <div class="w-100"> 
                     <div class="row">
-                        <div class="col-8 p-0 ">
+                        <div class="col-8 p-0">
                             <div><b class="heading-3">Day {{ $it->days }} : {{ $it->Activity->title }}</b></div>
                             <b class="heading-3">DAY ACTIVITY : {{ $it->Activity->sub_title }}</b>
                         </div>
                         <div class="col-4 text-center">
                             <div class="btn-group">
                                 <div class="btn  btn-light border position-relative btn-sm heading-3"><i class="fa fa-coffee me-1" aria-hidden="true"></i>Breakfast
-                                    <span style="z-index: 1" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-{{ $it->breack == 'Break fast' ? "success" : "danger"}}">
-                                        <i class="las la-{{ $it->breack == 'Break fast' ? "check" : "times"}} text-white"></i>
+                                    <span style="z-index: 1" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-{{ $it->breack ? "success" : "danger"}}">
+                                        <i class="las la-{{ $it->breack ? "check" : "times"}} text-white"></i>
                                     </span>
                                 </div>
                                 <div class="btn btn-light border position-relative btn-sm heading-3"><i class="fa fa-shopping-basket me-1"></i></i>Lanch
-                                    <span style="z-index: 1" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-{{ $it->lunch == 'Lunch' ? "success" : "danger"}} ">
-                                        <i class="las la-{{ $it->lunch == 'Lunch' ? "check" : "times"}} text-white"></i>
+                                    <span style="z-index: 1" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-{{ $it->lunch ? "success" : "danger"}} ">
+                                        <i class="las la-{{ $it->lunch  ? "check" : "times"}} text-white"></i>
                                     </span>
                                 </div>
                                 <div class="btn btn-light border position-relative btn-sm heading-3"><i class="fa fa-cutlery me-1" aria-hidden="true"></i>Dinner
-                                    <span style="z-index: 1" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-{{ $it->dinner == 'Dinner' ? "success" : "danger"}}">
-                                        <i class="las la-{{ $it->dinner == 'Dinner' ? "check" : "times"}} text-white"></i>
+                                    <span style="z-index: 1" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-{{ $it->dinner ? "success" : "danger"}}">
+                                        <i class="las la-{{ $it->dinner ? "check" : "times"}} text-white"></i>
                                     </span>
                                 </div>
                             </div>
@@ -171,6 +172,7 @@
                                 <div class="heading-4"><b>Notes</b> : {{ $it->others }}</div>
                             @endif
                         </div>
+            
                         <div class="col-4">
                             <div class="btn-group">
                                 <div class="btn btn-light  border position-relative btn-sm heading-3"><i class="fa fa-car me-1" aria-hidden="true"></i>Transfers
@@ -267,29 +269,41 @@
                         <tr>
                             <td class="text-center content-1">{{ $cost->costingFor }}</td>
                             <td class="text-center content-1">{{ $cost->members }}</td>
-                            <td class="text-center content-1"><span class="text-danger"> ₹{{ $cost->costTotals }}</span></td>
+                            <td class="text-center content-1"><span class="text-danger"> ₹{{ $cost->costTotals ?? 0 }}</span></td>
                         </tr>
                     @endforeach
-                    @foreach ($data->CostDeatils as $key => $cost)
-                        <b class="d-none">{{ $count +=  $cost->costTotals }}</b>
-                    @endforeach 
+                    @php
+                        $totalCost = 0;
+                        if(isset($data->CostDeatils) ) {
+                            foreach ($data->CostDeatils as $key => $cost) {
+                                if($cost->costTotals != '' && !is_null($cost->costTotals)) {
+                                    $totalCost += $cost->costTotals;
+                                }
+                            }
+                        }      
+                    @endphp
+                  <b class="d-none">{{ $totalCost }}</b>
                 </table> 
-                <h1 class="heading-3">PACKAGE COST PER COUPLE  - <span class="text-danger"> ₹ {{ $count }}.</span></h1>
+                <h1 class="heading-3">PACKAGE COST PER COUPLE  - <span class="text-danger"> ₹ {{ $totalCost }}.</span></h1>
             </div>
         </div>
         <div class="perpage justify-content-arounded ">
             <div class="w-100">
                 <h3 class="text-center border-head heading-2"> Package Inclusions </h3>
                 <ul>
-                    @foreach (json_decode($data->pack_includs ) as $point)
-                        <li class="content-1">{{ $point }}</li>
-                    @endforeach
+                    @if (!empty($packInclusions))
+                        @foreach ($packInclusions as $packInclusion)
+                        <li class="content-1">{{ $packInclusion->point }}</li>
+                        @endforeach 
+                    @endif 
                 </ul>
                 <h3 class="text-center heading-2 border-head"> Package Exclusions </h3>
                 <ul>
-                    @foreach (json_decode($data->pack_excluds ) as $point)
-                    <li  class="content-1">{{ $point }}</li>
-                    @endforeach
+                    @if (!empty($packInclusions))
+                        @foreach ($packExclusions as $packExclusion)
+                        <li  class="content-1">{{ $packExclusion->point }}</li>
+                        @endforeach 
+                   @endif
                 </ul>
             </div>
         </div>

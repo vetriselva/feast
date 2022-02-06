@@ -13,6 +13,7 @@ use App\Models\Admin\CanclePolicy;
 use App\Models\Admin\Activity;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class LeadController extends Controller
 {
@@ -50,78 +51,89 @@ class LeadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $r)
+    public function store(Request $request)
     {
-        // dd($r->all());   
-        if($r->RouteMap) {
-            $RouteMap = cloudinary()->upload($r->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
-        }
+        $r = Json_decode(Json_encode($request->input('data')));
+        // dd();   
+        // if($r->RouteMap) {
+        //     $RouteMap = cloudinary()->upload($r->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
+        // }
         
         $data   =   Leads::create([
             'leadNumber'        => $r->leadNumber,
             'subTitle'          => $r->subTitle,
             'packageName'       => $r->packageName,
             'placeToVisit'      => $r->placeToVisit,
-            'itDate'            => $r->itDate,
-            'itValidDate'       => $r->itValidDate,
+            'itDate'            => $r->itineraryDate,
+            'itValidDate'       => $r->validDate,
             'departureDate'     => $r->departureDate,
-            'numOfNights'       => $r->numOfNights,
-            'flight_id'         => $r->flight_id,
+            'numOfNights'       => $r->numofNights,
+            'flight_id'         => 1 ,
             'roomType'          => $r->roomType,
-            'costingNotes'      => $r->costingNotes,
-            'routeMap'          => $RouteMap ?? "https://res.cloudinary.com/dkgkk5wua/image/upload/v1643536228/fgoxaxhtl9i4hqck6mjb.png",
-            'pack_includs'      => json_encode($r->pack_includs),
-            'pack_excluds'      => json_encode($r->pack_excluds)
+            'costingNotes'      => $r->costingNote,
+            // 'routeMap'          => $RouteMap ?? "https://res.cloudinary.com/dkgkk5wua/image/upload/v1643536228/fgoxaxhtl9i4hqck6mjb.png",
+            'pack_includs'      => json_encode($r->inclusionPolicy),
+            'pack_excluds'      => json_encode($r->exclusionpolicy),
+            'payment_poly'      => json_encode($r->paymentPolicy),
+            'refound_poly'      => json_encode($r->refundPolicy),
+            'cancle_poly'       => json_encode($r->cancelPolicy),
         ]);
-
-        foreach($r->Activity as $key => $request_a){
+      
+        foreach($r->itineraryDetail as $key => $itinerary){
+            // Log::info(json_encode( $itinerary));
             $data->LeadItinary()->create([
-                'activity_id'   => $r->Activity[$key]  ?? "", 
-                'DayActivity'   => $r->DayActivity[$key]  ?? "", 
-                'PlacesName'    => $r->PlacesName[$key]  ?? "",
-                'Transfers'     => $r->Transfers[$key] ?? "",
-                'breack'        => $r->breack[$key] ?? "",
-                'lunch'         => $r->lunch[$key] ?? "",
-                'dinner'        => $r->dinner[$key] ?? "",
-                'others'        => $r->others[$key] ?? "",
-                'Tickets'       => $r->Tickets[$key] ?? "",
+                'activity_id'   => $itinerary->Activity  ?? "", 
+                'DayActivity'   => $itinerary->DayActivity  ?? "", 
+                'PlacesName'    => $itinerary->PlaceName ?? "",
+                'Transfers'     => $itinerary->Transfers ?? "",
+                'breack'        => $itinerary->Meals->breack ?? "",
+                'lunch'         => $itinerary->Meals->lunch ?? "",
+                'dinner'        => $itinerary->Meals->dinner ?? "",
+                'others'        => $itinerary->others ?? "",
+                'Tickets'       => $itinerary->Tickets ?? "",
                 'days'          => $key+1
             ]);
         }
 
-        foreach($r->from as $key => $request_b){
+        foreach($r->flightDetail as $key => $flight){
+            // Log::info(json_encode( $flight));
             $data->FlightsDeatils()->create([
-                'from'      => $r->from[$key] ?? "" ,
-                'to'        => $r->to[$key]  ?? "",
-                'flight'    => $r->flight[$key]  ?? "",
-                'date'      => $r->date[$key]  ?? "",
-                'dep'       => $r->dep[$key]  ?? "",
-                'arr'       => $r->arr[$key]  ?? "",
-                'bag'       => $r->bag[$key]  ?? "",
-                'refound'   => $r->refound[$key]  ?? "",
-                'meals'     => $r->meals[$key] ?? "",
+                'from'      => $flight->from ?? "" ,
+                'to'        => $flight->to  ?? "",
+                'flight'    => $flight->flight  ?? "",
+                'date'      => $flight->date  ?? "",
+                'dep'       => $flight->dep  ?? "",
+                'arr'       => $flight->arr  ?? "",
+                'bag'       => $flight->bag  ?? "",
+                'refound'   => $flight->refound  ?? "",
+                'meals'    => $flight->meals ?? "",
             ]);
         }
-        foreach($r->city as $key => $request_c){
-            $data->HotalsDeatils()->create([
-                'city'              => $r->city[$key] ?? "", 
-                'hotel_id'          => $r->hotel_id[$key]  ?? "",
-                'hotal_room_type'   => $r->hotal_room_type[$key]  ?? "",
-                'star_ratings'      => $r->star_ratings[$key] ?? "" ,
-                'hotal_night'       => $r->hotal_night[$key]  ?? "",
-                'HotelOptionNumber' => $r->HotelOptionNumber[$key]  ?? "",
-            ]);
-        }
-
-        foreach($r->optionNumber as $key => $request_d){
-            $data->CostDeatils()->create([
-                'optionNumber'  => $r->optionNumber[$key] ?? "", 
-                'costingFor'    => $r->costingFor[$key]  ?? "",
-                'members'       => $r->members[$key]  ?? "",
-                'costTotals'    => $r->costTotals[$key]  ?? "",
-            ]);
+        foreach($r->hotelDetail as $key => $hotels){
+            // Log::info(json_encode( $flight));
+            foreach($hotels->Details as $opton => $hotel){
+                $data->HotalsDeatils()->create([
+                    'city'              => $hotel->city ?? "", 
+                    'hotel_id'          => $hotel->hotel ?? "",
+                    'hotal_room_type'   => $hotel->hotalRoomType  ?? "",
+                    'star_ratings'      => $hotel->starRating ?? "" ,
+                    'hotal_night'       => $hotel->hotalNight  ?? "",
+                    'HotelOptionNumber' => $opton + 1 ?? "",
+                ]);
+            }
         }
 
+        foreach($r->costDetails as $key => $costcostDetail){
+            foreach($costcostDetail->Details as $option => $cost){
+                $data->CostDeatils()->create([
+                    'optionNumber'  => $option + 1 ?? "", 
+                    'costingFor'    => $cost->costTitle  ?? "",
+                    'members'       => $cost->member ?? "",
+                    'costTotals'    => $cost->costTotal ?? "",
+                ]);
+            }
+        }
+        return true;
         // echo("ok");
         return back()->with('success','Item created successfully!');
     }
@@ -140,7 +152,13 @@ class LeadController extends Controller
                         ->with("HotalsDeatils", "HotalsDeatils.HotelData")
                         ->with("CostDeatils")
                         ->find($id);
-        return view("admin.lead.show-lead",compact('data', $data));
+                
+        $paymentPolicies = PaymentPolicy::find($data->payment_poly);
+        $refundPolicies = RefoundPolicy::find($data->refund_poly);
+        $cancelPolicies = CanclePolicy::find($data->cancel_poly);
+        $packInclusions = PackageInclusions::find($data->pack_includs);
+        $packExclusions = PackageExclusions::find($data->pack_excluds);
+        return view("admin.lead.show-lead",compact('data','paymentPolicies', 'refundPolicies','cancelPolicies','packInclusions','packExclusions'));
     }
     /**
      * Show the form for editing the specified resource.

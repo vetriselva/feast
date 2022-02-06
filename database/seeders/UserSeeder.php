@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -14,5 +15,12 @@ class UserSeeder extends Seeder
     public function run()
     {
         //
+        DB::table('day_activities')->insert( [
+            'name' => "party",
+        ]);
+        DB::table('day_activities')->insert( [
+            'name' => "park",
+        ]);
+        
     }
 }
