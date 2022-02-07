@@ -35,10 +35,10 @@ class Leads extends Model
         return $this->hasMany(FlightsDeatils::class, 'lead_id', 'id');
     }
     public function HotalsDeatils() {
-        return $this->hasMany(HotalsDeatils::class, 'lead_id', 'id');
+        return $this->hasMany(HotalsDeatils::class, 'lead_id', 'id')->orderBy('HotelOptionNumber','ASC');
     }
     public function CostDeatils() {
-        return $this->hasMany(CostDeatils::class, 'lead_id', 'id');
+        return $this->hasMany(CostDeatils::class, 'lead_id', 'id')->orderBy('HotelOptionNumber','ASC');
     }
 
    //  DATA BASE

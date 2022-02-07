@@ -11,7 +11,9 @@ use App\Models\Admin\PaymentPolicy;
 use App\Models\Admin\RefoundPolicy;
 use App\Models\Admin\CanclePolicy;
 use App\Models\Admin\Activity;
-
+use App\Models\Admin\DayActivity;
+use App\Models\Admin\HotelData;
+use App\Models\Admin\ItineraryDayactivity;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -36,13 +38,9 @@ class LeadController extends Controller
      */
     public function create()
     {
-        $pack_in =  PackageInclusions::all();
-        $pack_ex =  PackageExclusions::all();
-        $pay_poly =  PaymentPolicy::all();
-        $refo_poly =  RefoundPolicy::all();
-        $can_poly =  CanclePolicy::all();
+        $hotels = HotelData::all();
         $act =  Activity::all();
-        return view("admin.lead.create-lead",compact('pack_in','pack_ex','pay_poly','refo_poly','can_poly','act'));
+        return view("admin.lead.create-lead",compact('act','hotels'));
     }
 
     /**
@@ -54,11 +52,6 @@ class LeadController extends Controller
     public function store(Request $request)
     {
         $r = Json_decode(Json_encode($request->input('data')));
-        // dd();   
-        // if($r->RouteMap) {
-        //     $RouteMap = cloudinary()->upload($r->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
-        // }
-        
         $data   =   Leads::create([
             'leadNumber'        => $r->leadNumber,
             'subTitle'          => $r->subTitle,
@@ -68,7 +61,7 @@ class LeadController extends Controller
             'itValidDate'       => $r->validDate,
             'departureDate'     => $r->departureDate,
             'numOfNights'       => $r->numofNights,
-            'flight_id'         => 1 ,
+            'flight_id'         => 1,
             'roomType'          => $r->roomType,
             'costingNotes'      => $r->costingNote,
             // 'routeMap'          => $RouteMap ?? "https://res.cloudinary.com/dkgkk5wua/image/upload/v1643536228/fgoxaxhtl9i4hqck6mjb.png",
@@ -81,9 +74,9 @@ class LeadController extends Controller
       
         foreach($r->itineraryDetail as $key => $itinerary){
             // Log::info(json_encode( $itinerary));
-            $data->LeadItinary()->create([
+            $itineraryObj = $data->LeadItinary()->create([
                 'activity_id'   => $itinerary->Activity  ?? "", 
-                'DayActivity'   => $itinerary->DayActivity  ?? "", 
+                // 'DayActivity'   => $itinerary->DayActivity  ?? "", 
                 'PlacesName'    => $itinerary->PlaceName ?? "",
                 'Transfers'     => $itinerary->Transfers ?? "",
                 'breack'        => $itinerary->Meals->breack ?? "",
@@ -91,8 +84,13 @@ class LeadController extends Controller
                 'dinner'        => $itinerary->Meals->dinner ?? "",
                 'others'        => $itinerary->others ?? "",
                 'Tickets'       => $itinerary->Tickets ?? "",
-                'days'          => $key+1
+                'days'          => $itinerary->DayCount ?? "",
             ]);
+            if(!empty($itinerary->DayActivity)) {
+                foreach($itinerary->DayActivity as $dayActivity){
+                    $itineraryObj->itineraryDayActivities()->create(['dayactivity_id' => $dayActivity]);
+                }
+            }
         }
 
         foreach($r->flightDetail as $key => $flight){
@@ -118,7 +116,7 @@ class LeadController extends Controller
                     'hotal_room_type'   => $hotel->hotalRoomType  ?? "",
                     'star_ratings'      => $hotel->starRating ?? "" ,
                     'hotal_night'       => $hotel->hotalNight  ?? "",
-                    'HotelOptionNumber' => $opton + 1 ?? "",
+                    'HotelOptionNumber' => $key + 1?? "",
                 ]);
             }
         }
@@ -133,9 +131,13 @@ class LeadController extends Controller
                 ]);
             }
         }
-        return true;
-        // echo("ok");
-        return back()->with('success','Item created successfully!');
+        return response(['status' => true, 'id' => $data->id]);
+    }
+
+
+    public function storeRouteMap(Request $request)
+    {
+        return $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
     }
 
     /**
@@ -153,11 +155,11 @@ class LeadController extends Controller
                         ->with("CostDeatils")
                         ->find($id);
                 
-        $paymentPolicies = PaymentPolicy::find($data->payment_poly);
-        $refundPolicies = RefoundPolicy::find($data->refund_poly);
-        $cancelPolicies = CanclePolicy::find($data->cancel_poly);
-        $packInclusions = PackageInclusions::find($data->pack_includs);
-        $packExclusions = PackageExclusions::find($data->pack_excluds);
+        $paymentPolicies = PaymentPolicy::find( json_decode($data->payment_poly));
+        $refundPolicies = RefoundPolicy::find( json_decode($data->refund_poly));
+        $cancelPolicies = CanclePolicy::find( json_decode($data->cancel_poly));
+        $packInclusions = PackageInclusions::find( json_decode($data->pack_includs));
+        $packExclusions = PackageExclusions::find( json_decode($data->pack_excluds));
         return view("admin.lead.show-lead",compact('data','paymentPolicies', 'refundPolicies','cancelPolicies','packInclusions','packExclusions'));
     }
     /**

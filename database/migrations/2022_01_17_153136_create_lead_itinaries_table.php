@@ -18,7 +18,7 @@ class CreateLeadItinariesTable extends Migration
             $table->string('lead_id');
             $table->string('days')->nullable();
             $table->string('activity_id')->nullable();
-            $table->string('DayActivity')->nullable();
+            // $table->string('DayActivity')->nullable();
             $table->string('PlacesName')->nullable();
             $table->string('Transfers')->nullable();
             $table->string('breack')->nullable();

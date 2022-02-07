@@ -137,6 +137,15 @@
                         <div class="col-8 p-0">
                             <div><b class="heading-3">Day {{ $it->days }} : {{ $it->Activity->title }}</b></div>
                             <b class="heading-3">DAY ACTIVITY : {{ $it->Activity->sub_title }}</b>
+                            <br>
+                            <b class="heading-3">SightSeeing : </b>
+                            @foreach ( $it->itineraryDayActivities as $itineraryDay)
+                            <b class="heading-3">{{$itineraryDay->dayActivity->name}}</b>
+                                @if(!$loop->last)
+                                  ,  
+                                @endif
+                            @endforeach
+                           
                         </div>
                         <div class="col-4 text-center">
                             <div class="btn-group">
@@ -223,6 +232,7 @@
             <div class="w-100">
                 <table class="table table-bordered">
                     <tr>
+                        <th class="heading-3 text-center">OPTION</th>
                         <th class="heading-3 text-center">CITY</th>
                         <th class="heading-3 text-center">HOTEL</th>
                         <th class="heading-3 text-center">ROOM TYPE</th>
@@ -231,6 +241,7 @@
                     </tr>
                     @foreach ($data->HotalsDeatils as $hot)
                         <tr>
+                            <td class="text-center content-2">Option {{ $hot->HotelOptionNumber }}</td>
                             <td class="text-center content-2">{{ $hot->HotelData->name }}</td>
                             <td class="text-center content-2">{{ $hot->city }}</td>
                             <td class="text-center content-2">{{ $hot->hotal_room_type }}</td>
@@ -258,6 +269,7 @@
             <div class="w-100">
                 <table class="table table-bordered">
                     <tr>
+                        <th class="text-center heading-3">OPTION</th>
                         <th class="text-center heading-3">Cost Type</th>
                         <th class="text-center heading-3">Members</th>
                         <th class="text-center heading-3">Total</th>
@@ -267,6 +279,7 @@
                     @endphp
                     @foreach ($data->CostDeatils as $key => $cost)
                         <tr>
+                            <td class="text-center content-1">Option {{ $cost->optionNumber }}</td>
                             <td class="text-center content-1">{{ $cost->costingFor }}</td>
                             <td class="text-center content-1">{{ $cost->members }}</td>
                             <td class="text-center content-1"><span class="text-danger"> ₹{{ $cost->costTotals ?? 0 }}</span></td>
@@ -307,6 +320,27 @@
                 </ul>
             </div>
         </div>
+        <div class="perpage justify-content-arounded ">
+            <div class="w-100">
+                <h3 class="text-center border-head heading-2"> Package Inclusions </h3>
+                <ul>
+                    @if (!empty($packInclusions))
+                        @foreach ($packInclusions as $packInclusion)
+                        <li class="content-1">{{ $packInclusion->point }}</li>
+                        @endforeach 
+                    @endif 
+                </ul>
+                <h3 class="text-center heading-2 border-head"> Package Exclusions </h3>
+                <ul>
+                    @if (!empty($packInclusions))
+                        @foreach ($packExclusions as $packExclusion)
+                        <li  class="content-1">{{ $packExclusion->point }}</li>
+                        @endforeach 
+                   @endif
+                </ul>
+            </div>
+        </div>
+
     </div>
 </div>
 @else

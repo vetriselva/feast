@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLeaDayActivitiesTable extends Migration
+class CreateItineraryDayActivitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,8 @@ class CreateLeaDayActivitiesTable extends Migration
     {
         Schema::create('itinerary_day_activities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('lead_id');
             $table->unsignedBigInteger('dayactivity_id');
             $table->unsignedBigInteger('itinerary_id');
-            $table->foreign('lead_id')->references('id')->on('leads');
             $table->foreign('itinerary_id')->references('id')->on('lead_itinaries');
             $table->foreign('dayactivity_id')->references('id')->on('day_activities');
             $table->timestamps();

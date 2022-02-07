@@ -71,7 +71,7 @@
                     <div class="mb-2">
                         <small class="text-secondary">Route Map</small>
                     </div>
-                    <input type="file" ng-model="basicInformation.RouteMap"  name="RouteMap" id=""   class="form-control  form-control-sm">
+                    <input type="file" ng-model="basicInformation.RouteMap" file-model = "myFile"  name="RouteMap" id=""   class="form-control  form-control-sm">
                 </div>
             </div>
         </div>
@@ -156,7 +156,7 @@
                 <tbody> @{{ItDays}}
                     <tr ng-repeat="(index,I) in ItDays">
                         <td class="text-center">
-                            <input type="text" ng-model="I.DayCount"  name="DayCount[]" class="text-center form-control form-control-sm border-0 p-0 rounded-0" disabled ng-value="@{{ index+1 }}">
+                            <input type="text" ng-model="I.DayCount"  name="DayCount[]" class="text-center form-control form-control-sm border-0 p-0 rounded-0"  ng-value="@{{ index+1 }}">
                         </td>
                         <td>
                             <select class="form-select  form-select-sm my-2 mt-3"  get-cities name="StateName" ng-model="I.StateName" required>
@@ -184,7 +184,7 @@
                         </td>
                         <td>
                             <select name="Activity[]" ng-model="I.Activity" id="" class="form-select form-select-sm">
-                                <option value="1">-- Choose --</option>
+                                <option value="">-- Choose --</option>
                                 @if ($act)
                                     @foreach ($act as $a)
                                         <option value="{{ $a->id }}">{{ $a->title }}</option>
@@ -193,14 +193,6 @@
                             </select>
                         </td>
                         <td>
-                            {{-- <select ng-dropdown-multiselect= "" name="DayActivity[]" id="" ng-model="I.DayActivity" class="form-select form-select-sm">
-                                <option value="1">-- Choose --</option>
-                                @if ($act)
-                                    @foreach ($act as $a)
-                                        <option value="{{ $a->id }}">{{ $a->title }}</option>
-                                    @endforeach
-                                @endif
-                            </select> --}}
                             <div class="col-xs-6">
                                 <dropdown-multiselect model="I.DayActivity" 
                                 options="dayActivities"></dropdown-multiselect>
@@ -243,10 +235,11 @@
     </div>
  
     <div class="card position-relative my-5 p-3 border-hover shadow-hover">
-        <h4 class="card-title form-title">Holtels Details</h4> @{{HotalDetails}}
+        <h4 class="card-title form-title">Holtels Details</h4>
+        <small class="mx-auto text-danger">Mandatory to fill @{{HotalDetails.length}} cost details</small>
 
         <div class="card-body ">
-            <div class="text-end">
+            <div class="text-end">@{{HotalDetails}}
                 <a class="btn btn-sm btn-primary rounded-pill shadow-hover" ng-click="AddHotalsOption()"><i class="fa fa-plus text-white me-1"></i> Add a new Opition</a>
             </div>
             <table class="table table-hover table-bordered my-4 shadow-sm-hover" ng-repeat="(index,I) in HotalDetails">
@@ -277,9 +270,12 @@
                         <td><input type="text" ng-model="Cost.city" name="city[]" class="form-control form-control-sm border-0 rounded-0"></td>
                         <td>
                             <select ng-model="Cost.hotel" name="hotel_id[]" class="form-select form-select-sm border-0 rounded-0">
-                                <option value="3">THE KHYBER HIMALAYAN RESORT</option>
-                                <option value="2">PINE-N-PEAK</option>
-                                <option value="1">ITC HOUSEBOAT</option>
+                                <option value="">-- Choose --</option>
+                                @if ($hotels)
+                                    @foreach ($hotels as $hotel)
+                                        <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </td>
                         <td><input type="text" ng-model="Cost.hotalRoomType" name="hotal_room_type[]" class="form-control form-control-sm border-0 rounded-0"></td>

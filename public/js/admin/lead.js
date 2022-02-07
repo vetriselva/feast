@@ -1,4 +1,4 @@
-app.controller('LeadController', function($scope, $http, API_URL) {
+app.controller('LeadController', function($scope, $http, API_URL, fileUpload) {
 
     $scope.exclusionList = [];
     $scope.inclusionList = [];
@@ -6,7 +6,12 @@ app.controller('LeadController', function($scope, $http, API_URL) {
     $scope.paymentPolicyList = [];
     $scope.cancellationPolicyList = [];
 
- 
+    $scope.uploadFile = () => {
+        var file = $scope.myFile;
+        console.log(file);
+        var uploadUrl = `${API_URL}/admin/lead-store-route-map`;
+        fileUpload.uploadFileToUrl(file, uploadUrl);
+     };
 
     $scope.submitLead = () => {
         let Lead = {
@@ -26,7 +31,12 @@ app.controller('LeadController', function($scope, $http, API_URL) {
             url: `${API_URL}/admin/lead`,
             data: {data: Lead}
         }).then(function success(response) {
-            $scope.States = response.data;
+            if(response.data.status == true) {
+
+                $scope.uploadFile();
+                alert('data submitted successfully');
+            }
+           
         }, function error(response) {
             console.log('state get error');
         });
@@ -199,6 +209,7 @@ app.controller('LeadController', function($scope, $http, API_URL) {
         $scope.DelelteHotals = function(index, Secindex){
             if(confirm('Are you sure! want to Delete ?')){
                 $scope.HotalDetails[index].Details.splice(Secindex,1);
+                $scope.HotalDetails[index].Details.length == 0 && delete $scope.HotalDetails.splice(index);
             }
         }
         $scope.AddHotel  =   function(index) {
@@ -236,6 +247,7 @@ app.controller('LeadController', function($scope, $http, API_URL) {
         $scope.DelelteCost = function(index, Secindex){
             if(confirm('Are you sure! want to Delete ?')){
                 $scope.CostDetails[index].Details.splice(Secindex,1);
+                $scope.CostDetails[index].Details.length == 0 && delete $scope.CostDetails.splice(index);
             }
         } 
     
@@ -378,7 +390,7 @@ app.directive('dropdownMultiselect', function () {
                 -- Choose --
                 </button>
                 <ul class="dropdown-menu {open: open}" aria-labelledby="dropdownMenuButton1">
-                <li ng-repeat='option in options'> <a ng-click='toggleSelectItem(option)' class="dropdown-item"> <span ng-class='getClassName(option)' aria-hidden='true'> </span> {{option.title}}  </a></li>
+                <li ng-repeat='option in options'> <a ng-click='toggleSelectItem(option)' class="dropdown-item"> <span ng-class='getClassName(option)' aria-hidden='true'> </span> {{option.name}}  </a></li>
                 </ul>
               </div>`,
 
@@ -426,4 +438,37 @@ app.directive('dropdownMultiselect', function () {
             };
         }
     }
+
 });
+
+//file upload
+app.directive('fileModel',  function ($parse) {
+    return {
+       restrict: 'A',
+       link: function(scope, element, attrs) {
+          var model = $parse(attrs.fileModel);
+          var modelSetter = model.assign;
+          
+          element.bind('change', function() {
+             scope.$apply(function() {
+                modelSetter(scope, element[0].files[0]);
+             });
+          });
+       }
+    };
+});
+
+ app.service('fileUpload', function ($http) {
+    this.uploadFileToUrl = function(file, uploadUrl) {
+       var fd = new FormData();
+       fd.append('RouteMap', file);
+       $http.post(uploadUrl, fd, {
+          transformRequest: angular.identity,
+          headers: {'Content-Type': undefined}
+       })
+       .success(function() {
+       })
+       .error(function() {
+       });
+    }
+ });

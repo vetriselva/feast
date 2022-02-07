@@ -30,4 +30,10 @@ class LeadItinary extends Model
     public function Activity() {
         return $this->belongsTo(Activity::class, 'activity_id', 'id');
     }
+
+    public function itineraryDayActivities()
+    {
+        return $this->hasMany(ItineraryDayActivity::class,'itinerary_id', 'id');
+    }
+
 }

@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin',  'middleware' => 'is_admin'], function() {
     
     Route::get('/lead-new', [App\Http\Controllers\Admin\LeadController::class, 'create'])->name('lead-new');
     Route::post('/lead', [App\Http\Controllers\Admin\LeadController::class, 'store'])->name('lead');
+    Route::post('/lead-store-route-map', [App\Http\Controllers\Admin\LeadController::class, 'storeRouteMap'])->name('lead-store-route-map');
 
     Route::get('/data-center/{type}', [App\Http\Controllers\Admin\DataCenterController::class, 'index'])->name('data-center');
     Route::post('/data-center/{type}', [App\Http\Controllers\Admin\DataCenterController::class, 'store'])->name('data.itinerary');
@@ -83,7 +84,7 @@ Route::group(['prefix' => 'admin',  'middleware' => 'is_admin'], function() {
     });
 
     Route::get('/get-day-activity', function(Request $request){
-        return Activity::get();
+        return DayActivity::get();
     });
 
 });

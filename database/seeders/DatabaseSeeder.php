@@ -260,5 +260,14 @@ DB::table('activities')->insert(
             'place_name' => "Palakadu",
             'is_active' => 1,
         ]);
+
+        DB::table('day_activities')->insert( [
+            'name' => "visit",
+            'is_active' => 1,
+        ]);
+        DB::table('day_activities')->insert( [
+            'name' => "walk",
+            'is_active' => 1,
+        ]);
     }
 }
