@@ -320,26 +320,6 @@
                 </ul>
             </div>
         </div>
-        <div class="perpage justify-content-arounded ">
-            <div class="w-100">
-                <h3 class="text-center border-head heading-2"> Package Inclusions </h3>
-                <ul>
-                    @if (!empty($packInclusions))
-                        @foreach ($packInclusions as $packInclusion)
-                        <li class="content-1">{{ $packInclusion->point }}</li>
-                        @endforeach 
-                    @endif 
-                </ul>
-                <h3 class="text-center heading-2 border-head"> Package Exclusions </h3>
-                <ul>
-                    @if (!empty($packInclusions))
-                        @foreach ($packExclusions as $packExclusion)
-                        <li  class="content-1">{{ $packExclusion->point }}</li>
-                        @endforeach 
-                   @endif
-                </ul>
-            </div>
-        </div>
 
     </div>
 </div>
