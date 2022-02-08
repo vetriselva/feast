@@ -222,7 +222,7 @@
             </div>
           
             @foreach ($hotelDetails  as $key => $hotels)
-                <h5> Option {{$hotels[$key]->HotelOptionNumber ?? ''}} </h5>
+                <h5> Option {{$key ?? ''}} </h5>
                 @foreach ($hotels as  $hot)
                 <div class="w-100 my-3">
                     <div class="row m-0 justify-content-center">
