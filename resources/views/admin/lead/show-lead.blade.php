@@ -220,37 +220,42 @@
                     Hotel Details
                 </h1>
             </div>
-            <div class="w-100 my-3">
-                <div class="row m-0 justify-content-center">
-                    @foreach ($data->HotalsDeatils as $hot)
-                        <div class="col-4 p-2">
-                            <img src="{{ $hot->HotelData->image }}" class="w-100 it-img" style="height: 200px;object-fit:cover">
-                        </div>
-                    @endforeach
+          
+            @foreach ($hotelDetails  as $key => $hotels)
+                <h5> Option {{$hotels[$key]->HotelOptionNumber ?? ''}} </h5>
+                @foreach ($hotels as  $hot)
+                <div class="w-100 my-3">
+                    <div class="row m-0 justify-content-center">
+                            <p>{{$hot->HotelData->name}}</p>
+                            <div class="col">
+                                <img src="{{ $hot->HotelData->image }}" class="w-100 it-img" style="height: 200px;object-fit:cover">
+                            </div>
+                    </div>
                 </div>
-            </div>
-            <div class="w-100">
-                <table class="table table-bordered">
-                    <tr>
-                        <th class="heading-3 text-center">OPTION</th>
-                        <th class="heading-3 text-center">CITY</th>
-                        <th class="heading-3 text-center">HOTEL</th>
-                        <th class="heading-3 text-center">ROOM TYPE</th>
-                        <th class="heading-3 text-center">NIGHTS</th>
-                        <th class="heading-3 text-center">REATINGS</th>
-                    </tr>
-                    @foreach ($data->HotalsDeatils as $hot)
+                @endforeach
+                <div class="w-100">
+                    <table class="table table-bordered">
                         <tr>
-                            <td class="text-center content-2">Option {{ $hot->HotelOptionNumber }}</td>
-                            <td class="text-center content-2">{{ $hot->HotelData->name }}</td>
-                            <td class="text-center content-2">{{ $hot->city }}</td>
-                            <td class="text-center content-2">{{ $hot->hotal_room_type }}</td>
-                            <td class="text-center content-2">{{ $hot->hotal_night }}</td>
-                            <td class="text-center content-2">{{ $hot->hotal_night }}</td>
+                            <th class="heading-3 text-center">OPTION</th>
+                            <th class="heading-3 text-center">CITY</th>
+                            <th class="heading-3 text-center">HOTEL</th>
+                            <th class="heading-3 text-center">ROOM TYPE</th>
+                            <th class="heading-3 text-center">NIGHTS</th>
+                            <th class="heading-3 text-center">REATINGS</th>
                         </tr>
-                    @endforeach
-                </table>
-            </div>
+                        @foreach ($hotels as $hot)
+                            <tr>
+                                <td class="text-center content-2">Option {{ $hot->HotelOptionNumber }}</td>
+                                <td class="text-center content-2">{{ $hot->HotelData->name }}</td>
+                                <td class="text-center content-2">{{ $hot->city }}</td>
+                                <td class="text-center content-2">{{ $hot->hotal_room_type }}</td>
+                                <td class="text-center content-2">{{ $hot->hotal_night }}</td>
+                                <td class="text-center content-2">{{ $hot->hotal_night }}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
+            @endforeach
         </div>
         <div class="perpage">
             <div class="w-100">
@@ -318,9 +323,32 @@
                         @endforeach 
                    @endif
                 </ul>
+                <h3 class="text-center border-head heading-2"> PAYMENT POLICY </h3>
+                <ul>
+                    @if (!empty($paymentPolicies))
+                        @foreach ($paymentPolicies as $paymentPolicy)
+                        <li class="content-1">{{ $paymentPolicy->point }}</li>
+                        @endforeach 
+                    @endif 
+                </ul>
+                <h3 class="text-center heading-2 border-head"> REFUND POLICY </h3>
+                <ul>
+                    @if (!empty($refundPolicies))
+                        @foreach ($refundPolicies as $refundPolicy)
+                        <li  class="content-1">{{ $refundPolicy->point }}</li>
+                        @endforeach 
+                   @endif
+                </ul>
+                <h3 class="text-center heading-2 border-head"> CANCELLATION POLICY </h3>
+                <ul>
+                    @if (!empty($cancelPolicies))
+                        @foreach ($cancelPolicies as $cancelPolicy)
+                        <li  class="content-1">{{ $cancelPolicy->point }}</li>
+                        @endforeach 
+                   @endif
+                </ul>
             </div>
         </div>
-
     </div>
 </div>
 @else

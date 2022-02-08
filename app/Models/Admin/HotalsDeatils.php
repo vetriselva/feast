@@ -19,5 +19,5 @@ class HotalsDeatils extends Model
     ];
     public function HotelData() {
         return $this->belongsTo(HotelData::class, 'hotel_id', 'id');
-    }
+    }   
 }

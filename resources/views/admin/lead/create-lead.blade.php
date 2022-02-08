@@ -110,7 +110,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @{{FlightDetails}}
                     <tr ng-repeat="(index,I) in FlightDetails">
                         <td>@{{ index+1 }}</td>
                         <td><input type="text" name="from" ng-model="I.from" class="form-control form-control-sm border-0 rounded-0"></td>
@@ -153,7 +152,7 @@
                         <th colspan="2">Others</th> 
                     </tr>
                 </thead>
-                <tbody> @{{ItDays}}
+                <tbody>
                     <tr ng-repeat="(index,I) in ItDays">
                         <td class="text-center">
                             <input type="text" ng-model="I.DayCount"  name="DayCount[]" class="text-center form-control form-control-sm border-0 p-0 rounded-0"  ng-value="@{{ index+1 }}">

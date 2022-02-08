@@ -154,13 +154,14 @@ class LeadController extends Controller
                         ->with("HotalsDeatils", "HotalsDeatils.HotelData")
                         ->with("CostDeatils")
                         ->find($id);
-                
+        $hotelDetails = Collect($data->HotalsDeatils)->groupBy('HotelOptionNumber');
+        $costDeatils = Collect($data->CostDeatils)->groupBy('optionNumber');
         $paymentPolicies = PaymentPolicy::find( json_decode($data->payment_poly));
         $refundPolicies = RefoundPolicy::find( json_decode($data->refund_poly));
         $cancelPolicies = CanclePolicy::find( json_decode($data->cancel_poly));
         $packInclusions = PackageInclusions::find( json_decode($data->pack_includs));
         $packExclusions = PackageExclusions::find( json_decode($data->pack_excluds));
-        return view("admin.lead.show-lead",compact('data','paymentPolicies', 'refundPolicies','cancelPolicies','packInclusions','packExclusions'));
+        return view("admin.lead.show-lead",compact('data','hotelDetails', 'costDeatils','paymentPolicies', 'refundPolicies','cancelPolicies','packInclusions','packExclusions'));
     }
     /**
      * Show the form for editing the specified resource.
