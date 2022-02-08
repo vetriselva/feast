@@ -14,6 +14,7 @@ use App\Models\Admin\Activity;
 use App\Models\Admin\DayActivity;
 use App\Models\Admin\HotelData;
 use App\Models\Admin\ItineraryDayactivity;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -57,9 +58,9 @@ class LeadController extends Controller
             'subTitle'          => $r->subTitle,
             'packageName'       => $r->packageName,
             'placeToVisit'      => $r->placeToVisit,
-            'itDate'            => $r->itineraryDate,
-            'itValidDate'       => $r->validDate,
-            'departureDate'     => $r->departureDate,
+            'itDate'            => Carbon::parse($r->itineraryDate)->format('Y-m-d H:i:s'),
+            'itValidDate'       => Carbon::parse($r->validDate)->format('Y-m-d H:i:s'),
+            'departureDate'     => Carbon::parse($r->departureDate)->format('Y-m-d H:i:s'),
             'numOfNights'       => $r->numofNights,
             'flight_id'         => 1,
             'roomType'          => $r->roomType,

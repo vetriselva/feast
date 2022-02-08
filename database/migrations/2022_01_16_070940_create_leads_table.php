@@ -19,9 +19,9 @@ class CreateLeadsTable extends Migration
             $table->string("subTitle");
             $table->string("packageName");
             $table->string("placeToVisit");
-            $table->timestamp("itDate");
-            $table->timestamp("itValidDate");
-            $table->timestamp("departureDate");
+            $table->date("itDate");
+            $table->date("itValidDate");
+            $table->date("departureDate");
             $table->string("numOfNights");
             $table->string("roomType");
             $table->string("flight_id");
