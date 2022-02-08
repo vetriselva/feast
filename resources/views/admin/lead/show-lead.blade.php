@@ -186,12 +186,12 @@
                             <div class="btn-group">
                                 <div class="btn btn-light  border position-relative btn-sm heading-3"><i class="fa fa-car me-1" aria-hidden="true"></i>Transfers
                                     <span style="z-index: 1" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-{{ $it->Transfers == 'Included' ? "success" : "danger"}}">
-                                        <i class="las la-{{ $it->Transfers == 'Included' ? "check" : "times"}} text-white"></i>
+                                        <i class="las la-{{ $it->Transfers ? "check" : "times"}} text-white"></i>
                                     </span>
                                 </div>
                                 <div class="btn btn-light border position-relative btn-sm heading-3"><i class="fa fa-ticket me-1"></i></i>Tickets
                                     <span style="z-index: 1" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-{{ $it->Tickets == 'Included' ? "success" : "danger"}} ">
-                                        <i class="las la-{{ $it->Tickets == 'Included' ? "check" : "times"}} text-white"></i>
+                                        <i class="las la-{{ $it->Tickets  ? "check" : "times"}} text-white"></i>
                                     </span>
                                 </div> 
                             </div> 

@@ -31,12 +31,10 @@ app.controller('LeadController', function($scope, $http, API_URL, fileUpload) {
             url: `${API_URL}/admin/lead`,
             data: {data: Lead}
         }).then(function success(response) {
+            alert('data submitted successfully');
             if(response.data.status == true) {
-
                 $scope.uploadFile();
-                alert('data submitted successfully');
             }
-           
         }, function error(response) {
             console.log('state get error');
         });

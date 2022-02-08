@@ -239,7 +239,7 @@
         <small class="mx-auto text-danger">Mandatory to fill @{{HotalDetails.length}} cost details</small>
 
         <div class="card-body ">
-            <div class="text-end">@{{HotalDetails}}
+            <div class="text-end">
                 <a class="btn btn-sm btn-primary rounded-pill shadow-hover" ng-click="AddHotalsOption()"><i class="fa fa-plus text-white me-1"></i> Add a new Opition</a>
             </div>
             <table class="table table-hover table-bordered my-4 shadow-sm-hover" ng-repeat="(index,I) in HotalDetails">
@@ -296,7 +296,7 @@
         <div class="card-body ">
             <div class="text-end">
                 <a class="btn btn-sm btn-primary rounded-pill shadow-hover" ng-click="AddCost()"><i class="fa fa-plus text-white me-1"></i> Add a new Opition</a>
-            </div>@{{CostDetails}}
+            </div>
             <table class="table table-hover table-bordered my-4 shadow-sm-hover" ng-repeat="(index,I) in CostDetails">
                 <thead>
                     <tr class="bg-light">

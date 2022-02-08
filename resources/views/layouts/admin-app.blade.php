@@ -100,6 +100,7 @@
                                     <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Payment_Policy' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Payment_Policy']) }}">Payment Policy</a></li>
                                     <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Refound_Policy' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Refound_Policy']) }}">Refound Policy</a></li>
                                     <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Cancel_Policy' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Cancel_Policy']) }}">Cancellation Policy</a></li>
+                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'State' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'State']) }}"> State</a></li>
 
                                 </div>
                             </div>

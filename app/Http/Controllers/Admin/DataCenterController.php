@@ -13,7 +13,7 @@ use App\Models\Admin\Activity;
 use App\Models\Admin\CanclePolicy;
 use App\Models\Admin\HotelData;
 use App\Models\Admin\FlightData;
-
+use App\Models\Admin\State;
 
 class DataCenterController extends Controller
 {
@@ -58,6 +58,10 @@ class DataCenterController extends Controller
         if($type == 'Cancel_Policy') {
             $hot        =  CanclePolicy::latest()->get();
             return view("admin.data-center.CanclePolicy",compact('hot'));
+        }
+        if($type == 'State') {
+            $hot        =  State::latest()->get();
+            return view("admin.data-center.state",compact('hot'));
         }
     }
     public function store(Request $r, $type)
@@ -118,6 +122,12 @@ class DataCenterController extends Controller
             $act->save();
             return back()->with('success','Create Success!');
         }
+        if($type == 'state_store') {
+            $state        =  new State();
+            $state->state_name = $r->state_name;
+            $state->save();
+            return back()->with('success','Create Success!');
+        }
     }
     public function destroy(Request $r, $id, $type)
     {
@@ -159,6 +169,11 @@ class DataCenterController extends Controller
         }
         if($type == 'Cancel_Policy_delete') {
             $act    =  CanclePolicy::find($id);
+            $act->delete();
+            return back()->with('success','Delete Success!');
+        }
+        if($type == 'state_delete') {
+            $act    =  State::find($id);
             $act->delete();
             return back()->with('success','Delete Success!');
         }
@@ -218,6 +233,12 @@ class DataCenterController extends Controller
             $act    =  CanclePolicy::find($id);
             $act->point = $r->point;
             $act->save();
+            return back()->with('success','Update Success!');
+        }
+        if($type == 'state_update') {
+            $state        = State::find($id);
+            $state->state_name = $r->state_name;
+            $state->save();
             return back()->with('success','Update Success!');
         }
     }

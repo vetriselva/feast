@@ -29,12 +29,13 @@
                                     <td>{{ $index +1 }}</td>
                                     <td>VFI-D-0{{ $row->id }}</td>
                                     <td>{{ $row->leadNumber }}</td>
-                                    <td>{{ $row->itDate }}</td>
-                                    <td>{{ $row->itValidDate }} </td>
+                                    <td>{{ date('Y-m-d', strtotime($row->itDate)) }}</td>
+                                    <td>{{ date('Y-m-d', strtotime($row->itValidDate))  }} </td>
                                     <td>{{ $row->created_at->format('Y-m-d') }}</td>
                                     <td>
                                         {{-- <a href="{{ route("lead-edit", $row->id) }}"><i class="fa fa-pencil btn btn-sm btn-light border text-info"></i></a> --}}
                                         <a href="{{ route("lead-view", $row->id) }}"><i class="fa fa-eye btn btn-sm btn-light border text-primary"></i></a>
+                                        {{-- <a href="{{ route("lead-edit", $row->id) }}"><i class="fa fa-eye btn btn-sm btn-light border text-primary"></i></a> --}}
                                         <i class="fa fa-trash btn-light border btn btn-sm text-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop__{{ $index +1 }}"></i>
                                         <!-- Modal -->
                                         <div class="modal fade" id="staticBackdrop__{{ $index +1 }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
