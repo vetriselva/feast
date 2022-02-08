@@ -319,14 +319,14 @@ app.controller('LeadController', function($scope, $http, API_URL, fileUpload) {
         console.log('get cancellation policy error');
     });
 
-    $http({
-        method: 'GET',
-        url: `${API_URL}/admin/get-day-activity`
-    }).then(function success(response) {
-        $scope.dayActivities = response.data;
-    }, function error(response) {
-        console.log('get day activities error');
-    });
+    // $http({
+    //     method: 'GET',
+    //     url: `${API_URL}/admin/get-day-activity`
+    // }).then(function success(response) {
+    //     $scope.dayActivities = response.data;
+    // }, function error(response) {
+    //     console.log('get day activities error');
+    // });
 
 });
 
@@ -374,6 +374,49 @@ app.directive('getPlaces', function getPlaces($http) {
 });
 
 
+app.directive('getDayActivities', function getCities($http) {
+    return {
+        restrict: 'A',
+        link : function (scope, element, API_URL) {
+            element.on('change', function () {
+                if(scope.I.PlaceName == 'undefined') {
+                    return false;
+                }
+                $http({
+                    method: 'GET',
+                    url: $('#baseurl').val()+'/admin/get-day-activities-by-place-id',
+                    params : {id: scope.I.PlaceName}
+                    }).then(function success(response) {
+                         scope.dayActivities = response.data;
+                    }, function error(response) {
+                });
+            });
+        },
+    }
+});
+app.directive('getActivities', function getPlaces($http) {
+    return {
+        restrict: 'A',
+        link : function (scope, element) {
+            element.on('change', function () {
+                console.log(scope.I.PlaceName);
+                if(scope.I.PlaceName == 'undefined') {
+                    return false;
+                }
+                $http({
+                    method: 'GET',
+                    url: $('#baseurl').val()+'/admin/get-activities-by-place-id',
+                    params : {id: scope.I.PlaceName}
+                    }).then(function success(response) {
+                        scope.Activities = response.data;
+                    }, function error(response) {
+                        console.log('get place error');
+                    });
+            });
+        },
+    }
+});
+
 //directive
 app.directive('dropdownMultiselect', function () {
     return {
@@ -383,12 +426,12 @@ app.directive('dropdownMultiselect', function () {
             options: '=',
         },
         template:
-                `<div class="dropdown" class="{open: open}">
+                `<div class="dropdown" class="{open: open}">{{model.length}}
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 -- Choose --
                 </button>
                 <ul class="dropdown-menu {open: open}" aria-labelledby="dropdownMenuButton1">
-                <li ng-repeat='option in options'> <a ng-click='toggleSelectItem(option)' class="dropdown-item"> <span ng-class='getClassName(option)' aria-hidden='true'> </span> {{option.name}}  </a></li>
+                <li ng-repeat='option in options'> <a ng-click='toggleSelectItem(option)' class="dropdown-item"> <span ng-class='getClassName(option)' aria-hidden='true'> </span> {{option.title}}  </a></li>
                 </ul>
               </div>`,
 

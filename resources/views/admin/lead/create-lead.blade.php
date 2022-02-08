@@ -159,7 +159,7 @@
                         </td>
                         <td>
                             <select class="form-select  form-select-sm my-2 mt-3"  get-cities name="StateName" ng-model="I.StateName" required>
-                                <option value="">Select State Name</option>
+                                <option value="">Select State </option>
                                 <option ng-repeat="State in States" value="@{{ State.id }}">
                                     @{{ State.state_name }}
                                 </option>
@@ -167,28 +167,26 @@
                         </td>
                         <td>
                             <select class="form-select  form-select-sm my-2 mt-3" get-places name="CityName" ng-model="I.CityName" required>
-                                <option value="">Select City Name</option>
+                                <option value="">Select City</option>
                                 <option ng-repeat="City in Cities" value="@{{ City.id }}">
                                     @{{ City.city_name }}
                                 </option>
                             </select>
                         </td>
                         <td>
-                            <select class="form-select  form-select-sm my-2 mt-3" name="PlaceName" ng-model="I.PlaceName" required>
-                                <option value="">Select Place Name</option>
+                            <select  get-day-activities get-activities  class="form-select form-select-sm my-2 mt-3" name="PlaceName" ng-model="I.PlaceName" required>
+                                <option value="">Select Place</option>
                                 <option ng-repeat="Place in Places" value="@{{ Place.id }}">
                                     @{{ Place.place_name }}
                                 </option>
                             </select>
                         </td>
                         <td>
-                            <select name="Activity[]" ng-model="I.Activity" id="" class="form-select form-select-sm">
-                                <option value="">-- Choose --</option>
-                                @if ($act)
-                                    @foreach ($act as $a)
-                                        <option value="{{ $a->id }}">{{ $a->title }}</option>
-                                    @endforeach
-                                @endif
+                            <select class="form-select  form-select-sm my-2 mt-3" name="Activity" ng-model="I.Activity" required>
+                                <option value="">Select Activity</option>
+                                <option ng-repeat="Place in Places" value="@{{ Place.id }}">
+                                    @{{ Place.place_name }}
+                                </option>
                             </select>
                         </td>
                         <td>

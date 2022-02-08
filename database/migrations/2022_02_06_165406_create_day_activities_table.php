@@ -15,7 +15,12 @@ class CreateDayActivitiesTable extends Migration
     {
         Schema::create('day_activities', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->unsignedBigInteger('place_id');
+            $table->string("title");
+            $table->string("sub_title");
+            $table->string("image");
+            $table->string("content");
+            $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });

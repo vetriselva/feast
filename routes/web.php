@@ -64,6 +64,14 @@ Route::group(['prefix' => 'admin',  'middleware' => 'is_admin'], function() {
         return Place::where('city_id', $request->id)->get();
     });
 
+    Route::get('/get-day-activities-by-place-id', function(Request $request){
+        return DayActivity::where('place_id', $request->id)->get();
+    });
+
+    Route::get('/get-activities-by-place-id', function(Request $request){
+        return Activity::where('place_id', $request->id)->get();
+    });
+
     Route::get('/get-package-exclusion', function(Request $request){
         return PackageExclusions::get();
     });

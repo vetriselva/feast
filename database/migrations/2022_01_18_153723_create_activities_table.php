@@ -15,10 +15,12 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('place_id');
             $table->string("title");
             $table->string("sub_title");
             $table->string("image");
             $table->string("content");
+            $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');
             $table->timestamps();
         });
     }

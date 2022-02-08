@@ -35,36 +35,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]
     );
-        DB::table('activities')->insert([
-            'title' => "Moon light walk",
-            'sub_title' => "200 meeters walk",
-            'image' => 'https://images.unsplash.com/photo-1562832135-14a35d25edef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1245&q=80',
-            'content' => "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam vero, quidem dolor maxime non quaerat maiores obcaecati repellendus dignissimos et, ex consequatur autem, quod at doloribus? Veniam quos cupiditate tempora.",
-        ] 
-    );
-    DB::table('activities')->insert(
-        [
-            'title' => "Sun light walk",
-            'sub_title' => "200 meeters walk",
-            'image' => 'https://images.unsplash.com/photo-1504386106331-3e4e71712b38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHN1bnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
-            'content' => "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam vero, quidem dolor maxime non quaerat maiores obcaecati repellendus dignissimos et, ex consequatur autem, quod at doloribus? Veniam quos cupiditate tempora.",
-        ],   
-    );
-    DB::table('activities')->insert([
-        'title' => "Moon light walk",
-        'sub_title' => "200 meeters walk",
-        'image' => 'https://images.unsplash.com/photo-1562832135-14a35d25edef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1245&q=80',
-        'content' => "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam vero, quidem dolor maxime non quaerat maiores obcaecati repellendus dignissimos et, ex consequatur autem, quod at doloribus? Veniam quos cupiditate tempora.",
-    ] 
-);
-DB::table('activities')->insert(
-    [
-        'title' => "Sun light walk",
-        'sub_title' => "200 meeters walk",
-        'image' => 'https://images.unsplash.com/photo-1504386106331-3e4e71712b38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHN1bnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
-        'content' => "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam vero, quidem dolor maxime non quaerat maiores obcaecati repellendus dignissimos et, ex consequatur autem, quod at doloribus? Veniam quos cupiditate tempora.",
-    ],   
-);
         DB::table('flight_data')->insert(
             [
                 'name' => "Air India 004",
@@ -261,13 +231,73 @@ DB::table('activities')->insert(
             'is_active' => 1,
         ]);
 
-        DB::table('day_activities')->insert( [
-            'name' => "visit",
-            'is_active' => 1,
-        ]);
-        DB::table('day_activities')->insert( [
-            'name' => "walk",
-            'is_active' => 1,
-        ]);
+        DB::table('activities')->insert([
+                'place_id' => 1,
+                'title' => "Moon light walk",
+                'sub_title' => "200 meeters walk",
+                'image' => 'https://images.unsplash.com/photo-1562832135-14a35d25edef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1245&q=80',
+                'content' => "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam vero, quidem dolor maxime non quaerat maiores obcaecati repellendus dignissimos et, ex consequatur autem, quod at doloribus? Veniam quos cupiditate tempora.",
+            ] 
+        );
+        DB::table('activities')->insert(
+            [
+                'place_id' => 1,
+                'title' => "Sun light walk",
+                'sub_title' => "200 meeters walk",
+                'image' => 'https://images.unsplash.com/photo-1504386106331-3e4e71712b38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHN1bnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+                'content' => "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam vero, quidem dolor maxime non quaerat maiores obcaecati repellendus dignissimos et, ex consequatur autem, quod at doloribus? Veniam quos cupiditate tempora.",
+            ],   
+        );
+        DB::table('activities')->insert([
+            'place_id' => 1,
+            'title' => "Moon light walk",
+            'sub_title' => "200 meeters walk",
+            'image' => 'https://images.unsplash.com/photo-1562832135-14a35d25edef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1245&q=80',
+            'content' => "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam vero, quidem dolor maxime non quaerat maiores obcaecati repellendus dignissimos et, ex consequatur autem, quod at doloribus? Veniam quos cupiditate tempora.",
+        ] 
+        );
+        DB::table('activities')->insert(
+            [
+                'place_id' => 1,
+                'title' => "Sun light walk",
+                'sub_title' => "200 meeters walk",
+                'image' => 'https://images.unsplash.com/photo-1504386106331-3e4e71712b38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHN1bnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+                'content' => "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam vero, quidem dolor maxime non quaerat maiores obcaecati repellendus dignissimos et, ex consequatur autem, quod at doloribus? Veniam quos cupiditate tempora.",
+            ],   
+        );
+
+        DB::table('day_activities')->insert([
+            'place_id' => 1,
+            'title' => "Sun light walk",
+            'sub_title' => "200 meeters walk",
+            'image' => 'https://images.unsplash.com/photo-1504386106331-3e4e71712b38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHN1bnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+            'content' => "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam vero, quidem dolor maxime non quaerat maiores obcaecati repellendus dignissimos et, ex consequatur autem, quod at doloribus? Veniam quos cupiditate tempora.",
+        ] );
+        DB::table('day_activities')->insert(
+            [
+                'place_id' => 1,
+                'title' => "Sun light walk",
+                'sub_title' => "200 meeters walk",
+                'image' => 'https://images.unsplash.com/photo-1504386106331-3e4e71712b38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHN1bnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+                'content' => "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam vero, quidem dolor maxime non quaerat maiores obcaecati repellendus dignissimos et, ex consequatur autem, quod at doloribus? Veniam quos cupiditate tempora.",
+            ],   
+        );
+        DB::table('day_activities')->insert([
+            'place_id' => 2,
+            'title' => "Moon light walk",
+            'sub_title' => "200 meeters walk",
+            'image' => 'https://images.unsplash.com/photo-1562832135-14a35d25edef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1245&q=80',
+            'content' => "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam vero, quidem dolor maxime non quaerat maiores obcaecati repellendus dignissimos et, ex consequatur autem, quod at doloribus? Veniam quos cupiditate tempora.",
+        ] 
+        );
+        DB::table('day_activities')->insert(
+            [
+                'place_id' => 2,
+                'title' => "Sun light walk",
+                'sub_title' => "200 meeters walk",
+                'image' => 'https://images.unsplash.com/photo-1504386106331-3e4e71712b38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHN1bnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+                'content' => "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam vero, quidem dolor maxime non quaerat maiores obcaecati repellendus dignissimos et, ex consequatur autem, quod at doloribus? Veniam quos cupiditate tempora.",
+            ],   
+        );
     }
 }

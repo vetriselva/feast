@@ -137,15 +137,6 @@
                         <div class="col-8 p-0">
                             <div><b class="heading-3">Day {{ $it->days }} : {{ $it->Activity->title }}</b></div>
                             <b class="heading-3">DAY ACTIVITY : {{ $it->Activity->sub_title }}</b>
-                            <br>
-                            <b class="heading-3">SightSeeing : </b>
-                            @foreach ( $it->itineraryDayActivities as $itineraryDay)
-                            <b class="heading-3">{{$itineraryDay->dayActivity->name}}</b>
-                                @if(!$loop->last)
-                                  ,  
-                                @endif
-                            @endforeach
-                           
                         </div>
                         <div class="col-4 text-center">
                             <div class="btn-group">
@@ -168,12 +159,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-center w-100 my-3 p-2">
-                    <img src="{{ $it->Activity->image }}" alt="routemap" class="w-100 it-img" style="height:300px!important;object-fit: cover">
-                </div>
-                <div class="w-100">
-                    <p class="content-1">{{ $it->Activity->content }}</p>
-                </div>
+                @foreach ($it->itineraryDayActivities as $itineraryDay)
+                    <div class="text-center w-100 my-3 p-2">
+                        <img src="{{ $itineraryDay->dayActivity->image }}" alt="routemap" class="w-100 it-img" style="height:300px!important;object-fit: cover">
+                    </div>
+                    <div class="w-100">
+                        <p class="content-1">{{ $itineraryDay->dayActivity->content }}</p>
+                    </div>
+                @endforeach
                 <div class="w-100">
                     <div class="row">
                         <div class="col-8 p-0">
@@ -201,7 +194,7 @@
                         </div>
                     </div>  
                 </div> 
-        </div>
+            </div>
 
             @endforeach 
         </div>
@@ -271,39 +264,42 @@
                     Cost Details
                 </h1>
             </div>
-            <div class="w-100">
-                <table class="table table-bordered">
-                    <tr>
-                        <th class="text-center heading-3">OPTION</th>
-                        <th class="text-center heading-3">Cost Type</th>
-                        <th class="text-center heading-3">Members</th>
-                        <th class="text-center heading-3">Total</th>
-                    </tr>
-                    @php
-                        $count = 0;
-                    @endphp
-                    @foreach ($data->CostDeatils as $key => $cost)
+            @foreach ($costDeatils as $key => $costDeatil)
+                <div class="w-100">
+                    <h5> Option {{$key ?? ''}} </h5>
+                    <table class="table table-bordered">
                         <tr>
-                            <td class="text-center content-1">Option {{ $cost->optionNumber }}</td>
-                            <td class="text-center content-1">{{ $cost->costingFor }}</td>
-                            <td class="text-center content-1">{{ $cost->members }}</td>
-                            <td class="text-center content-1"><span class="text-danger"> ₹{{ $cost->costTotals ?? 0 }}</span></td>
+                            <th class="text-center heading-3">OPTION</th>
+                            <th class="text-center heading-3">Cost Type</th>
+                            <th class="text-center heading-3">Members</th>
+                            <th class="text-center heading-3">Total</th>
                         </tr>
-                    @endforeach
-                    @php
-                        $totalCost = 0;
-                        if(isset($data->CostDeatils) ) {
-                            foreach ($data->CostDeatils as $key => $cost) {
-                                if($cost->costTotals != '' && !is_null($cost->costTotals)) {
-                                    $totalCost += $cost->costTotals;
+                        @php
+                            $count = 0;
+                        @endphp
+                        @foreach ($costDeatil as $key => $cost)
+                            <tr>
+                                <td class="text-center content-1">Option {{ $cost->optionNumber }}</td>
+                                <td class="text-center content-1">{{ $cost->costingFor }}</td>
+                                <td class="text-center content-1">{{ $cost->members }}</td>
+                                <td class="text-center content-1"><span class="text-danger"> ₹{{ $cost->costTotals ?? 0 }}</span></td>
+                            </tr>
+                        @endforeach
+                        @php
+                            $totalCost = 0;
+                            if(isset($data->CostDeatils) ) {
+                                foreach ($data->CostDeatils as $key => $cost) {
+                                    if($cost->costTotals != '' && !is_null($cost->costTotals)) {
+                                        $totalCost += $cost->costTotals;
+                                    }
                                 }
-                            }
-                        }      
-                    @endphp
-                  <b class="d-none">{{ $totalCost }}</b>
-                </table> 
-                <h1 class="heading-3">PACKAGE COST PER COUPLE  - <span class="text-danger"> ₹ {{ $totalCost }}.</span></h1>
-            </div>
+                            }      
+                        @endphp
+                    <b class="d-none">{{ $totalCost }}</b>
+                    </table> 
+                    <h1 class="heading-3">PACKAGE COST PER COUPLE  - <span class="text-danger"> ₹ {{ $totalCost }}.</span></h1>
+                </div>
+            @endforeach
         </div>
         <div class="perpage justify-content-arounded ">
             <div class="w-100">
