@@ -184,8 +184,8 @@
                         <td>
                             <select class="form-select  form-select-sm my-2 mt-3" name="Activity" ng-model="I.Activity" required>
                                 <option value="">Select Activity</option>
-                                <option ng-repeat="Place in Places" value="@{{ Place.id }}">
-                                    @{{ Place.place_name }}
+                                <option ng-repeat="Activity in Activities" value="@{{ Activity.id }}">
+                                    @{{ Activity.title }}
                                 </option>
                             </select>
                         </td>
