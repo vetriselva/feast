@@ -11,8 +11,11 @@ use App\Models\Admin\PaymentPolicy;
 use App\Models\Admin\RefoundPolicy;
 use App\Models\Admin\Activity;
 use App\Models\Admin\CanclePolicy;
+use App\Models\Admin\City;
+use App\Models\Admin\DayActivity;
 use App\Models\Admin\HotelData;
 use App\Models\Admin\FlightData;
+use App\Models\Admin\Place;
 use App\Models\Admin\State;
 
 class DataCenterController extends Controller
@@ -61,12 +64,35 @@ class DataCenterController extends Controller
         }
         if($type == 'State') {
             $hot        =  State::latest()->get();
-            return view("admin.data-center.state",compact('hot'));
+            return view("admin.data-center.State",compact('hot'));
         }
+        if($type == 'City') {
+            $hot        =  City::with('state')->latest()->get();
+            $states     = State::get();
+            return view("admin.data-center.City",compact('hot','states'));
+        }
+        if($type == 'Place') {
+            $hot        =  Place::with('city')->latest()->get();
+            $cities       =  City::get();
+            return view("admin.data-center.Place",compact('hot','cities'));
+        }
+
+        if($type == 'Activities') {
+            $hot          =  Activity::with('place')->latest()->get();
+            $places       =  Place::get();
+            return view("admin.data-center.Activities",compact('hot','places'));
+        }
+
+        if($type == 'DayActivities') {
+            $hot          =  DayActivity::with('place')->latest()->get();
+            $places       =  Place::get();
+            return view("admin.data-center.DayActivities",compact('hot','places'));
+        }
+
     }
     public function store(Request $r, $type)
     {
-        if($type == 'Act_store') {
+        if($type == 'Activities_store') {
             $data   =    new Activity;
             $data -> title      = $r->  title;
             $data -> sub_title  = $r->  sub_title;
@@ -128,10 +154,26 @@ class DataCenterController extends Controller
             $state->save();
             return back()->with('success','Create Success!');
         }
+        if($type == 'city_store') {
+            $city            =  new City();
+            $city->state_id  = $r->state_id;
+            $city->city_name = $r->city_name;
+            $city->save();
+            return back()->with('success','Create Success!');
+        }
+
+        if($type == 'place_store') {
+            $place             =  new Place();
+            $place->city_id    = $r->city_id;
+            $place->place_name = $r->place_name;
+            $place->save();
+            return back()->with('success','Create Success!');
+        }
+        
     }
     public function destroy(Request $r, $id, $type)
     {
-        if($type == 'Act_delete') {
+        if($type == 'Activities_delete') {
             $act    =  Activity::find($id);
             $act->delete();
             return back()->with('success','Delete Success!');
@@ -177,11 +219,20 @@ class DataCenterController extends Controller
             $act->delete();
             return back()->with('success','Delete Success!');
         }
-        
+        if($type == 'city_delete') {
+            $act    =  City::find($id);
+            $act->delete();
+            return back()->with('success','Delete Success!');
+        }
+        if($type == 'place_delete') {
+            $act    =  Place::find($id);
+            $act->delete();
+            return back()->with('success','Delete Success!');
+        }
     }
     public function update(Request $r, $id, $type)
     {
-        if($type == 'Act_update') {
+        if($type == 'Activities_update') {
             $act    =  Activity::find($id);
             $act    -> title      = $r->  title;
             $act    -> sub_title  = $r->  sub_title;
@@ -241,5 +292,20 @@ class DataCenterController extends Controller
             $state->save();
             return back()->with('success','Update Success!');
         }
+        if($type == 'city_update') {
+            $act    =  City::find($id);
+            $act->state_id = $r->state_id;
+            $act->city_name = $r->city_name;
+            $act->save();
+            return back()->with('success','Delete Success!');
+        }
+        if($type == 'place_update') {
+            $act    =  Place::find($id);
+            $act->city_id = $r->city_id;
+            $act->place_name = $r->place_name;
+            $act->save();
+            return back()->with('success','Delete Success!');
+        }
+        
     }
 }

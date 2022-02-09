@@ -9,4 +9,14 @@ class City extends Model
 {
     protected $guarded = ['*'];
     use HasFactory;
+
+    public function place()
+    {
+        return $this->hasOne(Place::class);
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
 }
