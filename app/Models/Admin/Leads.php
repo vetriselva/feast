@@ -26,7 +26,7 @@ class Leads extends Model
         "payment_poly",
         "refound_poly",
         "cancle_poly",
-
+        "created_by"
     ];
     public function LeadItinary()    {
         return $this->hasMany(LeadItinary::class, 'lead_id', 'id');

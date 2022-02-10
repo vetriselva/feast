@@ -16,16 +16,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('roles')->insert([
+            'role_name' => "admin",
+            'is_active' => 1,
+        ]);
+        DB::table('roles')->insert([
+            'role_name' => "sale",
+            'is_active' => 1,
+        ]);
         DB::table('users')->insert([
                 'name' => "prabhu kannan",
                 'is_admin' => 1,
                 'email' => 'prabhukannan1210@gmail.com',
                 'password' => Hash::make('password'),
-            ],[
-                'name' => "Bharathi kannan",
-                'is_admin' => 0,
-                'email' => 'user@gmail.com',
-                'password' => Hash::make('password'),
+                'role_id' => 1, //admin
             ]
         );
         DB::table('users')->insert( [
@@ -33,6 +37,7 @@ class DatabaseSeeder extends Seeder
             'is_admin' => 0,
             'email' => 'user@gmail.com',
             'password' => Hash::make('password'),
+            'role_id' => 2
         ]
     );
         DB::table('flight_data')->insert(

@@ -82,31 +82,34 @@
                             <span>Leads</span>
                         </a> 
                         <div>
+                            @if (Role()->role_name == 'admin')
                             <div  id="panelsStayOpen-headingTwo">
                                 <a class="accordion-button list-group-item list-group-item-action {{ Route::is("data-center") ? "active" : "" }} collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                                     <i class="side-nav-icon las la-cog"></i>
                                     <span>Data Center</span>
                                 </a>
                             </div>
-                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse {{ Route::is("data-center") ? "show" : "" }}" aria-labelledby="panelsStayOpen-headingTwo">
-                                <div class="accordion-body">
-                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Itinerary' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Itinerary']) }}">Itinerary Details  </a></li>
-                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Hotels' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Hotels']) }}">Hotels Details</a></li>
-                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Flights' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Flights']) }}">Flights Details</a></li>
+                            
+                                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse {{ Route::is("data-center") ? "show" : "" }}" aria-labelledby="panelsStayOpen-headingTwo">
+                                    <div class="accordion-body">
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Itinerary' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Itinerary']) }}">Itinerary Details  </a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Hotels' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Hotels']) }}">Hotels Details</a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Flights' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Flights']) }}">Flights Details</a></li>
 
-                                    {{--  --}}
-                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Package_Inclusions' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Package_Inclusions']) }}">Package Inclusions</a></li>
-                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Package_Exclusions' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Package_Exclusions']) }}">Package Exclusions</a></li>
-                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Payment_Policy' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Payment_Policy']) }}">Payment Policy</a></li>
-                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Refound_Policy' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Refound_Policy']) }}">Refound Policy</a></li>
-                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Cancel_Policy' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Cancel_Policy']) }}">Cancellation Policy</a></li>
-                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'State' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'State']) }}"> State </a></li>
-                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'City' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'City']) }}"> City </a></li>
-                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Place' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Place']) }}"> Place </a></li>
-                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Activities' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Activities']) }}"> Activities </a></li>
-                                    <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'DayActivities' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'DayActivities']) }}"> DayActivities </a></li>
+                                        {{--  --}}
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Package_Inclusions' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Package_Inclusions']) }}">Package Inclusions</a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Package_Exclusions' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Package_Exclusions']) }}">Package Exclusions</a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Payment_Policy' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Payment_Policy']) }}">Payment Policy</a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Refound_Policy' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Refound_Policy']) }}">Refound Policy</a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Cancel_Policy' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Cancel_Policy']) }}">Cancellation Policy</a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'State' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'State']) }}"> State </a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'City' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'City']) }}"> City </a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Place' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Place']) }}"> Place </a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Activities' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Activities']) }}"> Activities </a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'DayActivities' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'DayActivities']) }}"> DayActivities </a></li>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                           </div>
                     </div>
                 </div>

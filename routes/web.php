@@ -11,6 +11,7 @@ use App\Models\Admin\State;
 use App\Models\Admin\Place;
 use App\Models\Admin\RefoundPolicy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -34,10 +35,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['prefix' => 'admin'], function() {
+    Route::get('/lead', [App\Http\Controllers\Admin\LeadController::class, 'index'])->name('lead');
+});
 
 Route::group(['prefix' => 'admin',  'middleware' => 'is_admin'], function() {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('AdminDashboard');
-    Route::get('/lead', [App\Http\Controllers\Admin\LeadController::class, 'index'])->name('lead');
+    // Route::get('/lead', [App\Http\Controllers\Admin\LeadController::class, 'index'])->name('lead');
     Route::get('/lead/{id}', [App\Http\Controllers\Admin\LeadController::class, 'show'])->name('lead-view');
     Route::get('/lead/edit/{id}', [App\Http\Controllers\Admin\LeadController::class, 'edit'])->name('lead-edit');
     Route::get('/lead-delete/{id}', [App\Http\Controllers\Admin\LeadController::class, 'destroy'])->name('lead-delete');

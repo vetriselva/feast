@@ -34,6 +34,8 @@ class CreateLeadsTable extends Migration
             $table->string("payment_poly")->nullable(); 
             $table->string("refound_poly")->nullable(); 
             $table->string("cancle_poly")->nullable(); 
+            $table->unsignedBigInteger("created_by"); 
+            $table->foreign("created_by")->references('id')->on('users'); 
             $table->timestamps();
         });
     }

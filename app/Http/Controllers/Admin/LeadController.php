@@ -15,6 +15,7 @@ use App\Models\Admin\DayActivity;
 use App\Models\Admin\HotelData;
 use App\Models\Admin\ItineraryDayactivity;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -27,9 +28,17 @@ class LeadController extends Controller
      */
     public function index()
     {
-      
-    $data =  Leads::with("LeadItinary")->latest()->get();
+        $role_name = Role()->role_name;
+        if($role_name == 'admin'){
+            $data =  Leads::with("LeadItinary")->latest()->get();
             return view("admin.lead.lead", compact('data'));
+        } else {
+            $data =  Leads::with("LeadItinary")
+                            ->where('created_by',user()->id)
+                            ->get();
+            return view("admin.lead.lead", compact('data'));
+        }
+    
     }
 
     /**
@@ -71,6 +80,7 @@ class LeadController extends Controller
             'payment_poly'      => json_encode($r->paymentPolicy),
             'refound_poly'      => json_encode($r->refundPolicy),
             'cancle_poly'       => json_encode($r->cancelPolicy),
+            'created_by'        => User()->id,
         ]);
       
         foreach($r->itineraryDetail as $key => $itinerary){
