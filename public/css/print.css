@@ -26,13 +26,7 @@
     /* .print-padding {
         padding-right: 25px !important;
     } */
-    .border-head {
-        /* padding: 10px 0 !important ;
-        border-top: 2px solid gray !important;
-        border-bottom: 2px solid gray !important; */
-        background: #eee !important;
-        padding: 10px 0 !important ;
-    }
+ 
    
 } 
 .size-print {
@@ -52,7 +46,7 @@
 }
 @page {
     size: auto;
-    margin: 0.50in  0.60in  !important;
+    margin: 0.80in  !important;
 }
 .print-btn {
     position: fixed;
@@ -64,8 +58,10 @@
     min-height: 100vh   ;
     border-bottom: 1px solid gray;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     flex-direction: column;
 }
- 
+.gap-td td {
+    line-height: 20px !important;
+ }

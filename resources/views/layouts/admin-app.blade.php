@@ -82,7 +82,7 @@
                             <span>Leads</span>
                         </a> 
                         <div>
-                            @if (Role()->role_name == 'admin')
+                            @if (auth()->user()->is_admin == 1)
                             <div  id="panelsStayOpen-headingTwo">
                                 <a class="accordion-button list-group-item list-group-item-action {{ Route::is("data-center") ? "active" : "" }} collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                                     <i class="side-nav-icon las la-cog"></i>

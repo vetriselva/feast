@@ -13,6 +13,7 @@ use App\Models\Admin\CanclePolicy;
 use App\Models\Admin\Activity;
 use App\Models\Admin\DayActivity;
 use App\Models\Admin\HotelData;
+use App\Models\Admin\FlightData;
 use App\Models\Admin\ItineraryDayactivity;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +29,8 @@ class LeadController extends Controller
      */
     public function index()
     {
-        $role_name = Role()->role_name;
-        if($role_name == 'admin'){
+        // $role_name = Role()->role_name;
+        if(auth()->user()->is_admin == 1){
             $data =  Leads::with("LeadItinary")->latest()->get();
             return view("admin.lead.lead", compact('data'));
         } else {
@@ -49,8 +50,9 @@ class LeadController extends Controller
     public function create()
     {
         $hotels = HotelData::all();
-        $act =  Activity::all();
-        return view("admin.lead.create-lead",compact('act','hotels'));
+        $act    =  Activity::all();
+        $flights    =  FlightData::all();
+        return view("admin.lead.create-lead",compact('act','hotels','flights'));
     }
 
     /**
@@ -74,13 +76,13 @@ class LeadController extends Controller
             'flight_id'         => 1,
             'roomType'          => $r->roomType,
             'costingNotes'      => $r->costingNote,
-            // 'routeMap'          => $RouteMap ?? "https://res.cloudinary.com/dkgkk5wua/image/upload/v1643536228/fgoxaxhtl9i4hqck6mjb.png",
+            'routeMap'          => $RouteMap ?? "https://res.cloudinary.com/dkgkk5wua/image/upload/v1643536228/fgoxaxhtl9i4hqck6mjb.png",
             'pack_includs'      => json_encode($r->inclusionPolicy),
             'pack_excluds'      => json_encode($r->exclusionpolicy),
             'payment_poly'      => json_encode($r->paymentPolicy),
             'refound_poly'      => json_encode($r->refundPolicy),
             'cancle_poly'       => json_encode($r->cancelPolicy),
-            'created_by'        => User()->id,
+            'created_by'        => auth()->user()->id,
         ]);
       
         foreach($r->itineraryDetail as $key => $itinerary){
