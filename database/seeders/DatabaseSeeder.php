@@ -304,5 +304,15 @@ class DatabaseSeeder extends Seeder
                 'content' => "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam vero, quidem dolor maxime non quaerat maiores obcaecati repellendus dignissimos et, ex consequatur autem, quod at doloribus? Veniam quos cupiditate tempora.",
             ],   
         );
+
+        DB::table('configs')->insert(
+            [
+                "bank_name" => 'State Bank',
+                "account_holder_name" => 'Alan',
+                "account_number" => "0000000000000000021",
+                "branch_name" => "chennai",
+                "ifsc_code" => "00000IFSC"
+            ],   
+        );
     }
 }

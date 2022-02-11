@@ -12,6 +12,7 @@ use App\Models\Admin\RefoundPolicy;
 use App\Models\Admin\Activity;
 use App\Models\Admin\CanclePolicy;
 use App\Models\Admin\City;
+use App\Models\Admin\Configs;
 use App\Models\Admin\DayActivity;
 use App\Models\Admin\HotelData;
 use App\Models\Admin\FlightData;
@@ -80,6 +81,10 @@ class DataCenterController extends Controller
             $hot          =  DayActivity::with('place')->latest()->get();
             $places       =  Place::get();
             return view("admin.data-center.DayActivities",compact('hot','places'));
+        }
+        else if($type == 'Configs') {
+            $hot          =  Configs::get();
+            return view("admin.data-center.Configs",compact('hot'));
         }
 
     }
@@ -322,15 +327,25 @@ class DataCenterController extends Controller
             $act->state_id = $r->state_id;
             $act->city_name = $r->city_name;
             $act->save();
-            return back()->with('success','Delete Success!');
+            return back()->with('success','Update Success!');
         }
         if($type == 'place_update') {
             $act    =  Place::find($id);
             $act->city_id = $r->city_id;
             $act->place_name = $r->place_name;
             $act->save();
-            return back()->with('success','Delete Success!');
+            return back()->with('success','Update Success!');
         }
-        
+        if($type == 'Configs_update') {
+
+            $act    =  Configs::find($id);
+            $act->bank_name = $r->bank_name;
+            $act->account_holder_name = $r->account_holder_name;
+            $act->account_number = $r->account_number;
+            $act->branch_name = $r->branch_name;
+            $act->ifsc_code = $r->ifsc_code;
+            $act->save();
+            return back()->with('success','Update Success!');
+        }
     }
 }

@@ -107,6 +107,7 @@
                                         <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Place' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Place']) }}"> Place </a></li>
                                         <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Activities' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Activities']) }}"> Activities </a></li>
                                         <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'DayActivities' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'DayActivities']) }}"> DayActivities </a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Configs' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Configs']) }}"> Configs </a></li>
                                     </div>
                                 </div>
                             @endif

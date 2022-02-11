@@ -11,6 +11,7 @@ use App\Models\Admin\PaymentPolicy;
 use App\Models\Admin\RefoundPolicy;
 use App\Models\Admin\CanclePolicy;
 use App\Models\Admin\Activity;
+use App\Models\Admin\Configs;
 use App\Models\Admin\DayActivity;
 use App\Models\Admin\HotelData;
 use App\Models\Admin\ItineraryDayactivity;
@@ -165,6 +166,10 @@ class LeadController extends Controller
                         ->with("HotalsDeatils", "HotalsDeatils.HotelData")
                         ->with("CostDeatils")
                         ->find($id);
+                    
+        if(empty($data)){
+            return redirect(route('lead'))->with('error','Item not found!');
+        }
         $hotelDetails = Collect($data->HotalsDeatils)->groupBy('HotelOptionNumber');
         $costDeatils = Collect($data->CostDeatils)->groupBy('optionNumber');
         $paymentPolicies = PaymentPolicy::find( json_decode($data->payment_poly));
@@ -172,7 +177,8 @@ class LeadController extends Controller
         $cancelPolicies = CanclePolicy::find( json_decode($data->cancle_poly));
         $packInclusions = PackageInclusions::find( json_decode($data->pack_includs));
         $packExclusions = PackageExclusions::find( json_decode($data->pack_excluds));
-        return view("admin.lead.show-lead",compact('data','hotelDetails', 'costDeatils','paymentPolicies', 'refundPolicies','cancelPolicies','packInclusions','packExclusions'));
+        $configs =  Configs::first();
+        return view("admin.lead.show-lead",compact('configs','data','hotelDetails', 'costDeatils','paymentPolicies', 'refundPolicies','cancelPolicies','packInclusions','packExclusions'));
     }
     /**
      * Show the form for editing the specified resource.

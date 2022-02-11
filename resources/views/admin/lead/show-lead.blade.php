@@ -345,10 +345,32 @@
                 </ul>
             </div>
         </div>
+        <div class="perpage justify-content-arounded ">
+            <div class="w-100">
+                <ul class="list-style-none">
+                    <li>
+                        Bank Name - {{$configs->bank_name}} 
+                    </li>
+                    <li>
+                        Account Holder Name - {{$configs->account_holder_name}}
+                    </li>
+                    <li>
+                        Account Number - {{$configs->account_number}}
+                    </li>
+                    <li>
+                        Branch Name - {{$configs->branch_name}}
+                    </li><li>
+                        IFSC Code - {{$configs->ifsc_code}}
+                    </li>
+        
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 @else
     No Records found 
 @endif
+
 @endsection
  
