@@ -85,8 +85,12 @@
                         <small class="text-secondary">Flight Name</small>
                     </div>
                     <select name="flight_id" class="form-select form-select-sm border-0 border-bottom rounded-0" required>
-                        <option value="1">Air india</option>
-                        <option value="2">Air Asia</option>
+                        @if ($flights)
+                            @foreach ($flights as $flight)
+                            <option value="{{ $flight->id }}">{{ $flight->name }}</option>
+                            @endforeach
+                        @endif
+                        
                     </select>
                 </div>
                 <div class="col text-end">
@@ -144,8 +148,8 @@
                         <th width="20%">State name</th>
                         <th width="20%">City name</th>
                         <th width="20%">Places name</th>
-                        <th width="20%">Activity</th>
-                        <th width="20%">Day Activity</th>
+                        <th width="20%">Day activity </th>
+                        <th width="20%">Sightseeingy</th>
                         <th>Transfers</th>
                         <th>Tickets</th>
                         <th class="text-center">Meals</th>
@@ -193,7 +197,8 @@
                             <div class="col-xs-6">
                                 <dropdown-multiselect model="I.DayActivity" 
                                 options="dayActivities"></dropdown-multiselect>
-                            </div>
+                            </div> 
+                            
                         </td>
                         <td class="text-center">
                             <input class="form-check-input"  name="Transfers[]"  ng-model="I.Transfers" type="checkbox" value="Included">

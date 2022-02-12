@@ -56,13 +56,13 @@
                 </div>
                 <div class="text-center w-100 p-2">
                     <h1 class="text-center mb-3 h1 f-16 heading-2">ROUTE MAP</h1> 
-                    <img src="{{ $data->routeMap }}"  alt="routemap" class="w-100 it-img" style="height:300px!important;object-fit: cover">
+                    <img src="{{ $data->routeMap }}"  alt="routemap" class="w-100 rounded shadow" style="height:350px!important;object-fit: cover">
                 </div>
             </div>
             
             
         </div> 
-        <div class="perpage">
+        <div class="perpage  justify-content-start">
             <div class="w-100 logo-header">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="colx">
@@ -73,17 +73,17 @@
                     </div>
                 </div>
             </div>
-            <div class="w-100">
-                <h1 class="text-center  border-head heading-2">
+            <div class="w-100 my-3">
+                <h1 class="text-center border-head m-0 heading-2">
                     FLIGHT DETAILS IN {{ $data->placeToVisit }} | {{ $data->FlightData->name }}
                 </h1>
             </div>
-            <div class="w-100 p-2">
-                <img src="{{ $data->FlightData->image }}" alt="routemap" class="w-100 mb-3 it-img" style="height:300px!important;object-fit: cover">
+            <div class="w-100 p-2 mb-3">
+                <img src="{{ $data->FlightData->image }}" alt="routemap"class="w-100 rounded shadow" style="height:350px!important;object-fit: cover">
             </div>
             <div class="text-centerx w-100">
                 <table class="table m-0 table-bordered">
-                    <thead class="bg-light">
+                    <thead class="bg-green">
                         <tr class="text-center">
                             <th class="heading-3 text-center">FROM</th>
                             <th class="heading-3 text-center">TO</th>
@@ -98,11 +98,11 @@
                     </thead>
                     <tbody> 
                         @foreach ($data->FlightsDeatils as $key => $it)
-                            <tr>
+                            <tr >
                                 <td class="text-center content-2">{{ $it->from }}</td>
                                 <td class="text-center content-2">{{ $it->to }}</td>
                                 <td class="text-center content-2">{{ $it->flight }}</td>
-                                <td class="text-center content-2">{{ $it->date }}</td>
+                                <td class="text-center content-2"> {!! date('d M y', strtotime($it->date)) !!} </td>
                                 <td class="text-center content-2">{{ $it->dep }}</td>
                                 <td class="text-center content-2">{{ $it->arr }}</td>
                                 <td class="text-center content-2">{{ $it->bag }}</td>
@@ -159,14 +159,18 @@
                         </div>
                     </div>
                 </div>
-                @foreach ($it->itineraryDayActivities as $itineraryDay)
-                    <div class="text-center w-100 my-3 p-2">
-                        <img src="{{ $itineraryDay->dayActivity->image }}" alt="routemap" class="w-100 it-img" style="height:300px!important;object-fit: cover">
-                    </div>
-                    <div class="w-100">
-                        <p class="content-1">{{ $itineraryDay->dayActivity->content }}</p>
+                <div class="row m-0">
+                    @foreach ($it->itineraryDayActivities as $itineraryDay)
+                    <div class="col">
+                        <div class="text-center w-100 my-3 p-2">
+                            <img src="{{ $itineraryDay->dayActivity->image }}" alt="routemap" class="w-100 it-img" style="height:300px!important;object-fit: cover">
+                        </div>
+                        <div class="w-100">
+                            <p class="content-1">{{ $itineraryDay->dayActivity->content }}</p>
+                        </div>
                     </div>
                 @endforeach
+                </div>
                 <div class="w-100">
                     <div class="row">
                         <div class="col-8 p-0">
@@ -199,55 +203,53 @@
             @endforeach 
         </div>
          
-        <div class="perpage">
-            <div class="w-100">
-                <div class="d-flex justify-content-between align-items-center mb-3 logo-header">
-                    <div class="colx">
-                        <img src="{{ asset("images/logo/text-logo.png") }}" width="220px"alt="">
-                    </div>
-                    <div class="colx">
-                        <img src="{{ asset("images/logo/logo-sm.png") }}" width="200px" alt="">
-                    </div>
-                </div>
-                <h1 class="text-center  border-head heading-3 ">
-                    Hotel Details
-                </h1>
-            </div>
-          
+        <div class="w-100">
+             
             @foreach ($hotelDetails  as $key => $hotels)
-                <h5> Option {{$key ?? ''}} </h5>
-                @foreach ($hotels as  $hot)
-                <div class="w-100 my-3">
-                    <div class="row m-0 justify-content-center">
-                            <p>{{$hot->HotelData->name}}</p>
-                            <div class="col">
-                                <img src="{{ $hot->HotelData->image }}" class="w-100 it-img" style="height: 200px;object-fit:cover">
+                <div class="perpage">
+                    <div class="w-100">
+                        <div class="d-flex justify-content-between align-items-center mb-3 logo-header">
+                            <div class="colx">
+                                <img src="{{ asset("images/logo/text-logo.png") }}" width="220px"alt="">
                             </div>
+                            <div class="colx">
+                                <img src="{{ asset("images/logo/logo-sm.png") }}" width="200px" alt="">
+                            </div>
+                        </div>
+                        <h1 class="text-center  border-head heading-3 ">
+                            Hotel Details
+                        </h1>
                     </div>
-                </div>
-                @endforeach
-                <div class="w-100">
-                    <table class="table table-bordered">
-                        <tr>
-                            <th class="heading-3 text-center">OPTION</th>
-                            <th class="heading-3 text-center">CITY</th>
-                            <th class="heading-3 text-center">HOTEL</th>
-                            <th class="heading-3 text-center">ROOM TYPE</th>
-                            <th class="heading-3 text-center">NIGHTS</th>
-                            <th class="heading-3 text-center">REATINGS</th>
-                        </tr>
-                        @foreach ($hotels as $hot)
-                            <tr>
-                                <td class="text-center content-2">Option {{ $hot->HotelOptionNumber }}</td>
-                                <td class="text-center content-2">{{ $hot->HotelData->name }}</td>
-                                <td class="text-center content-2">{{ $hot->city }}</td>
-                                <td class="text-center content-2">{{ $hot->hotal_room_type }}</td>
-                                <td class="text-center content-2">{{ $hot->hotal_night }}</td>
-                                <td class="text-center content-2">{{ $hot->hotal_night }}</td>
-                            </tr>
+                    <h5> Option {{$key ?? ''}} </h5>
+                    <div class="row mb-3 justify-content-center">
+                        @foreach ($hotels as  $hot)
+                            <div class="col-6">
+                                <div class="heading-3 text-center">{{$hot->HotelData->name}}</div>
+                                <img src="{{ $hot->HotelData->image }}" class="w-100  rounded shadow my-2" style="height: 200px;object-fit:cover">
+                            </div>
                         @endforeach
-                    </table>
-                </div>
+                    </div>
+                    <div class="w-100">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th class="heading-3 text-center">CITY</th>
+                                <th class="heading-3 text-center">HOTEL</th>
+                                <th class="heading-3 text-center">ROOM TYPE</th>
+                                <th class="heading-3 text-center">NIGHTS</th>
+                                <th class="heading-3 text-center">REATINGS</th>
+                            </tr>
+                            @foreach ($hotels as $hot)
+                                <tr>
+                                    <td class="text-center content-2">{{ $hot->HotelData->name }}</td>
+                                    <td class="text-center content-2">{{ $hot->city }}</td>
+                                    <td class="text-center content-2">{{ $hot->hotal_room_type }}</td>
+                                    <td class="text-center content-2">{{ $hot->hotal_night }}</td>
+                                    <td class="text-center content-2">{{ $hot->hotal_night }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+               </div>
             @endforeach
         </div>
         <div class="perpage">
@@ -269,7 +271,6 @@
                     <h5> Option {{$key ?? ''}} </h5>
                     <table class="table table-bordered">
                         <tr>
-                            <th class="text-center heading-3">OPTION</th>
                             <th class="text-center heading-3">Cost Type</th>
                             <th class="text-center heading-3">Members</th>
                             <th class="text-center heading-3">Total</th>
@@ -279,7 +280,6 @@
                         @endphp
                         @foreach ($costDeatil as $key => $cost)
                             <tr>
-                                <td class="text-center content-1">Option {{ $cost->optionNumber }}</td>
                                 <td class="text-center content-1">{{ $cost->costingFor }}</td>
                                 <td class="text-center content-1">{{ $cost->members }}</td>
                                 <td class="text-center content-1"><span class="text-danger"> ₹{{ $cost->costTotals ?? 0 }}</span></td>

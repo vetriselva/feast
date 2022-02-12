@@ -33,13 +33,13 @@ class DatabaseSeeder extends Seeder
             ]
         );
         DB::table('users')->insert( [
-            'name' => "Bharathi kannan",
-            'is_admin' => 0,
-            'email' => 'user@gmail.com',
-            'password' => Hash::make('password'),
-            'role_id' => 2
-        ]
-    );
+                'name' => "Bharathi kannan",
+                'is_admin' => 0,
+                'email' => 'user@gmail.com',
+                'password' => Hash::make('password'),
+                'role_id' => 2
+            ]
+        );
         DB::table('flight_data')->insert(
             [
                 'name' => "Air India 004",

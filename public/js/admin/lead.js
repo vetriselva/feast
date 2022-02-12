@@ -427,10 +427,10 @@ app.directive('dropdownMultiselect', function () {
         },
         template:
                 `<div class="dropdown" class="{open: open}">{{model.length}}
-                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-light w-100 btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 -- Choose --
                 </button>
-                <ul class="dropdown-menu {open: open}" aria-labelledby="dropdownMenuButton1">
+                <ul class="dropdown-menu {open: open} w-100" aria-labelledby="dropdownMenuButton1">
                 <li ng-repeat='option in options'> <a ng-click='toggleSelectItem(option)' class="dropdown-item"> <span ng-class='getClassName(option)' aria-hidden='true'> </span> {{option.title}}  </a></li>
                 </ul>
               </div>`,
