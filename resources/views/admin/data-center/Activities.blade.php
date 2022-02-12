@@ -57,7 +57,7 @@
                                                             <select name="place_id" id="place_id" class="form-control mt-2">
                                                                 <option value="">Select Place</option>
                                                                 @foreach ($places as $place)
-                                                                <option {{$row->place_id == $place->id ? 'selected' : ''}} value="{{$place->id}}">{{$place->place_name}}</option>
+                                                                <option {{$row->place_id == $place->id ? 'selected' : ''}} name="" value="{{$place->id}}">{{$place->place_name}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>

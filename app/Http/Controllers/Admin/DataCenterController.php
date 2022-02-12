@@ -91,6 +91,7 @@ class DataCenterController extends Controller
     public function store(Request $r, $type)
     {
         if($type == 'Activities_store') {
+            dd($r->all());
             $data   =    new Activity;
             $data -> place_id   = $r->  place_id;
             $data -> title      = $r->  title;
