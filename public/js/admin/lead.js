@@ -31,7 +31,9 @@ app.controller('LeadController', function($scope, $http, API_URL, fileUpload) {
             url: `${API_URL}/admin/lead`,
             data: {data: Lead}
         }).then(function success(response) {
-            alert('data submitted successfully');
+            // alert('data submitted successfully');
+            // location.reload();
+
             if(response.data.status == true) {
                 $scope.uploadFile();
             }

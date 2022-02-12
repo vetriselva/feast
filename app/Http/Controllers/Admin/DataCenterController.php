@@ -91,13 +91,10 @@ class DataCenterController extends Controller
     public function store(Request $r, $type)
     {
         if($type == 'Activities_store') {
-            dd($r->all());
+            // dd($r->all());
             $data   =    new Activity;
             $data -> place_id   = $r->  place_id;
             $data -> title      = $r->  title;
-            $data -> sub_title  = $r->  sub_title;
-            $data -> image      = $r->  image;
-            $data -> content    = $r->  content;
             $data->save();
             return back()->with('success','Create Success!');
         }
@@ -262,7 +259,7 @@ class DataCenterController extends Controller
         }
 
         if($type == 'DayActivities_update') {
-            $data   =    new DayActivity;
+            $data   =    DayActivity::find($id);
             $data -> place_id   = $r->  place_id;
             $data -> title      = $r->  title;
             $data -> sub_title  = $r->  sub_title;

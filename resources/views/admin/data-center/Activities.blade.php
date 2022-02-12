@@ -22,9 +22,6 @@
                         <th>S.No</th>
                         <th>Place Name</th>
                         <th>Title</th>
-                        <th>Sub Title</th>
-                        <th>Content</th>
-                        <th>Image </th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -35,9 +32,6 @@
                             <td>{{ $index +1 }}</td>
                             <td>{{ $row->place->place_name }}</td>
                             <td>{{ $row->title }}</td>
-                            <td>{{ $row->sub_title }}</td>
-                            <td>{{ $row->content }}</td>
-                            <td><img src="{{ $row->image }}" alt="" width="50px" height="20px"></td>
                             <td>
                                 <a data-bs-toggle="modal" data-bs-target="#Add_Hotels_edit_model__{{ $index +1 }}"><i class="fa fa-pencil btn btn-sm btn-light border text-primary"></i></a>
                                 <div class="modal fade" id="Add_Hotels_edit_model__{{ $index +1 }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -57,7 +51,7 @@
                                                             <select name="place_id" id="place_id" class="form-control mt-2">
                                                                 <option value="">Select Place</option>
                                                                 @foreach ($places as $place)
-                                                                <option {{$row->place_id == $place->id ? 'selected' : ''}} name="" value="{{$place->id}}">{{$place->place_name}}</option>
+                                                                <option {{$row->place_id == $place->id ? 'selected' : ''}}  value="{{$place->id}}">{{$place->place_name}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -66,15 +60,7 @@
                                                             <small>Title Name</small>
                                                             <input type="text" name="title" class="mt-2 form-control border-0 border-bottom" value="{{$row->title}}"  required>
                                                         </div>
-                                                        <div class="col-6 my-3">
-                                                            <small>Sub Title</small>
-                                                            <input type="text" name="sub_title" class="mt-2 form-control border-0 border-bottom" value="{{$row->sub_title}}" required>
-                                                        </div>
-                                                        <div class="col-6 my-3">
-                                                            <small>Content</small>
-                                                            <input type="text" name="content" class="mt-2 form-control border-0 border-bottom"  value="{{$row->content}}" required>
-                                                        </div>
-                                                    
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,10 +117,10 @@
                             <div class="col-6 my-3">
                                 <small>Place </small>
                     
-                                <select name="city_id" id="city_id" class="form-control mt-2">
+                                <select name="place_id" id="place_id" class="form-select mt-2">
                                     <option value="">Select Place</option>
                                     @foreach ($places as $place)
-                                    <option value="{{$place->id}}">{{$place->place_name}}</option>
+                                    <option value="{{$place->id}}"  >{{$place->place_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -142,23 +128,7 @@
                             <div class="col-6 my-3">
                                 <small>Title Name</small>
                                 <input type="text" name="title" class="mt-2 form-control border-0 border-bottom"  required>
-                            </div>
-                            <div class="col-6 my-3">
-                                <small>Sub Title</small>
-                                <input type="text" name="sub_title" class="mt-2 form-control border-0 border-bottom"  required>
-                            </div>
-                            <div class="col-6 my-3">
-                                <small>Content</small>
-                                <input type="text" name="content" class="mt-2 form-control border-0 border-bottom"  required>
-                            </div>
-                            <div class="colmy-3">
-                                <div ><small>Image URL</small></div>
-                                <input type="url" name="image" value="{{ $row->image }}" class="mt-2 form-control border-0 border-bottom"   required>
-                               <br>
-                               <div class="text-center">
-                                <img src="{{ $row->image }}" width="280px">
-                               </div>
-                            </div>
+                            </div> 
                         </div>
                     </div>
                 </div>

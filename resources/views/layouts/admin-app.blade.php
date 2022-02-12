@@ -92,7 +92,7 @@
                             
                                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse {{ Route::is("data-center") ? "show" : "" }}" aria-labelledby="panelsStayOpen-headingTwo">
                                     <div class="accordion-body">
-                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Itinerary' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Itinerary']) }}">Itinerary Details  </a></li>
+                                        {{-- <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Itinerary' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Itinerary']) }}">Itinerary Details  </a></li> --}}
                                         <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Hotels' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Hotels']) }}">Hotels Details</a></li>
                                         <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Flights' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Flights']) }}">Flights Details</a></li>
 

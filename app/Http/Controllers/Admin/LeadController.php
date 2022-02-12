@@ -65,6 +65,9 @@ class LeadController extends Controller
     public function store(Request $request)
     {
         $r = Json_decode(Json_encode($request->input('data')));
+        // if($r->routeMap) {
+        //     $RouteMap = cloudinary()->upload($r->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
+        // }
         $data   =   Leads::create([
             'leadNumber'        => $r->leadNumber,
             'subTitle'          => $r->subTitle,
@@ -77,7 +80,7 @@ class LeadController extends Controller
             'flight_id'         => 1,
             'roomType'          => $r->roomType,
             'costingNotes'      => $r->costingNote,
-            'routeMap'          => $RouteMap ?? "https://res.cloudinary.com/dkgkk5wua/image/upload/v1643536228/fgoxaxhtl9i4hqck6mjb.png",
+            'routeMap'          => $this->storeRouteMap(),
             'pack_includs'      => json_encode($r->inclusionPolicy),
             'pack_excluds'      => json_encode($r->exclusionpolicy),
             'payment_poly'      => json_encode($r->paymentPolicy),
@@ -138,7 +141,7 @@ class LeadController extends Controller
         foreach($r->costDetails as $key => $costcostDetail){
             foreach($costcostDetail->Details as $option => $cost){
                 $data->CostDeatils()->create([
-                    'optionNumber'  => $option + 1 ?? "", 
+                    'optionNumber'  => $key + 1 ?? "", 
                     'costingFor'    => $cost->costTitle  ?? "",
                     'members'       => $cost->member ?? "",
                     'costTotals'    => $cost->costTotal ?? "",
@@ -151,6 +154,7 @@ class LeadController extends Controller
 
     public function storeRouteMap(Request $request)
     {
+        // dd($request->all());
         return $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
     }
 
@@ -174,6 +178,7 @@ class LeadController extends Controller
         }
         $hotelDetails = Collect($data->HotalsDeatils)->groupBy('HotelOptionNumber');
         $costDeatils = Collect($data->CostDeatils)->groupBy('optionNumber');
+        // dd($costDeatils);
         $paymentPolicies = PaymentPolicy::find( json_decode($data->payment_poly));
         $refundPolicies = RefoundPolicy::find( json_decode($data->refound_poly));
         $cancelPolicies = CanclePolicy::find( json_decode($data->cancle_poly));

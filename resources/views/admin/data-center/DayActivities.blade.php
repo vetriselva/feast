@@ -126,7 +126,7 @@
     <!-- Modal -->
     <div class="modal fade" id="Add_Hotels_model" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog  modal-lg">
-            <form  action="{{ route("data.itinerary",['type' => 'DayActivities_store']) }}" method="POST" enctype="multipart/form-data" class="modal-content">
+            <form  action="{{ route("data.itinerary",['type' => 'DayActivites_store']) }}" method="POST" enctype="multipart/form-data" class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel"><b>Create Form</b></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -139,7 +139,7 @@
                             <div class="col-6 my-3">
                                 <small>Place </small>
                     
-                                <select name="city_id" id="city_id" class="form-control mt-2">
+                                <select name="place_id" id="place_id" class="form-control mt-2">
                                     <option value="">Select Place</option>
                                     @foreach ($places as $place)
                                     <option value="{{$place->id}}">{{$place->place_name}}</option>
@@ -156,6 +156,10 @@
                                 <input type="text" name="sub_title" class="mt-2 form-control border-0 border-bottom"  required>
                             </div>
                             <div class="col-6 my-3">
+                                <small>Image URL</small>
+                                <input type="url" name="image" class="mt-2 form-control border-0 border-bottom"  required>
+                            </div>
+                            <div class="col-12 my-3">
                                 <small>Content</small>
                                 <input type="text" name="content" class="mt-2 form-control border-0 border-bottom"  required>
                             </div>
