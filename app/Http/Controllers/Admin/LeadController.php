@@ -151,7 +151,13 @@ class LeadController extends Controller
 
     public function storeRouteMap(Request $request)
     {
-        return $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
+        $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
+        if($RouteMap){
+            $lead = Leads::findOrFail($request->input('id'));
+            $lead->routeMap = $RouteMap;
+            return $lead->save();
+        }
+        return false;
     }
 
     /**
