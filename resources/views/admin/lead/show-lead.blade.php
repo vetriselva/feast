@@ -18,7 +18,7 @@
                         <img src="{{ asset("images/logo/logo-sm.png") }}" width="200px" alt="">
                     </div>
                 </div>
-                <h1 class="text-center border-head heading-1">
+                <h1 class="text-center border-head heading-1" >
                     {{ $data->packageName }}
                 </h1>
                 <div class="w-100">
@@ -29,24 +29,24 @@
                     <div class="col-6 col-md-8">
                         <table class="table table-borderless">
                             <tr>
-                                <td class="heading-3">Tour Name</td>
-                                <td>:</td>
-                                <td><strong class="heading-3"> {{ $data->placeToVisit }}</strong></td>
+                                <td style="padding: 0 !important"  class="heading-s3">Tour Name</td>
+                                <td style="padding: 0 !important" >:</td>
+                                <td style="padding: 0 !important" ><strong class="heading-3"> {{ $data->placeToVisit }}</strong></td>
                             </tr>
                             <tr>
-                                <td class="heading-3">Departure Name</td>
-                                <td>:</td>
-                                <td><strong class="heading-3">{!! date('d M y', strtotime($data->departureDate)) !!}  </strong></td>
+                                <td style="padding: 0 !important"  class="heading-3s">Departure Name</td>
+                                <td style="padding: 0 !important" >:</td>
+                                <td style="padding: 0 !important" ><strong class="heading-3">{!! date('d M y', strtotime($data->departureDate)) !!}  </strong></td>
                             </tr>
                             <tr>
-                                <td class="heading-3">No.of Nights</td>
-                                <td>:</td>
-                                <td><strong class="heading-3">{{ $data->numOfNights - 1 }} Night  | {{ $data->numOfNights }} Days</strong></td>
+                                <td style="padding: 0 !important"  class="heading-3s">No.of Nights</td>
+                                <td style="padding: 0 !important" >:</td>
+                                <td style="padding: 0 !important" ><strong class="heading-3">{{ $data->numOfNights - 1 }} Night  | {{ $data->numOfNights }} Days</strong></td>
                             </tr>
-                            <tr class="heading-3">
-                                <td>Room Type</td>
-                                <td>:</td>
-                                <td><strong class="heading-3">{{ $data->roomType }}</strong></td>
+                            <tr >
+                                <td style="padding: 0 !important" >Room Type</td>
+                                <td style="padding: 0 !important" >:</td>
+                                <td style="padding: 0 !important" ><strong class="heading-3">{{ $data->roomType }}</strong></td>
                             </tr>
                         </table>
                     </div>
@@ -172,7 +172,7 @@
                                     </span>
                                 </div> 
                                 <div class="btn me-3 btn-light  border position-relative btn-sm heading-3"><i class="fa fa-car me-1" aria-hidden="true"></i>Transfers
-                                    <span style="z-index: 1" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-{{ $it->Transfers == 'Included' ? "success" : "danger"}}">
+                                    <span style="z-index: 1" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-{{ $it->Transfers == 'Included' ? "danger" : "success"}}">
                                         <i class="las la-{{ $it->Transfers ? "check" : "times"}} text-white"></i>
                                     </span>
                                 </div>
@@ -227,7 +227,7 @@
                     </div>
                     <div class="w-100">
                         <table class="table table-bordered">
-                            <tr>
+                            <tr class="bg-green">
                                 <th class="heading-3 text-center">CITY</th>
                                 <th class="heading-3 text-center">HOTEL</th>
                                 <th class="heading-3 text-center">ROOM TYPE</th>
@@ -265,7 +265,7 @@
             @foreach ($costDeatils as $key => $costDeatil)
                 <div class="w-100">
                     <h5> Option {{$key ?? ''}} </h5>
-                    <table class="table table-bordered">
+                    <table class="table table-borderless b">
                         <tr>
                             <th class="text-center heading-3">Cost Type</th>
                             <th class="text-center heading-3">Members</th>
@@ -293,7 +293,7 @@
                         @endphp
                         <b class="d-none">{{ $totalCost }}</b>
                     </table> 
-                    <h1 class="heading-3">PACKAGE COST PER COUPLE  - <span class="text-danger"> ₹ {{ $totalCost }}.</span></h1>
+                    <h1 class="heading-3 text-end">PACKAGE COST PER COUPLE  - <span class="text-danger"> ₹ {{ $totalCost }}.</span></h1>
                 </div>
             @endforeach
         </div>
@@ -339,29 +339,28 @@
                         @endforeach 
                    @endif
                 </ul>
+                <div class="w-100">
+                    <h3 class="text-center border-head heading-2"> Bank Details </h3>
+                    <ul class="list-style-none">
+                        <li>
+                            Bank Name - {{$configs->bank_name}} 
+                        </li>
+                        <li>
+                            Account Holder Name - {{$configs->account_holder_name}}
+                        </li>
+                        <li>
+                            Account Number - {{$configs->account_number}}
+                        </li>
+                        <li>
+                            Branch Name - {{$configs->branch_name}}
+                        </li><li>
+                            IFSC Code - {{$configs->ifsc_code}}
+                        </li>
+            
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="perpage justify-content-arounded ">
-            <div class="w-100">
-                <ul class="list-style-none">
-                    <li>
-                        Bank Name - {{$configs->bank_name}} 
-                    </li>
-                    <li>
-                        Account Holder Name - {{$configs->account_holder_name}}
-                    </li>
-                    <li>
-                        Account Number - {{$configs->account_number}}
-                    </li>
-                    <li>
-                        Branch Name - {{$configs->branch_name}}
-                    </li><li>
-                        IFSC Code - {{$configs->ifsc_code}}
-                    </li>
-        
-                </ul>
-            </div>
-        </div>
+        </div> 
     </div>
 </div>
 @else

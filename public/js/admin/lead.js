@@ -6,11 +6,11 @@ app.controller('LeadController', function($scope, $http, API_URL, fileUpload) {
     $scope.paymentPolicyList = [];
     $scope.cancellationPolicyList = [];
 
-    $scope.uploadFile = () => {
+    $scope.uploadFile = (id) => {
         var file = $scope.myFile;
         console.log(file);
         var uploadUrl = `${API_URL}/admin/lead-store-route-map`;
-        fileUpload.uploadFileToUrl(file, uploadUrl);
+        fileUpload.uploadFileToUrl(file, uploadUrl, id);
      };
 
     $scope.submitLead = () => {
@@ -32,10 +32,19 @@ app.controller('LeadController', function($scope, $http, API_URL, fileUpload) {
             data: {data: Lead}
         }).then(function success(response) {
             // alert('data submitted successfully');
-            // location.reload();
-
+            
+            
+            swal({
+                title: "Good job!",
+                text: "data submitted successfully!",
+                icon: "success",
+                button: "okey!",
+            });
+            location.reload();
+           
             if(response.data.status == true) {
-                $scope.uploadFile();
+                
+                $scope.uploadFile(response.data.id);    
             }
         }, function error(response) {
             console.log('state get error');
@@ -429,8 +438,9 @@ app.directive('dropdownMultiselect', function () {
         },
         template:
                 `<div class="dropdown" class="{open: open}">
-                <button class="btn btn-light w-100 btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    --- {{model.length}} selected --
+                <button class="btn btn-white border w-100 btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    
+                        --<span ng-show="model.length != 0">{{ model.length }}</span> selected --
                 </button>
                 <ul class="dropdown-menu {open: open} w-100" aria-labelledby="dropdownMenuButton1"> 
                     <li ng-repeat='option in options'> 
@@ -506,9 +516,10 @@ app.directive('fileModel',  function ($parse) {
 });
 
  app.service('fileUpload', function ($http) {
-    this.uploadFileToUrl = function(file, uploadUrl) {
+    this.uploadFileToUrl = function(file, uploadUrl, id) {
        var fd = new FormData();
        fd.append('RouteMap', file);
+       fd.append('lead_id', id);
        $http.post(uploadUrl, fd, {
           transformRequest: angular.identity,
           headers: {'Content-Type': undefined}

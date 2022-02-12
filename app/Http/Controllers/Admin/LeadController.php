@@ -80,7 +80,8 @@ class LeadController extends Controller
             'flight_id'         => 1,
             'roomType'          => $r->roomType,
             'costingNotes'      => $r->costingNote,
-            'routeMap'          => $this->storeRouteMap(),
+            // 'routeMap'          => $this->storeRouteMap(),
+            'routeMap'          => $RouteMap ?? "https://res.cloudinary.com/dkgkk5wua/image/upload/v1643536228/fgoxaxhtl9i4hqck6mjb.png",
             'pack_includs'      => json_encode($r->inclusionPolicy),
             'pack_excluds'      => json_encode($r->exclusionpolicy),
             'payment_poly'      => json_encode($r->paymentPolicy),
@@ -150,12 +151,23 @@ class LeadController extends Controller
         }
         return response(['status' => true, 'id' => $data->id]);
     }
+
+
     public function storeRouteMap(Request $request)
     {
-        // dd($request->all());
+        // dd($request->input('lead_id'));
+        // return $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
+        // $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
         $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
-        dd($RouteMap);
+        if($RouteMap){
+            $lead = Leads::find($request->input('lead_id'));
+            $lead->routeMap = $RouteMap;
+            return $lead->save();
+        }
+        return false;
     }
+
+    //  vvvvvvv good
 
     /**
      * Display the specified resource.

@@ -143,21 +143,24 @@
             </div>
             <table class="table table-hover table-bordered my-4 shadow-sm-hover ">
                 <thead class="bg-light">
-                    <tr>
+                    <tr class="text-center">
                         <th>Day</th>
                         <th width="20%">State name</th>
                         <th width="20%">City name</th>
                         <th width="20%">Places name</th>
                         <th width="20%">Day activity </th>
                         <th width="20%">Sightseeingy</th>
-                        <th>Transfers</th>
-                        <th>Tickets</th>
+                        {{-- <th><i class="fa fa-car" aria-hidden="true"></i></th>
+                        <th><i class="fa fa-ticket " style="font-size: 15px"></i></th>
                         <th class="text-center">Meals</th>
-                        <th colspan="2">Others</th> 
+                        <th colspan="2">Others</th>  --}}
+                        <th colspan="2">
+                            others
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="(index,I) in ItDays">
+                    <tr ng-repeat="(index,I) in ItDays" >
                         <td class="text-center">
                             <input type="text" ng-model="I.DayCount"  name="DayCount[]" class="text-center form-control form-control-sm border-0 p-0 rounded-0"  ng-value="@{{ index+1 }}">
                         </td>
@@ -200,7 +203,7 @@
                             </div> 
                             
                         </td>
-                        <td class="text-center">
+                        {{-- <td class="text-center">
                             <input class="form-check-input"  name="Transfers[]"  ng-model="I.Transfers" type="checkbox" value="Included">
                         </td> 
                         <td class="text-center">
@@ -224,6 +227,33 @@
                         </td> 
                         <td>
                             <input class="form-control form-control-sm border-0 rounded-0" ng-model="I.others" name="others[]">
+                        </td> --}}
+                        <td  >
+                            <div class="btn-group p-0 m-1">
+                                <div class="d-flex align-items-center btn btn-light border"title="Transfers">
+                                    <input class="form-check-input me-1"   name="Transfers[]" id="Breattk@{{ index+1 }}" ng-model="I.Transfers" type="checkbox" value="Included">
+                                    <label class="form-check-label" for="Breattk@{{ index+1 }}"><small><i class="fa fa-car " ></i></small></label>
+                                </div>
+                                <div class="d-flex align-items-center btn btn-light border"title="Tickets">
+                                    <input class="form-check-input me-1"   name="Tickets[]" ng-model="I.Tickets" id="te@{{ index+1 }}" type="checkbox" value="Included">
+                                    <label class="form-check-label" for="te@{{ index+1 }}"><small><i  style="font-size:15px" class="fa fa-ticket"></i></small></label>
+                                </div>
+                                <div class="d-flex align-items-center btn btn-light border" title="Breack first">
+                                    <input class="form-check-input me-1"   name="breack[]" ng-model="I.Meals.breack" type="checkbox" id="Break@{{ index+1 }}" value="Break fast">
+                                    <label class="form-check-label" for="Break@{{ index+1 }}"><small><i class="fa fa-coffee " ></i></small></label>
+                                </div>
+                                <div class="d-flex align-items-center btn btn-light border" title="Lunch"  >
+                                    <input class="form-check-input me-1"ng-model="I.Meals.lunch" name="lunch[]" type="checkbox" id="Lunch@{{ index+1 }}" value="Lunch">
+                                    <label class="form-check-label" for="Lunch@{{ index+1 }}"><small><i class="fa fa-shopping-basket "></i></small></label>
+                                </div>
+                                <div class="d-flex align-items-center btn btn-light border" title="Dinner">
+                                    <input class="form-check-input me-1"ng-model="I.Meals.dinner"  name="dinner[]" type="checkbox" id="Dinner@{{ index+1 }}" value="Dinner" >
+                                    <label class="form-check-label"  for="Dinner@{{ index+1 }}"><small><i class="fa fa-cutlery" ></i></small></label>
+                                </div>
+                            </div>
+                            <div>
+                                <input class="form-control form-control-sm border-0 rounded-0" placeholder="Notes ..." ng-model="I.others" name="others[]">
+                            </div>
                         </td>
                         <td>
                             <a class="btn-sm btn shadow-hover  rounded-pill" ng-click="DelelteItDays(index)">

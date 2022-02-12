@@ -1969,7 +1969,7 @@ progress {
   margin-bottom: 1rem;
   color: #212529;
   vertical-align: top;
-  border-color: #eee;
+  border-color: rgb(0, 0, 0);
 }
 .table > :not(caption) > * > * {
   padding: 5px ;

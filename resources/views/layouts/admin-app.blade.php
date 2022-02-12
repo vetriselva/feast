@@ -13,7 +13,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-   
+    <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset("node_modules/line-awesome/dist/line-awesome/css/line-awesome.min.css")}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -43,6 +44,7 @@
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.uikit.min.js"></script>
     @cloudinaryJS
+    
 </head>
 <body ng-app="myApp">
     <input type="hidden" name="baseurl" value="{{URL::to('/')}}" id="baseurl">
@@ -183,6 +185,6 @@
         $(document).ready(function(){
             $("#hideme").delay(5000).slideUp(300);
         });
-    </script>
+    </script> 
 </body>
 </html>

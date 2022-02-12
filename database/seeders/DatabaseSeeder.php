@@ -241,5 +241,14 @@ class DatabaseSeeder extends Seeder
                     'title' => "Moon light walk",
                 ] 
             ); 
+            DB::table('configs')->insert(
+                [
+                    "bank_name" => 'State Bank',
+                    "account_holder_name" => 'Alan',
+                    "account_number" => "0000000000000000021",
+                    "branch_name" => "chennai",
+                    "ifsc_code" => "00000IFSC"
+                ],   
+            );
     }
 }
