@@ -23,7 +23,7 @@
             <div class="row mb-3"> 
                 <div class="col-md-6 my-2">
                     <small class="text-secondary">Lead Number</small>
-                    <input type="number" name="leadNumber" ng-model="basicInformation.leadNumber" class="form-control border-0 border-bottom rounded-0" required  >
+                    <input type="text" name="leadNumber" ng-model="basicInformation.leadNumber" class="form-control border-0 border-bottom rounded-0" required  >
                 </div>
                 <div class="col-md-6 my-2">
                     <small class="text-secondary">Tour Package Name</small>
@@ -210,15 +210,15 @@
                             <div class="px-1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input"  name="breack[]" ng-model="I.Meals.breack" type="checkbox" id="Break@{{ index+1 }}" value="Break fast">
-                                    <label class="form-check-label" for="Break@{{ index+1 }}"><small>Break fast</small></label>
+                                    <label class="form-check-label" for="Break@{{ index+1 }}"><small><i class="fa fa-coffee " ></i></small></label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input"  ng-model="I.Meals.lunch" name="lunch[]" type="checkbox" id="Lunch@{{ index+1 }}" value="Lunch">
-                                    <label class="form-check-label" for="Lunch@{{ index+1 }}"><small>Lunch</small></label>
+                                    <label class="form-check-label" for="Lunch@{{ index+1 }}"><small><i class="fa fa-shopping-basket "></i></small></label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" ng-model="I.Meals.dinner"  name="dinner[]" type="checkbox" id="Dinner@{{ index+1 }}" value="Dinner" >
-                                    <label class="form-check-label" for="Dinner@{{ index+1 }}"><small>Dinner</small></label>
+                                    <label class="form-check-label" for="Dinner@{{ index+1 }}"><small><i class="fa fa-cutlery" ></i></small></label>
                                 </div>
                             </div>
                         </td> 

@@ -428,12 +428,16 @@ app.directive('dropdownMultiselect', function () {
             options: '=',
         },
         template:
-                `<div class="dropdown" class="{open: open}">{{model.length}}
+                `<div class="dropdown" class="{open: open}">
                 <button class="btn btn-light w-100 btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                -- Choose --
+                    --- {{model.length}} selected --
                 </button>
-                <ul class="dropdown-menu {open: open} w-100" aria-labelledby="dropdownMenuButton1">
-                <li ng-repeat='option in options'> <a ng-click='toggleSelectItem(option)' class="dropdown-item"> <span ng-class='getClassName(option)' aria-hidden='true'> </span> {{option.title}}  </a></li>
+                <ul class="dropdown-menu {open: open} w-100" aria-labelledby="dropdownMenuButton1"> 
+                    <li ng-repeat='option in options'> 
+                        <a ng-click='toggleSelectItem(option)' class="dropdown-item">
+                            <span ng-class='getClassName(option)' aria-hidden='true'> </span> {{option.title}}
+                        </a>
+                    </li>
                 </ul>
               </div>`,
 
@@ -471,10 +475,10 @@ app.directive('dropdownMultiselect', function () {
             };
 
             $scope.getClassName = function (option) {
-                var varClassName = 'fa fa-close red';
+                var varClassName = 'fa fa-circle';
                 angular.forEach($scope.model, function (item, index) {
                     if (item == option.id) {
-                        varClassName = 'fa fa-check green';
+                        varClassName = 'fa fa-check-circle';
                     }
                 });
                 return (varClassName);
