@@ -8,7 +8,7 @@ app.controller('LeadController', function($scope, $http, API_URL, fileUpload) {
 
     $scope.uploadFile = (id) => {
         var file = $scope.myFile;
-        console.log(file);
+        // console.log(file);
         var uploadUrl = `${API_URL}/admin/lead-store-route-map`;
         fileUpload.uploadFileToUrl(file, uploadUrl, id);
      };
@@ -33,14 +33,15 @@ app.controller('LeadController', function($scope, $http, API_URL, fileUpload) {
         }).then(function success(response) {
             // alert('data submitted successfully');
             
-            
             swal({
                 title: "Good job!",
                 text: "data submitted successfully!",
                 icon: "success",
                 button: "okey!",
             });
-            location.reload();
+            // location.reload();
+            document.getElementById("lead-create-form").reset();
+
            
             if(response.data.status == true) {
                 

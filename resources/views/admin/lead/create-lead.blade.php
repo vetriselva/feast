@@ -16,7 +16,7 @@
             color: green;
         }
 </style>
-<form ng-controller="LeadController" ng-submit="submitLead()" method="POST" enctype="multipart/form-data"> @csrf
+<form id="lead-create-form" ng-controller="LeadController" ng-submit="submitLead()" method="POST" enctype="multipart/form-data"> @csrf
     <div class="card position-relative my-4 p-3 border-hover shadow-hover">
         <h4 class="card-title form-title">Basic Informations</h4>
         <div class="card-body mt-4">
@@ -71,7 +71,7 @@
                     <div class="mb-2">
                         <small class="text-secondary">Route Map</small>
                     </div>
-                    <input type="file" ng-model="basicInformation.RouteMap" file-model = "myFile"  name="RouteMap" id=""   class="form-control  form-control-sm">
+                    <input type="file" ng-model="basicInformation.RouteMap" file-model = "myFile"  name="RouteMap" id="" ng-required required class="form-control  form-control-sm">
                 </div>
             </div>
         </div>
@@ -363,6 +363,8 @@
             </table>
             <label for="" class="mb-2">Notes</label>
             <textarea name="costingNotes" ng-model="basicInformation.costingNote" class="form-control"></textarea>
+            {{-- <textarea name="costingNotes"  class="form-control"></textarea> --}}
+
         </div> 
     </div>
     <div class="card position-relative my-5 p-3 border-hover shadow-hover">

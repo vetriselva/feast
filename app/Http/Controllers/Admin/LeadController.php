@@ -79,7 +79,7 @@ class LeadController extends Controller
             'numOfNights'       => $r->numofNights,
             'flight_id'         => 1,
             'roomType'          => $r->roomType,
-            'costingNotes'      => $r->costingNote,
+            'costingNotes'      => $r->costingNote ?? "",
             // 'routeMap'          => $this->storeRouteMap(),
             'routeMap'          => $RouteMap ?? "https://res.cloudinary.com/dkgkk5wua/image/upload/v1643536228/fgoxaxhtl9i4hqck6mjb.png",
             'pack_includs'      => json_encode($r->inclusionPolicy),
@@ -158,12 +158,21 @@ class LeadController extends Controller
         // dd($request->input('lead_id'));
         // return $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
         // $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
-        $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
-        if($RouteMap){
+        // 'routeMap'          => $RouteMap ?? "https://res.cloudinary.com/dkgkk5wua/image/upload/v1643536228/fgoxaxhtl9i4hqck6mjb.png",
+        // dd( $request->file('RouteMap'));
+
+        if($request->file('RouteMap') == null) {
             $lead = Leads::find($request->input('lead_id'));
-            $lead->routeMap = $RouteMap;
-            return $lead->save();
-        }
+            $lead->routeMap = 'https://res.cloudinary.com/dkgkk5wua/image/upload/v1643536228/fgoxaxhtl9i4hqck6mjb.png';
+            return $lead->save();    
+        } else {
+            $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
+            if($RouteMap){
+                $lead = Leads::find($request->input('lead_id'));
+                $lead->routeMap = $RouteMap;
+                return $lead->save();
+            }
+        } 
         return false;
     }
 

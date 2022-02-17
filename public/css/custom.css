@@ -141,10 +141,15 @@
 
 .border-head {
     padding: 10px 0 !important ;
-    border-top: 2px solid gray !important;
-    border-bottom: 2px solid gray !important;
+    border-top: .5px solid black !important;
+    border-bottom: .5px solid black !important;
     /* background: #eee !important ;
     padding: 10px 0 !important ; */
+}
+.border-head-two {
+    padding: 3px 0 !important ;
+    border-top: .5px solid black !important;
+    border-bottom: .5px solid black !important;
 }
 .logo-header {
     margin-bottom: 40px !important;

@@ -26,9 +26,7 @@
     /* .print-padding {
         padding-right: 25px !important;
     } */
- 
-   
-} 
+}
 .size-print {
     width: 9in;
     margin: 0 auto;
@@ -46,7 +44,7 @@
 }
 @page {
     size: auto;
-    margin: 0.70in  !important;
+    margin: 0.40in  0.80in  !important;
 }
 .print-btn {
     position: fixed;
