@@ -362,19 +362,20 @@ app.directive('getCities', function getCities($http) {
         },
     }
 });
+
 app.directive('getPlaces', function getPlaces($http) {
     return {
         restrict: 'A',
         link : function (scope, element) {
             element.on('change', function () {
                 console.log(scope.I.CityName);
-                if(scope.I.CityName == 'undefined') {
+                if(scope.I.CityName == 'undefined' || scope.I.StateName == 'undefined' ) {
                     return false;
                 }
                 $http({
                     method: 'GET',
                     url: $('#baseurl').val()+'/admin/get-places-by-city-id',
-                    params : {id: scope.I.CityName}
+                    params : {city_id: scope.I.CityName , state_id: scope.I.StateName}
                     }).then(function success(response) {
                         scope.Places = response.data;
                     }, function error(response) {
@@ -384,20 +385,18 @@ app.directive('getPlaces', function getPlaces($http) {
         },
     }
 });
-
-
 app.directive('getDayActivities', function getCities($http) {
     return {
         restrict: 'A',
         link : function (scope, element, API_URL) {
             element.on('change', function () {
-                if(scope.I.PlaceName == 'undefined') {
+                if(scope.I.CityName == 'undefined' || scope.I.StateName == 'undefined' ) {
                     return false;
                 }
                 $http({
                     method: 'GET',
                     url: $('#baseurl').val()+'/admin/get-day-activities-by-place-id',
-                    params : {id: scope.I.PlaceName}
+                    params : {city_id: scope.I.CityName , state_id: scope.I.StateName}
                     }).then(function success(response) {
                          scope.dayActivities = response.data;
                     }, function error(response) {
@@ -411,14 +410,13 @@ app.directive('getActivities', function getPlaces($http) {
         restrict: 'A',
         link : function (scope, element) {
             element.on('change', function () {
-                console.log(scope.I.PlaceName);
-                if(scope.I.PlaceName == 'undefined') {
+                if(scope.I.CityName == 'undefined' || scope.I.StateName == 'undefined' ) {
                     return false;
                 }
                 $http({
                     method: 'GET',
                     url: $('#baseurl').val()+'/admin/get-activities-by-place-id',
-                    params : {id: scope.I.PlaceName}
+                    params : {city_id: scope.I.CityName , state_id: scope.I.StateName}
                     }).then(function success(response) {
                         scope.Activities = response.data;
                     }, function error(response) {
@@ -531,3 +529,13 @@ app.directive('fileModel',  function ($parse) {
        });
     }
  });
+
+ app.controller('dayActivity', function($scope, $http, API_URL, fileUpload) {
+
+ });
+ app.controller('Activity', function($scope, $http, API_URL, fileUpload) {
+
+});
+app.controller('Place', function($scope, $http, API_URL, fileUpload) {
+
+});

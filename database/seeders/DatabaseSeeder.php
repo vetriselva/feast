@@ -227,17 +227,20 @@ class DatabaseSeeder extends Seeder
             ]);
             DB::table('places')->insert( [
                 'city_id' => 1,
+                'state_id' => 1,
                 'place_name' => "Marina",
                 'is_active' => 1,
             ]);
             DB::table('places')->insert( [
                 'city_id' => 2,
+                'state_id' => 1,
                 'place_name' => "Palakadu",
                 'is_active' => 1,
             ]);
 
             DB::table('activities')->insert([
-                    'place_id' => 1,
+                    'city_id'  => 1,
+                    'state_id' => 1,
                     'title' => "Moon light walk",
                 ] 
             ); 

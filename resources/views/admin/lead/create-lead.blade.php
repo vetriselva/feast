@@ -173,7 +173,7 @@
                             </select>
                         </td>
                         <td>
-                            <select class="form-select  form-select-sm my-2 mt-3" get-places name="CityName" ng-model="I.CityName" required>
+                            <select class="form-select  form-select-sm my-2 mt-3" get-places get-day-activities get-activities name="CityName" ng-model="I.CityName" required>
                                 <option value="">Select City</option>
                                 <option ng-repeat="City in Cities" value="@{{ City.id }}">
                                     @{{ City.city_name }}
@@ -181,7 +181,7 @@
                             </select>
                         </td>
                         <td>
-                            <select  get-day-activities get-activities  class="form-select form-select-sm my-2 mt-3" name="PlaceName" ng-model="I.PlaceName" required>
+                            <select  class="form-select form-select-sm my-2 mt-3" name="PlaceName" ng-model="I.PlaceName" required>
                                 <option value="">Select Place</option>
                                 <option ng-repeat="Place in Places" value="@{{ Place.id }}">
                                     @{{ Place.place_name }}

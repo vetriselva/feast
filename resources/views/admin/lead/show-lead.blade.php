@@ -274,20 +274,18 @@
                                             <td class="text-center content-1"><span class="text-danger"> <b class="text-danger">₹{{ $cost->costTotals ?? 0 }}</b></span></td>
                                         </tr>
                                     @endforeach
-                                    {{-- @php
+                                    @php
                                         $totalCost = 0;
-                                        if(isset($data->CostDeatils) ) {
-                                            foreach ($data->CostDeatils as $key => $cost) {
+                                            foreach ($costDeatil as $key => $cost) {
                                                 if($cost->costTotals != '' && !is_null($cost->costTotals)) {
-                                                    $totalCost += $cost->costTotals;
+                                                    $totalCost += $cost->costTotals ;
                                                 }
                                             }
-                                        }
                                     @endphp
-                                    <b class="d-none">{{ $totalCost }}</b> --}}
+                                    
                                 </table> 
                             </div>
-                            {{-- <h1 class="heading-3 text-end">PACKAGE COST PER COUPLE  - <span class="text-danger"> ₹ {{ $totalCost }}.</span></h1> --}}
+                            <h1 class="heading-3 text-end">PACKAGE COST PER COUPLE  - <span class="text-danger"> ₹ {{ $totalCost }}.</span></h1>
                         </div>
                     @endforeach
                 </div>

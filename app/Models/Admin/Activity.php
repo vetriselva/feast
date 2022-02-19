@@ -9,12 +9,17 @@ class Activity extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "place_id",
+        "state_id",
+        "city_id",
         "title", 
     ];
-
-    public function place()
+    public function state()
     {
-        return $this->belongsTo(Place::class);
+        return $this->belongsTo(State::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 }

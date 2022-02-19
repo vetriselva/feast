@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link href="{{ asset('select2/select2.css')}}" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="{{asset("node_modules/angular-material/angular-material.css")}}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
@@ -178,9 +179,11 @@
     <script src="{{asset("js/table.js")}}"></script>
     <script src="{{asset("js/app.js")}}"></script>
     <script src="{{asset("js/admin/lead.js")}}"></script>
+    <script type="text/javascript" src="{{ asset('select2/select2.min.js')}}"> </script>
     @stack("scripts")
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
     <script>
         $(document).ready(function(){
             $("#hideme").delay(5000).slideUp(300);
