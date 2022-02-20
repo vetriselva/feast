@@ -4,7 +4,7 @@
 
         <form  action="{{ route("data.itinerary.update",['id' => $place->id,'type' => 'place_update']) }}" method="POST" enctype="multipart/form-data">
 
-                <h5 class="modal-title" id="staticBackdropLabel"><b>Edit Place Form</b></h5>
+                <h5 class="modal-title" id="staticBackdropLabel"><b>Edit Day Form</b></h5>
  
                 <div class="row">
                     @csrf

@@ -3,7 +3,7 @@
 @section('content')
  
             <form  id="dayActivityId" action="{{ route("data.itinerary.update",['id' => $dayActivity->id,'type' => 'DayActivities_update']) }}" method="POST" enctype="multipart/form-data">
-                    <h5 id="staticBackdropLabel"><b>Edit DayActivity Form</b></h5>
+                    <h5 id="staticBackdropLabel"><b>Edit Sightseeing Form</b></h5>
                         <div class="row">
                             @csrf
                             <div class="col-6 my-3">

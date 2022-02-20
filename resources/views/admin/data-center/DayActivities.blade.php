@@ -6,7 +6,7 @@
         <div class="card-body"> 
             <div class="row border-bottom mb-4">
                 <div class="col p-0">
-                    <h3>DayActivities Data Center</h3>
+                    <h3>Sightseeing</h3>
                 </div>
                 <div class="col">
                     <div class="text-end">
