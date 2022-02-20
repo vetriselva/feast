@@ -67,21 +67,25 @@ class DataCenterController extends Controller
         }
         else if($type == 'Place') {
             $hot        =  Place::with('city')->latest()->get();
-            $cities       =  City::get();
-            return view("admin.data-center.Place",compact('hot','cities'));
+            $cities     =  City::get();
+            $states     =  State::get();
+            return view("admin.data-center.Place",compact('hot','cities','states'));
         }
 
         else if($type == 'Activities') {
-            $hot          =  Activity::with('place')->latest()->get();
-            $places       =  Place::get();
-            return view("admin.data-center.Activities",compact('hot','places'));
+            $hot          =  Activity::with('state','city')->latest()->get();
+            $cities       =  City::get();
+            $states       =  State::get();
+            return view("admin.data-center.Activities",compact('hot','cities','states'));
         }
 
         else if($type == 'DayActivities') {
-            $hot          =  DayActivity::with('place')->latest()->get();
-            $places       =  Place::get();
-            return view("admin.data-center.DayActivities",compact('hot','places'));
+            $hot          =  DayActivity::with('state','city')->latest()->get();
+            $cities       =  City::get();
+            $states       =  State::get();
+            return view("admin.data-center.DayActivities",compact('hot','cities','states'));
         }
+
         else if($type == 'Configs') {
             $hot          =  Configs::get();
             return view("admin.data-center.Configs",compact('hot'));
@@ -91,25 +95,25 @@ class DataCenterController extends Controller
     public function store(Request $r, $type)
     {
         if($type == 'Activities_store') {
+            // dd($r->all());
             $data   =    new Activity;
-            $data -> place_id   = $r->  place_id;
-            $data -> title      = $r->  title;
-            $data -> sub_title  = $r->  sub_title;
-            $data -> image      = $r->  image;
-            $data -> content    = $r->  content;
+            $data -> city_id  = $r->  city_id;
+            $data -> state_id = $r->  state_id;
+            $data -> title    = $r->  title;
             $data->save();
-            return back()->with('success','Create Success!');
+            return back()->with('success','Created Successfully!');
         }
 
         else if($type == 'DayActivites_store') {
             $data   =    new DayActivity;
-            $data -> place_id   = $r->  place_id;
+            $data -> city_id    = $r->  city_id;
+            $data -> state_id   = $r->  state_id;
             $data -> title      = $r->  title;
             $data -> sub_title  = $r->  sub_title;
             $data -> image      = $r->  image;
             $data -> content    = $r->  content;
             $data->save();
-            return back()->with('success','Create Success!');
+            return back()->with('success','Created Successfully!');
         }
 
         else if($type == 'Hotel_store') {
@@ -118,7 +122,7 @@ class DataCenterController extends Controller
             $data -> location  = $r->  location;
             $data -> image      = $r->  image;
             $data->save();
-            return back()->with('success','Create Success!');
+            return back()->with('success','Created Successfully!');
         }
 
         else if($type == 'Flight_store') {
@@ -126,58 +130,59 @@ class DataCenterController extends Controller
             $data -> name      = $r->  name;
             $data -> image      = $r->  image;
             $data->save();
-            return back()->with('success','Create Success!');
+            return back()->with('success','Created Successfully!');
         }
         else if($type == 'Pack_inclu_store') {
             $act    = new PackageInclusions;
             $act->point = $r->point;
             $act->save();
-            return back()->with('success','Create Success!');
+            return back()->with('success','Created Successfully!');
         }
         else if($type == 'Pack_exclu_store') {
             $act    = new PackageExclusions;
             $act->point = $r->point;
             $act->save();
-            return back()->with('success','Create Success!');
+            return back()->with('success','Created Successfully!');
         }
         else if($type == 'pay_pol_store') {
             $act    = new PaymentPolicy;
             $act->point = $r->point;
             $act->save();
-            return back()->with('success','Create Success!');
+            return back()->with('success','Created Successfully!');
         }
         else if($type == 'Refound_Policy_store') {
             $act    = new RefoundPolicy;
             $act->point = $r->point;
             $act->save();
-            return back()->with('success','Create Success!');
+            return back()->with('success','Created Successfully!');
         }
         else if($type == 'Cancel_Policy_store') {
             $act    = new CanclePolicy;
             $act->point = $r->point;
             $act->save();
-            return back()->with('success','Create Success!');
+            return back()->with('success','Created Successfully!');
         }
         else if($type == 'state_store') {
             $state        =  new State();
             $state->state_name = $r->state_name;
             $state->save();
-            return back()->with('success','Create Success!');
+            return back()->with('success','Created Successfully!');
         }
         else if($type == 'city_store') {
             $city            =  new City();
             $city->state_id  = $r->state_id;
             $city->city_name = $r->city_name;
             $city->save();
-            return back()->with('success','Create Success!');
+            return back()->with('success','Created Successfully!');
         }
 
         else if($type == 'place_store') {
             $place             =  new Place();
             $place->city_id    = $r->city_id;
+            $place->state_id   = $r->state_id;
             $place->place_name = $r->place_name;
             $place->save();
-            return back()->with('success','Create Success!');
+            return back()->with('success','Created Successfully!');
         }
         
     }
@@ -251,24 +256,23 @@ class DataCenterController extends Controller
     {
         if($type == 'Activities_update') {
             $act    =  Activity::find($id);
-            $act -> place_id   = $r->  place_id;
+            $act    -> city_id    = $r->  city_id;
+            $act    -> state_id   = $r->  state_id;
             $act    -> title      = $r->  title;
-            $act    -> sub_title  = $r->  sub_title;
-            $act    -> image      = $r->  image;
-            $act    -> content    = $r->  content;
             $act    ->save();
-            return back()->with('success','Update Success!');
+            return redirect(route('data-center','Activities'))->with('success','Updated Successfully!');
         }
 
         if($type == 'DayActivities_update') {
-            $data   =    new DayActivity;
-            $data -> place_id   = $r->  place_id;
+            $data   =    DayActivity::find($id);
+            $data -> state_id   = $r->  state_id;
+            $data -> city_id    = $r->  city_id;
             $data -> title      = $r->  title;
             $data -> sub_title  = $r->  sub_title;
             $data -> image      = $r->  image;
             $data -> content    = $r->  content;
             $data->save();
-            return back()->with('success','Create Success!');
+            return redirect(route('data-center','DayActivities'))->with('success','Updated Successfully!');
         }
 
         if($type == 'Hotel_update') {
@@ -277,67 +281,68 @@ class DataCenterController extends Controller
             $data -> location  = $r->  location;
             $data -> image      = $r->  image;
             $data->save();
-            return back()->with('success','Update Success!');
+            return back()->with('success','Updated Successfully!');
         }
+
         if($type == 'Flight_update') {
             $data   =    FlightData::find($id);
             $data -> name      = $r->  name;
             $data -> image      = $r->  image;
             $data->save();
-            return back()->with('success','Update Success!');
+            return back()->with('success','Updated Successfully!');
         }
         if($type == 'Pack_inclu_update') {
             $act    = PackageInclusions::find($id);
             $act->point = $r->point;
             $act->save();
-            return back()->with('success','Update Success!');
+            return back()->with('success','Updated Successfully!');
         }
         if($type == 'Pack_exclu_update') {
             $act    = PackageExclusions::find($id);
             $act->point = $r->point;
             $act->save();
-            return back()->with('success','Update Success!');
+            return back()->with('success','Updated Successfully!');
         }
         if($type == 'pay_pol_update') {
             $act    =  PaymentPolicy::find($id);
             $act->point = $r->point;
             $act->save();
-            return back()->with('success','Update Success!');
+            return back()->with('success','Updated Successfully!');
         }
         if($type == 'Refound_Policy_update') {
             $act    =  RefoundPolicy::find($id);
             $act->point = $r->point;
             $act->save();
-            return back()->with('success','Update Success!');
+            return back()->with('success','Updated Successfully!');
         }
         if($type == 'Cancel_Policy_update') {
             $act    =  CanclePolicy::find($id);
             $act->point = $r->point;
             $act->save();
-            return back()->with('success','Update Success!');
+            return back()->with('success','Updated Successfully!');
         }
         if($type == 'state_update') {
             $state        = State::find($id);
             $state->state_name = $r->state_name;
             $state->save();
-            return back()->with('success','Update Success!');
+            return back()->with('success','Updated Successfully!');
         }
         if($type == 'city_update') {
             $act    =  City::find($id);
             $act->state_id = $r->state_id;
             $act->city_name = $r->city_name;
             $act->save();
-            return back()->with('success','Update Success!');
+            return back()->with('success','Updated Successfully!');
         }
         if($type == 'place_update') {
             $act    =  Place::find($id);
             $act->city_id = $r->city_id;
+            $act->state_id = $r->state_id;
             $act->place_name = $r->place_name;
             $act->save();
-            return back()->with('success','Update Success!');
+            return redirect(route('data-center','Place'))->with('success','Updated Successfully!');
         }
         if($type == 'Configs_update') {
-
             $act    =  Configs::find($id);
             $act->bank_name = $r->bank_name;
             $act->account_holder_name = $r->account_holder_name;
@@ -345,7 +350,27 @@ class DataCenterController extends Controller
             $act->branch_name = $r->branch_name;
             $act->ifsc_code = $r->ifsc_code;
             $act->save();
-            return back()->with('success','Update Success!');
+            return back()->with('success','Updated Successfully!');
         }
     }
+
+    public function editDayActivity($id)
+    {
+       $dayActivity =  DayActivity::with(['state','city'])->find($id);
+       return view('admin.data-center.modal.day-activity', compact('dayActivity'));
+    }
+
+    public function editActivity($id)
+    {
+       $activity =  Activity::with(['state', 'city'])->find($id);
+       return view('admin.data-center.modal.activity', compact('activity'));
+    }
+
+    public function editPlace($id)
+    {
+       $place =  Place::with(['state', 'city'])->find($id);
+       return view('admin.data-center.modal.place', compact('place'));
+    }
+
+    
 }

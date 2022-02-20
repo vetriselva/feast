@@ -65,6 +65,9 @@ class LeadController extends Controller
     public function store(Request $request)
     {
         $r = Json_decode(Json_encode($request->input('data')));
+        // if($r->routeMap) {
+        //     $RouteMap = cloudinary()->upload($r->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
+        // }
         $data   =   Leads::create([
             'leadNumber'        => $r->leadNumber,
             'subTitle'          => $r->subTitle,
@@ -76,7 +79,8 @@ class LeadController extends Controller
             'numOfNights'       => $r->numofNights,
             'flight_id'         => 1,
             'roomType'          => $r->roomType,
-            'costingNotes'      => $r->costingNote,
+            'costingNotes'      => $r->costingNote ?? "",
+            // 'routeMap'          => $this->storeRouteMap(),
             'routeMap'          => $RouteMap ?? "https://res.cloudinary.com/dkgkk5wua/image/upload/v1643536228/fgoxaxhtl9i4hqck6mjb.png",
             'pack_includs'      => json_encode($r->inclusionPolicy),
             'pack_excluds'      => json_encode($r->exclusionpolicy),
@@ -138,7 +142,7 @@ class LeadController extends Controller
         foreach($r->costDetails as $key => $costcostDetail){
             foreach($costcostDetail->Details as $option => $cost){
                 $data->CostDeatils()->create([
-                    'optionNumber'  => $option + 1 ?? "", 
+                    'optionNumber'  => $key + 1 ?? "", 
                     'costingFor'    => $cost->costTitle  ?? "",
                     'members'       => $cost->member ?? "",
                     'costTotals'    => $cost->costTotal ?? "",
@@ -151,14 +155,28 @@ class LeadController extends Controller
 
     public function storeRouteMap(Request $request)
     {
-        $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
-        if($RouteMap){
-            $lead = Leads::findOrFail($request->input('lead_id'));
-            $lead->routeMap = $RouteMap;
-            return $lead->save();
-        }
+        // dd($request->input('lead_id'));
+        // return $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
+        // $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
+        // 'routeMap'          => $RouteMap ?? "https://res.cloudinary.com/dkgkk5wua/image/upload/v1643536228/fgoxaxhtl9i4hqck6mjb.png",
+        // dd( $request->file('RouteMap'));
+
+        if($request->file('RouteMap') == null) {
+            $lead = Leads::find($request->input('lead_id'));
+            $lead->routeMap = 'https://res.cloudinary.com/dkgkk5wua/image/upload/v1643536228/fgoxaxhtl9i4hqck6mjb.png';
+            return $lead->save();    
+        } else {
+            $RouteMap = cloudinary()->upload($request->file('RouteMap',["folder" => "VecationFeast","public_id" => "v1642953803"])->getRealPath())->getSecurePath(); 
+            if($RouteMap){
+                $lead = Leads::find($request->input('lead_id'));
+                $lead->routeMap = $RouteMap;
+                return $lead->save();
+            }
+        } 
         return false;
     }
+
+    //  vvvvvvv good
 
     /**
      * Display the specified resource.
@@ -180,6 +198,7 @@ class LeadController extends Controller
         }
         $hotelDetails = Collect($data->HotalsDeatils)->groupBy('HotelOptionNumber');
         $costDeatils = Collect($data->CostDeatils)->groupBy('optionNumber');
+        // dd($costDeatils);
         $paymentPolicies = PaymentPolicy::find( json_decode($data->payment_poly));
         $refundPolicies = RefoundPolicy::find( json_decode($data->refound_poly));
         $cancelPolicies = CanclePolicy::find( json_decode($data->cancle_poly));

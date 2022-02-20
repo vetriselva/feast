@@ -13,12 +13,14 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-   
+    <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script>
+
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset("node_modules/line-awesome/dist/line-awesome/css/line-awesome.min.css")}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link href="{{ asset('select2/select2.css')}}" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="{{asset("node_modules/angular-material/angular-material.css")}}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
@@ -43,6 +45,7 @@
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.uikit.min.js"></script>
     @cloudinaryJS
+    
 </head>
 <body ng-app="myApp">
     <input type="hidden" name="baseurl" value="{{URL::to('/')}}" id="baseurl">
@@ -92,7 +95,7 @@
                             
                                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse {{ Route::is("data-center") ? "show" : "" }}" aria-labelledby="panelsStayOpen-headingTwo">
                                     <div class="accordion-body">
-                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Itinerary' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Itinerary']) }}">Itinerary Details  </a></li>
+                                        {{-- <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Itinerary' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Itinerary']) }}">Itinerary Details  </a></li> --}}
                                         <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Hotels' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Hotels']) }}">Hotels Details</a></li>
                                         <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Flights' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Flights']) }}">Flights Details</a></li>
 
@@ -100,14 +103,14 @@
                                         <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Package_Inclusions' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Package_Inclusions']) }}">Package Inclusions</a></li>
                                         <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Package_Exclusions' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Package_Exclusions']) }}">Package Exclusions</a></li>
                                         <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Payment_Policy' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Payment_Policy']) }}">Payment Policy</a></li>
-                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Refound_Policy' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Refound_Policy']) }}">Refound Policy</a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Refound_Policy' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Refound_Policy']) }}">Refund Policy</a></li>
                                         <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Cancel_Policy' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Cancel_Policy']) }}">Cancellation Policy</a></li>
                                         <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'State' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'State']) }}"> State </a></li>
                                         <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'City' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'City']) }}"> City </a></li>
-                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Place' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Place']) }}"> Place </a></li>
-                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Activities' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Activities']) }}"> Activities </a></li>
-                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'DayActivities' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'DayActivities']) }}"> DayActivities </a></li>
-                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Configs' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Configs']) }}"> Configs </a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Place' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Place']) }}"> Day </a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Activities' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Activities']) }}"> Day activity  </a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'DayActivities' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'DayActivities']) }}"> Sightseeing </a></li>
+                                        <li class="list-group-item list-group-item-action rounded {{ Request::route('type')  == 'Configs' ? "active" : "" }}"><a class="text-white" href="{{ route("data-center", ['type' => 'Configs']) }}"> Payments </a></li>
                                     </div>
                                 </div>
                             @endif
@@ -176,13 +179,15 @@
     <script src="{{asset("js/table.js")}}"></script>
     <script src="{{asset("js/app.js")}}"></script>
     <script src="{{asset("js/admin/lead.js")}}"></script>
+    <script type="text/javascript" src="{{ asset('select2/select2.min.js')}}"> </script>
     @stack("scripts")
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
     <script>
         $(document).ready(function(){
             $("#hideme").delay(5000).slideUp(300);
         });
-    </script>
+    </script> 
 </body>
 </html>

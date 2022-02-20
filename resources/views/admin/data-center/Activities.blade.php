@@ -6,7 +6,7 @@
         <div class="card-body"> 
             <div class="row border-bottom mb-4">
                 <div class="col p-0">
-                    <h3>Activities Data Center</h3>
+                    <h3>Day Activities</h3>
                 </div>
                 <div class="col">
                     <div class="text-end">
@@ -20,11 +20,9 @@
                 <thead>
                     <tr>
                         <th>S.No</th>
-                        <th>Place Name</th>
+                        <th>State</th>
+                        <th>City</th>
                         <th>Title</th>
-                        <th>Sub Title</th>
-                        <th>Content</th>
-                        <th>Image </th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -33,58 +31,11 @@
                         @foreach ($hot as $index => $row)
                         <tr>
                             <td>{{ $index +1 }}</td>
-                            <td>{{ $row->place->place_name }}</td>
+                            <td>{{ $row->state->state_name }}</td>
+                            <td>{{ $row->city->city_name }}</td>
                             <td>{{ $row->title }}</td>
-                            <td>{{ $row->sub_title }}</td>
-                            <td>{{ $row->content }}</td>
-                            <td><img src="{{ $row->image }}" alt="" width="50px" height="20px"></td>
                             <td>
-                                <a data-bs-toggle="modal" data-bs-target="#Add_Hotels_edit_model__{{ $index +1 }}"><i class="fa fa-pencil btn btn-sm btn-light border text-primary"></i></a>
-                                <div class="modal fade" id="Add_Hotels_edit_model__{{ $index +1 }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog  modal-lg">
-                                        <form  action="{{ route("data.itinerary.update",['id' => $row->id,'type' => 'Activities_update']) }}" method="POST" enctype="multipart/form-data" class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel"><b>Edit Form</b></h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div> 
-                                                    <div class="row">
-                                                        @csrf
-                                                        <div class="col-6 my-3">
-                                                            <small>Place </small>
-                                                
-                                                            <select name="place_id" id="place_id" class="form-control mt-2">
-                                                                <option value="">Select Place</option>
-                                                                @foreach ($places as $place)
-                                                                <option {{$row->place_id == $place->id ? 'selected' : ''}} value="{{$place->id}}">{{$place->place_name}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                            
-                                                        <div class="col-6 my-3">
-                                                            <small>Title Name</small>
-                                                            <input type="text" name="title" class="mt-2 form-control border-0 border-bottom" value="{{$row->title}}"  required>
-                                                        </div>
-                                                        <div class="col-6 my-3">
-                                                            <small>Sub Title</small>
-                                                            <input type="text" name="sub_title" class="mt-2 form-control border-0 border-bottom" value="{{$row->sub_title}}" required>
-                                                        </div>
-                                                        <div class="col-6 my-3">
-                                                            <small>Content</small>
-                                                            <input type="text" name="content" class="mt-2 form-control border-0 border-bottom"  value="{{$row->content}}" required>
-                                                        </div>
-                                                    
-                                                    </div>
-                                                </div>
-                                            </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">Close</button>
-                                                    <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-save text-white me-2"></i> Save</button>
-                                                </div>
-                                        </form>
-                                    </div>
-                                </div>
+                                <a href="{{route('edit-activity',$row->id)}}"><i  class="fa fa-pencil btn btn-sm btn-light border text-primary"></i></a>
                                 <!-- Button trigger modal -->
                                 <i class="fa fa-trash btn-light border btn btn-sm text-danger" data-bs-toggle="modal" data-bs-target="#Hotels__{{ $index +1 }}"></i>
                                 <!-- Modal -->
@@ -116,57 +67,52 @@
         </div>
     </div> 
     <!-- Modal -->
-    <div class="modal fade" id="Add_Hotels_model" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-lg">
-            <form  action="{{ route("data.itinerary",['type' => 'Activities_store']) }}" method="POST" enctype="multipart/form-data" class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel"><b>Create Form</b></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div > 
-                        <div class="row">
-                            @csrf
-                          
-                            <div class="col-6 my-3">
-                                <small>Place </small>
-                    
-                                <select name="city_id" id="city_id" class="form-control mt-2">
-                                    <option value="">Select Place</option>
-                                    @foreach ($places as $place)
-                                    <option value="{{$place->id}}">{{$place->place_name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="col-6 my-3">
-                                <small>Title Name</small>
-                                <input type="text" name="title" class="mt-2 form-control border-0 border-bottom"  required>
-                            </div>
-                            <div class="col-6 my-3">
-                                <small>Sub Title</small>
-                                <input type="text" name="sub_title" class="mt-2 form-control border-0 border-bottom"  required>
-                            </div>
-                            <div class="col-6 my-3">
-                                <small>Content</small>
-                                <input type="text" name="content" class="mt-2 form-control border-0 border-bottom"  required>
-                            </div>
-                            <div class="colmy-3">
-                                <div ><small>Image URL</small></div>
-                                <input type="url" name="image" value="{{ $row->image }}" class="mt-2 form-control border-0 border-bottom"   required>
-                               <br>
-                               <div class="text-center">
-                                <img src="{{ $row->image }}" width="280px">
-                               </div>
+    <div class="" ng-controller="Activities">
+        <div class="modal fade" id="Add_Hotels_model" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-lg">
+                <form  action="{{ route("data.itinerary",['type' => 'Activities_store']) }}" method="POST" enctype="multipart/form-data" class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel"><b>Create Form</b></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div > 
+                            <div class="row">
+                                @csrf
+                              
+                                <div class="col-6 my-3">
+                                    <small>State </small>
+                                    <select name="state_id" id="state_id" class="form-control mt-2">
+                                        <option value="">Select State</option>
+                                        @foreach ($states as $state)
+                                        <option value="{{$state->id}}">{{$state->state_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+    
+                                <div class="col-6 my-3">
+                                    <small>City </small>
+                                    <select name="city_id" id="city_id" class="form-control mt-2">
+                                        <option value="">Select City</option>
+                                        @foreach ($cities as $city)
+                                        <option value="{{$city->id}}">{{$city->city_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+    
+                                <div class="col-6 my-3">
+                                    <small>Title Name</small>
+                                    <input type="text" name="title" class="mt-2 form-control border-0 border-bottom"  required>
+                                </div> 
                             </div>
                         </div>
                     </div>
-                </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-save text-white me-2"></i>Sumbit & Save</button>
-                    </div>
-            </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">Close</button>
+                            <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-save text-white me-2"></i>Sumbit & Save</button>
+                        </div>
+                </form>
+            </div>
         </div>
     </div>
     

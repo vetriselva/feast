@@ -25,7 +25,7 @@ class CreateLeadsTable extends Migration
             $table->string("numOfNights");
             $table->string("roomType");
             $table->string("flight_id");
-            $table->string("costingNotes");
+            $table->string("costingNotes")->nullable(); 
             $table->string("routeMap")->nullable(); 
             $table->string("termsType")->nullable();  
             $table->string("vehicleType")->nullable(); 

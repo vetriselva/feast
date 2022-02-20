@@ -15,10 +15,12 @@ class CreatePlacesTable extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('state_id');
             $table->unsignedBigInteger('city_id');
             $table->string("place_name");
             $table->boolean('is_active')->default(1);
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
             $table->timestamps();
         });
     }

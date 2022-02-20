@@ -16,14 +16,14 @@
             color: green;
         }
 </style>
-<form ng-controller="LeadController" ng-submit="submitLead()" method="POST" enctype="multipart/form-data"> @csrf
+<form id="lead-create-form" ng-controller="LeadController" ng-submit="submitLead()" method="POST" enctype="multipart/form-data"> @csrf
     <div class="card position-relative my-4 p-3 border-hover shadow-hover">
         <h4 class="card-title form-title">Basic Informations</h4>
         <div class="card-body mt-4">
             <div class="row mb-3"> 
                 <div class="col-md-6 my-2">
                     <small class="text-secondary">Lead Number</small>
-                    <input type="number" name="leadNumber" ng-model="basicInformation.leadNumber" class="form-control border-0 border-bottom rounded-0" required  >
+                    <input type="text" name="leadNumber" ng-model="basicInformation.leadNumber" class="form-control border-0 border-bottom rounded-0" required  >
                 </div>
                 <div class="col-md-6 my-2">
                     <small class="text-secondary">Tour Package Name</small>
@@ -71,7 +71,7 @@
                     <div class="mb-2">
                         <small class="text-secondary">Route Map</small>
                     </div>
-                    <input type="file" ng-model="basicInformation.RouteMap" file-model = "myFile"  name="RouteMap" id=""   class="form-control  form-control-sm">
+                    <input type="file" ng-model="basicInformation.RouteMap" file-model = "myFile"  name="RouteMap" id="" ng-required required class="form-control  form-control-sm">
                 </div>
             </div>
         </div>
@@ -143,21 +143,24 @@
             </div>
             <table class="table table-hover table-bordered my-4 shadow-sm-hover ">
                 <thead class="bg-light">
-                    <tr>
+                    <tr class="text-center">
                         <th>Day</th>
                         <th width="20%">State name</th>
                         <th width="20%">City name</th>
                         <th width="20%">Places name</th>
                         <th width="20%">Day activity </th>
                         <th width="20%">Sightseeingy</th>
-                        <th>Transfers</th>
-                        <th>Tickets</th>
+                        {{-- <th><i class="fa fa-car" aria-hidden="true"></i></th>
+                        <th><i class="fa fa-ticket " style="font-size: 15px"></i></th>
                         <th class="text-center">Meals</th>
-                        <th colspan="2">Others</th> 
+                        <th colspan="2">Others</th>  --}}
+                        <th colspan="2">
+                            others
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="(index,I) in ItDays">
+                    <tr ng-repeat="(index,I) in ItDays" >
                         <td class="text-center">
                             <input type="text" ng-model="I.DayCount"  name="DayCount[]" class="text-center form-control form-control-sm border-0 p-0 rounded-0"  ng-value="@{{ index+1 }}">
                         </td>
@@ -170,7 +173,7 @@
                             </select>
                         </td>
                         <td>
-                            <select class="form-select  form-select-sm my-2 mt-3" get-places name="CityName" ng-model="I.CityName" required>
+                            <select class="form-select  form-select-sm my-2 mt-3" get-places get-day-activities get-activities name="CityName" ng-model="I.CityName" required>
                                 <option value="">Select City</option>
                                 <option ng-repeat="City in Cities" value="@{{ City.id }}">
                                     @{{ City.city_name }}
@@ -178,7 +181,7 @@
                             </select>
                         </td>
                         <td>
-                            <select  get-day-activities get-activities  class="form-select form-select-sm my-2 mt-3" name="PlaceName" ng-model="I.PlaceName" required>
+                            <select  class="form-select form-select-sm my-2 mt-3" name="PlaceName" ng-model="I.PlaceName" required>
                                 <option value="">Select Place</option>
                                 <option ng-repeat="Place in Places" value="@{{ Place.id }}">
                                     @{{ Place.place_name }}
@@ -200,7 +203,7 @@
                             </div> 
                             
                         </td>
-                        <td class="text-center">
+                        {{-- <td class="text-center">
                             <input class="form-check-input"  name="Transfers[]"  ng-model="I.Transfers" type="checkbox" value="Included">
                         </td> 
                         <td class="text-center">
@@ -210,20 +213,47 @@
                             <div class="px-1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input"  name="breack[]" ng-model="I.Meals.breack" type="checkbox" id="Break@{{ index+1 }}" value="Break fast">
-                                    <label class="form-check-label" for="Break@{{ index+1 }}"><small>Break fast</small></label>
+                                    <label class="form-check-label" for="Break@{{ index+1 }}"><small><i class="fa fa-coffee " ></i></small></label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input"  ng-model="I.Meals.lunch" name="lunch[]" type="checkbox" id="Lunch@{{ index+1 }}" value="Lunch">
-                                    <label class="form-check-label" for="Lunch@{{ index+1 }}"><small>Lunch</small></label>
+                                    <label class="form-check-label" for="Lunch@{{ index+1 }}"><small><i class="fa fa-shopping-basket "></i></small></label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" ng-model="I.Meals.dinner"  name="dinner[]" type="checkbox" id="Dinner@{{ index+1 }}" value="Dinner" >
-                                    <label class="form-check-label" for="Dinner@{{ index+1 }}"><small>Dinner</small></label>
+                                    <label class="form-check-label" for="Dinner@{{ index+1 }}"><small><i class="fa fa-cutlery" ></i></small></label>
                                 </div>
                             </div>
                         </td> 
                         <td>
                             <input class="form-control form-control-sm border-0 rounded-0" ng-model="I.others" name="others[]">
+                        </td> --}}
+                        <td  >
+                            <div class="btn-group p-0 m-1">
+                                <div class="d-flex align-items-center btn btn-light border"title="Transfers">
+                                    <input class="form-check-input me-1"   name="Transfers[]" id="Breattk@{{ index+1 }}" ng-model="I.Transfers" type="checkbox" value="Included">
+                                    <label class="form-check-label" for="Breattk@{{ index+1 }}"><small><i class="fa fa-car " ></i></small></label>
+                                </div>
+                                <div class="d-flex align-items-center btn btn-light border"title="Tickets">
+                                    <input class="form-check-input me-1"   name="Tickets[]" ng-model="I.Tickets" id="te@{{ index+1 }}" type="checkbox" value="Included">
+                                    <label class="form-check-label" for="te@{{ index+1 }}"><small><i  style="font-size:15px" class="fa fa-ticket"></i></small></label>
+                                </div>
+                                <div class="d-flex align-items-center btn btn-light border" title="Breack first">
+                                    <input class="form-check-input me-1"   name="breack[]" ng-model="I.Meals.breack" type="checkbox" id="Break@{{ index+1 }}" value="Break fast">
+                                    <label class="form-check-label" for="Break@{{ index+1 }}"><small><i class="fa fa-coffee " ></i></small></label>
+                                </div>
+                                <div class="d-flex align-items-center btn btn-light border" title="Lunch"  >
+                                    <input class="form-check-input me-1"ng-model="I.Meals.lunch" name="lunch[]" type="checkbox" id="Lunch@{{ index+1 }}" value="Lunch">
+                                    <label class="form-check-label" for="Lunch@{{ index+1 }}"><small><i class="fa fa-shopping-basket "></i></small></label>
+                                </div>
+                                <div class="d-flex align-items-center btn btn-light border" title="Dinner">
+                                    <input class="form-check-input me-1"ng-model="I.Meals.dinner"  name="dinner[]" type="checkbox" id="Dinner@{{ index+1 }}" value="Dinner" >
+                                    <label class="form-check-label"  for="Dinner@{{ index+1 }}"><small><i class="fa fa-cutlery" ></i></small></label>
+                                </div>
+                            </div>
+                            <div>
+                                <input class="form-control form-control-sm border-0 rounded-0" placeholder="Notes ..." ng-model="I.others" name="others[]">
+                            </div>
                         </td>
                         <td>
                             <a class="btn-sm btn shadow-hover  rounded-pill" ng-click="DelelteItDays(index)">
@@ -333,6 +363,8 @@
             </table>
             <label for="" class="mb-2">Notes</label>
             <textarea name="costingNotes" ng-model="basicInformation.costingNote" class="form-control"></textarea>
+            {{-- <textarea name="costingNotes"  class="form-control"></textarea> --}}
+
         </div> 
     </div>
     <div class="card position-relative my-5 p-3 border-hover shadow-hover">
