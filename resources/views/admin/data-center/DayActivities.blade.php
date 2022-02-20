@@ -112,7 +112,7 @@
                                     <input type="text" name="title" class="mt-2 form-control border-0 border-bottom"  required>
                                 </div>
                                 <div class="col-6 my-3">
-                                    <small>Sub Title</small>
+                                    <small>Sightseeing</small>
                                     <input type="text" name="sub_title" class="mt-2 form-control border-0 border-bottom"  required>
                                 </div>
                                 <div class="col-6 my-3">
