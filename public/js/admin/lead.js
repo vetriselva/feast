@@ -8,7 +8,7 @@ app.controller('LeadController', function($scope, $http, API_URL, fileUpload) {
 
     $scope.uploadFile = (id) => {
         var file = $scope.myFile;
-        console.log(file);
+        // console.log(file);
         var uploadUrl = `${API_URL}/admin/lead-store-route-map`;
         fileUpload.uploadFileToUrl(file, uploadUrl, id);
      };
@@ -31,9 +31,21 @@ app.controller('LeadController', function($scope, $http, API_URL, fileUpload) {
             url: `${API_URL}/admin/lead`,
             data: {data: Lead}
         }).then(function success(response) {
-            alert('data submitted successfully');
+            // alert('data submitted successfully');
+            
+            swal({
+                title: "Good job!",
+                text: "data submitted successfully!",
+                icon: "success",
+                button: "okey!",
+            });
+            // location.reload();
+            document.getElementById("lead-create-form").reset();
+
+           
             if(response.data.status == true) {
-                $scope.uploadFile(response.data.id);
+                
+                $scope.uploadFile(response.data.id);    
             }
         }, function error(response) {
             console.log('state get error');
@@ -350,19 +362,20 @@ app.directive('getCities', function getCities($http) {
         },
     }
 });
+
 app.directive('getPlaces', function getPlaces($http) {
     return {
         restrict: 'A',
         link : function (scope, element) {
             element.on('change', function () {
                 console.log(scope.I.CityName);
-                if(scope.I.CityName == 'undefined') {
+                if(scope.I.CityName == 'undefined' || scope.I.StateName == 'undefined' ) {
                     return false;
                 }
                 $http({
                     method: 'GET',
                     url: $('#baseurl').val()+'/admin/get-places-by-city-id',
-                    params : {id: scope.I.CityName}
+                    params : {city_id: scope.I.CityName , state_id: scope.I.StateName}
                     }).then(function success(response) {
                         scope.Places = response.data;
                     }, function error(response) {
@@ -372,20 +385,18 @@ app.directive('getPlaces', function getPlaces($http) {
         },
     }
 });
-
-
 app.directive('getDayActivities', function getCities($http) {
     return {
         restrict: 'A',
         link : function (scope, element, API_URL) {
             element.on('change', function () {
-                if(scope.I.PlaceName == 'undefined') {
+                if(scope.I.CityName == 'undefined' || scope.I.StateName == 'undefined' ) {
                     return false;
                 }
                 $http({
                     method: 'GET',
                     url: $('#baseurl').val()+'/admin/get-day-activities-by-place-id',
-                    params : {id: scope.I.PlaceName}
+                    params : {city_id: scope.I.CityName , state_id: scope.I.StateName}
                     }).then(function success(response) {
                          scope.dayActivities = response.data;
                     }, function error(response) {
@@ -399,14 +410,13 @@ app.directive('getActivities', function getPlaces($http) {
         restrict: 'A',
         link : function (scope, element) {
             element.on('change', function () {
-                console.log(scope.I.PlaceName);
-                if(scope.I.PlaceName == 'undefined') {
+                if(scope.I.CityName == 'undefined' || scope.I.StateName == 'undefined' ) {
                     return false;
                 }
                 $http({
                     method: 'GET',
                     url: $('#baseurl').val()+'/admin/get-activities-by-place-id',
-                    params : {id: scope.I.PlaceName}
+                    params : {city_id: scope.I.CityName , state_id: scope.I.StateName}
                     }).then(function success(response) {
                         scope.Activities = response.data;
                     }, function error(response) {
@@ -426,12 +436,17 @@ app.directive('dropdownMultiselect', function () {
             options: '=',
         },
         template:
-                `<div class="dropdown" class="{open: open}">{{model.length}}
-                <button class="btn btn-light w-100 btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                -- Choose --
+                `<div class="dropdown" class="{open: open}">
+                <button class="btn btn-white border w-100 btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    
+                        --<span ng-show="model.length != 0">{{ model.length }}</span> selected --
                 </button>
-                <ul class="dropdown-menu {open: open} w-100" aria-labelledby="dropdownMenuButton1">
-                <li ng-repeat='option in options'> <a ng-click='toggleSelectItem(option)' class="dropdown-item"> <span ng-class='getClassName(option)' aria-hidden='true'> </span> {{option.title}}  </a></li>
+                <ul class="dropdown-menu {open: open} w-100" aria-labelledby="dropdownMenuButton1"> 
+                    <li ng-repeat='option in options'> 
+                        <a ng-click='toggleSelectItem(option)' class="dropdown-item">
+                            <span ng-class='getClassName(option)' aria-hidden='true'> </span> {{option.title}}
+                        </a>
+                    </li>
                 </ul>
               </div>`,
 
@@ -469,10 +484,10 @@ app.directive('dropdownMultiselect', function () {
             };
 
             $scope.getClassName = function (option) {
-                var varClassName = 'fa fa-close red';
+                var varClassName = 'fa fa-circle';
                 angular.forEach($scope.model, function (item, index) {
                     if (item == option.id) {
-                        varClassName = 'fa fa-check green';
+                        varClassName = 'fa fa-check-circle';
                     }
                 });
                 return (varClassName);
@@ -514,3 +529,13 @@ app.directive('fileModel',  function ($parse) {
        });
     }
  });
+
+ app.controller('dayActivity', function($scope, $http, API_URL, fileUpload) {
+
+ });
+ app.controller('Activity', function($scope, $http, API_URL, fileUpload) {
+
+});
+app.controller('Place', function($scope, $http, API_URL, fileUpload) {
+
+});

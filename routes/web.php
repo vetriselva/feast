@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DataCenterController;
 use App\Models\Admin\Activity;
 use App\Models\Admin\CanclePolicy;
 use App\Models\Admin\City;
@@ -59,21 +60,22 @@ Route::group(['prefix' => 'admin',  'middleware' => 'is_admin'], function() {
 
     Route::get('/get-states', function(){
         return State::get();
-    });
+    })->name('get-states');
+
     Route::get('/get-cities-by-state-id', function(Request $request){
         return City::where('state_id', $request->id)->get();
-    });
+    })->name('get-cities-by-state-id');
 
     Route::get('/get-places-by-city-id', function(Request $request){
-        return Place::where('city_id', $request->id)->get();
+        return Place::where(['state_id'=> $request->state_id, 'city_id'=> $request->city_id])->get();
     });
 
     Route::get('/get-day-activities-by-place-id', function(Request $request){
-        return DayActivity::where('place_id', $request->id)->get();
+        return DayActivity::where(['state_id'=> $request->state_id, 'city_id'=> $request->city_id])->get();
     });
 
     Route::get('/get-activities-by-place-id', function(Request $request){
-        return Activity::where('place_id', $request->id)->get();
+        return Activity::where(['state_id' => $request->state_id, 'city_id' => $request->city_id])->get();
     });
 
     Route::get('/get-package-exclusion', function(Request $request){
@@ -99,5 +101,9 @@ Route::group(['prefix' => 'admin',  'middleware' => 'is_admin'], function() {
     Route::get('/get-day-activity', function(Request $request){
         return DayActivity::get();
     });
+
+    Route::get('edit-dayactivity/{id}',[DataCenterController::class,'editDayActivity'])->name('edit-dayactivity');
+    Route::get('edit-activity/{id}',[DataCenterController::class,'editActivity'])->name('edit-activity');
+    Route::get('edit-place/{id}',[DataCenterController::class,'editPlace'])->name('edit-place');
 
 });
