@@ -74,7 +74,7 @@
     </div> 
     <div id="dayActivityModalAppend"></div>
     <!-- Modal -->
-    <div ng-controller="dayActivity">
+    <div ng-controller="DayActivity">
         <div class="modal fade" id="Add_Hotels_model" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog  modal-lg">
                 <form  action="{{ route("data.itinerary",['type' => 'DayActivites_store']) }}" method="POST" enctype="multipart/form-data" class="modal-content">
@@ -89,17 +89,17 @@
                             
                                 <div class="col-6 my-3">
                                     <small>State </small>
-                                    <select name="state_id" id="state_id" class="form-control mt-2" get-cities ng-model="I.StateName">
+                                    <select name="state_id" id="state_id" class="form-control mt-2"  get-cities ng-model="I.StateName">
                                         <option value="">Select State</option>
                                         @foreach ($states as $state)
                                         <option value="{{$state->id}}">{{$state->state_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-
+    
                                 <div class="col-6 my-3">
                                     <small>City </small>
-                                    <select class="form-select  form-select-sm my-2 mt-3" get-places name="city_id" ng-model="I.CityName" required>
+                                    <select class="form-select  form-select-sm my-2 mt-3"  name="city_id" ng-model="I.CityName" required>
                                         <option value="">Select City</option>
                                         <option ng-repeat="City in Cities" value="@{{ City.id }}">
                                             @{{ City.city_name }}

@@ -529,11 +529,25 @@ app.directive('fileModel',  function ($parse) {
        });
     }
  });
+ app.directive('getState', function getCities($http) {
+    return {
+        restrict: 'A',
+        link : function (scope, element, API_URL) {
+                $http({
+                    method: 'GET',
+                    url: $('#baseurl').val()+'/admin/get-cities-by-state-id',
+                    params : {id: scope.I.StateName}
+                    }).then(function success(response) {
+                        scope.Cities = response.data;
+                    }, function error(response) {
+                });
+        },
+    }
+});
+app.controller('DayActivity', function($scope, $http, API_URL, fileUpload) {
 
- app.controller('dayActivity', function($scope, $http, API_URL, fileUpload) {
-
- });
- app.controller('Activity', function($scope, $http, API_URL, fileUpload) {
+});
+app.controller('Activities', function($scope, $http, API_URL, fileUpload) {
 
 });
 app.controller('Place', function($scope, $http, API_URL, fileUpload) {

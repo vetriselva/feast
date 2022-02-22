@@ -82,7 +82,7 @@
                               
                                 <div class="col-6 my-3">
                                     <small>State </small>
-                                    <select name="state_id" id="state_id" class="form-control mt-2">
+                                    <select name="state_id" id="state_id" class="form-control mt-2"  get-cities ng-model="I.StateName">
                                         <option value="">Select State</option>
                                         @foreach ($states as $state)
                                         <option value="{{$state->id}}">{{$state->state_name}}</option>
@@ -92,11 +92,11 @@
     
                                 <div class="col-6 my-3">
                                     <small>City </small>
-                                    <select name="city_id" id="city_id" class="form-control mt-2">
+                                    <select class="form-select  form-select-sm my-2 mt-3"  name="city_id" ng-model="I.CityName" required>
                                         <option value="">Select City</option>
-                                        @foreach ($cities as $city)
-                                        <option value="{{$city->id}}">{{$city->city_name}}</option>
-                                        @endforeach
+                                        <option ng-repeat="City in Cities" value="@{{ City.id }}">
+                                            @{{ City.city_name }}
+                                        </option>
                                     </select>
                                 </div>
     

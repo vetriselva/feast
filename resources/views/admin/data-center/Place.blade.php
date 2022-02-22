@@ -20,6 +20,7 @@
                 <thead>
                     <tr>
                         <th>S.No</th>
+                        <th>State Name</th>
                         <th>City Name</th>
                         <th>Place Name</th>
                         <th>Actions</th>
@@ -67,7 +68,7 @@
         </div>
     </div> 
     <!-- Modal -->
-  <div class="" ng-controller="place">
+  <div class="" ng-controller="Place">
     <div class="modal fade" id="Add_Hotels_model" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog  modal-lg">
             <form  action="{{ route("data.itinerary",['type' => 'place_store']) }}" method="POST" enctype="multipart/form-data" class="modal-content">
@@ -82,19 +83,21 @@
                           
                             <div class="col-6 my-3">
                                 <small>State </small>
-                                <select name="state_id" id="state_id" class="form-control mt-2">
+                                <select name="state_id" id="state_id" class="form-control mt-2"  get-cities ng-model="I.StateName">
                                     <option value="">Select State</option>
-                                
+                                    @foreach ($states as $state)
+                                    <option value="{{$state->id}}">{{$state->state_name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
                             <div class="col-6 my-3">
                                 <small>City </small>
-                                <select name="city_id" id="city_id" class="form-control mt-2">
+                                <select class="form-select  form-select-sm my-2 mt-3"  name="city_id" ng-model="I.CityName" required>
                                     <option value="">Select City</option>
-                                    @foreach ($cities as $city)
-                                    <option value="{{$city->id}}">{{$city->city_name}}</option>
-                                    @endforeach
+                                    <option ng-repeat="City in Cities" value="@{{ City.id }}">
+                                        @{{ City.city_name }}
+                                    </option>
                                 </select>
                             </div>
 
