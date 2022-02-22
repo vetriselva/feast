@@ -66,21 +66,21 @@ class DataCenterController extends Controller
             return view("admin.data-center.City",compact('hot','states'));
         }
         else if($type == 'Place') {
-            $hot        =  Place::with('city')->latest()->get();
+            $hot        =  Place::with(['state','city'])->latest()->get();
             $cities     =  City::get();
             $states     =  State::get();
             return view("admin.data-center.Place",compact('hot','cities','states'));
         }
 
         else if($type == 'Activities') {
-            $hot          =  Activity::with('state','city')->latest()->get();
+            $hot          =  Activity::with(['state','city'])->latest()->get();
             $cities       =  City::get();
             $states       =  State::get();
             return view("admin.data-center.Activities",compact('hot','cities','states'));
         }
 
         else if($type == 'DayActivities') {
-            $hot          =  DayActivity::with('state','city')->latest()->get();
+            $hot          =  DayActivity::with(['state','city'])->latest()->get();
             $cities       =  City::get();
             $states       =  State::get();
             return view("admin.data-center.DayActivities",compact('hot','cities','states'));
@@ -238,11 +238,17 @@ class DataCenterController extends Controller
         }
         else if($type == 'state_delete') {
             $act    =  State::find($id);
+            if($act->city()->exists()){
+                return back()->with('error','This item linked with other item!');
+            }
             $act->delete();
             return back()->with('success','Delete Success!');
         }
         else if($type == 'city_delete') {
             $act    =  City::find($id);
+            if($act->place()->exists()){
+                return back()->with('error','This item linked with other item!');
+            }
             $act->delete();
             return back()->with('success','Delete Success!');
         }
