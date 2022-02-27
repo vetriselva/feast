@@ -13,11 +13,11 @@ class CreatePlaceNamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('place_names', function (Blueprint $table) {
-            $table->id();
-            $table->string("");
-            $table->timestamps();
-        });
+        // Schema::create('place_names', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string("");
+        //     $table->timestamps();
+        // });
     }
 
     /**

@@ -250,7 +250,8 @@ class DatabaseSeeder extends Seeder
                     "account_holder_name" => 'Alan',
                     "account_number" => "0000000000000000021",
                     "branch_name" => "chennai",
-                    "ifsc_code" => "00000IFSC"
+                    "ifsc_code" => "00000IFSC",
+                    "qrcode" => "qrcode.png"
                 ],   
             );
     }

@@ -347,10 +347,13 @@
                                 </li>
                                 <li>
                                     Branch Name - {{$configs->branch_name}}
-                                </li><li>
+                                </li>
+                                <li>
                                     IFSC Code - {{$configs->ifsc_code}}
                                 </li>
-                    
+                                    <br>
+                                    <img style="width:30%; height:30%" alt="qrcode" src="{{asset("images")}}/{{$configs->qrcode}}">
+            
                             </ul>
                             @endif
                         </div>

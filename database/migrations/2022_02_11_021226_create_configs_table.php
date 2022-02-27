@@ -20,6 +20,7 @@ class CreateConfigsTable extends Migration
             $table->string('account_number');
             $table->string('branch_name');
             $table->string('ifsc_code');
+            $table->string('qrcode');
             $table->timestamps();
         });
     }
